@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://i.imgur.com/vmdZ0fv.png">
 <meta property="og:image" content="https://i.imgur.com/LwT0ojZ.jpg">
 <meta property="og:image" content="https://i.imgur.com/dbw4xBn.jpg">
-<meta property="og:updated_time" content="2019-03-05T11:04:35.973Z">
+<meta property="og:updated_time" content="2019-03-05T11:08:33.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="step">
 <meta name="twitter:description" content="1说明博客是使用markdown文件来解析的，并且使用json来进行数据储存，完全不需要数据库来储存数据，文档也是比较完善，hexo官方的插件也很多，可以满足大部分的需求 2.安装Node首先，你要安装好Node，hexo需要用到Node的NPM（一个资源库管理工具）工具，如果没有安装过node的可以去Node官网下载，安装完了用cmd命令查看node的版本：  $ node -v 如果出现以下信">
@@ -508,6 +508,9 @@ $ hexo new title (title就是新建的文章的名字)
 </code></pre><h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h1><pre><code>生成静态网页：hexo generate
 发布网站（推送到github或者gitee）：hexo deploy 
 也可简写为（一起执行上边两个命令）：hexo g -d 或 hexo d -g
+
+若看不到效果，可以先执行hexo clean,清除缓存文件 (db.json) 和已生成的静态文件 (public)
+然后再执行hexo g -d
 </code></pre>
       
 
