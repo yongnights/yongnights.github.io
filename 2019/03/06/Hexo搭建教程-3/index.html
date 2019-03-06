@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://i.imgur.com/JO3DePn.png">
 <meta property="og:image" content="https://i.imgur.com/BJqguol.png">
 <meta property="og:image" content="https://i.imgur.com/LeIG3lQ.png">
-<meta property="og:updated_time" content="2019-03-06T07:15:19.403Z">
+<meta property="og:updated_time" content="2019-03-06T07:22:40.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo搭建教程(3)">
 <meta name="twitter:description" content="第二部分1、hexo基本配置在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。 1.网站 description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。 author参数用于主题显示文章的作者。 language可以用来解决菜单中文乱码，设置language字段如下:">
@@ -243,6 +243,18 @@ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
 </code></pre><h3 id="3-customize-定制"><a href="#3-customize-定制" class="headerlink" title="3.customize(定制)"></a>3.customize(定制)</h3><pre><code>可以修改你的个人logo，默认是那个yilia，在source/css/images文件夹中放入自己要的logo，再改一下url的链接名字就可以了。
 favicon是网站中出现的那个小图标的icon，找一张你喜欢的logo，然后转换成ico格式，放在images文件夹下，配置一下路径就行。
 social_links ，可以显示你的社交链接，而且是有logo的。
+</code></pre><h3 id="4-添加RSS"><a href="#4-添加RSS" class="headerlink" title="4.添加RSS"></a>4.添加RSS</h3><pre><code>1. 先安装RSS插件: npm i hexo-generator-feed
+2. 而后在你整个项目的_config.yml中找到Extensions，添加：
+    # Extensions 
+    ## Plugins: https://hexo.io/plugins/ 
+    #RSS订阅 
+    plugin: 
+    - hexo-generator-feed 
+    #Feed Atom 
+    feed: 
+        type: atom 
+        path: atom.xml 
+        limit: 20
 </code></pre>
       
 
