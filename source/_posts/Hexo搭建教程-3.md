@@ -144,6 +144,26 @@ tags:
 
     valine好像不错，还能统计文章阅读量，可以自己试一试
 
+### 8.设置头像和favicon
+    
+    头像/图标图片的存放位置是/themes/yilia(主题)/source/下任意位置，可以自己新建一个文件夹存放，比如img文件夹下。
+    打开主题相应的配置文件：/themes/yilia/_config.yml。
+    设置头像为配置文件中avatar一项，设置图标为配置文件中favicon一项。
+    设置路径的根目录为/themes/yilia/source/。例如，我的头像存放的地址是/themes/yilia/source/img/me.png，设置则为avatar: /img/me.png。（图标同理）
+
+### 9.打赏功能
+    
+    打开主题相应的配置文件：/themes/yilia/_config.yml。
+    # 打赏
+    # 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏
+    reward_type: 2
+    # 打赏wording
+    reward_wording: '您的鼓励是我继续前进的动力~~~'
+    # 支付宝二维码图片地址，跟你设置头像的方式一样。比如：/assets/img/alipay.jpg
+    alipay: /img/alipay.jpg
+    # 微信二维码图片地址
+    weixin: /img/wechat.jpg
+
 -总结：
     
     整个主题看起来好像很复杂的样子，但是仔细捋一捋其实也比较流畅，
@@ -161,8 +181,132 @@ tags:
 
     由于hexo d上传部署到github的其实是hexo编译后的文件，是用来生成网页的，不包含源文件，也就是上传的是在本地目录里自动生成的.deploy_git里面。其他文件 ，包括我们写在source 里面的，和配置文件，主题文件，都没有上传到github。所以可以利用git的分支管理，将源文件上传到github的另一个分支即可。
 
-### 2.上传分支
+### 2.创建分支
 
-    先在github上新建一个hexo分支，如图：
+    找到之前建立的仓库，在其上新建一个hexo分支，如图：
+![](https://i.imgur.com/kTLTmea.png)
+
     然后在这个仓库的settings中，选择默认分支为hexo分支（这样每次同步的时候就不用指定分支，比较方便）。
+![](https://i.imgur.com/gmbQ4xH.png)
+
+    然后在本地的任意目录下，打开git bash，输入如下命令：git clone git@github.com:xxx/xxx.github.io.git,xxx为用户名，也就是该仓库的git地址。
+
+    将其克隆到本地，因为默认分支已经设成了hexo，所以clone时只clone了hexo。
+
+    接下来在克隆到本地的xxx.github.io中，把除了.git 文件夹外的所有文件都删掉。把之前我们写的博客源文件全部复制过来，除了.deploy_git。
+    这里应该说一句，复制过来的源文件应该有一个.gitignore，用来忽略一些不需要的文件，如果没有的话，自己新建一个，在里面写上如下，表示这些类型文件不需要git：
+    Thumbs.db
+    db.json
+    *.log
+    node_modules/
+    public/
+    .deploy*/
+
+    注意，如果你之前克隆过theme中的主题文件，那么应该把主题文件中的.git文件夹删掉，因为git不能嵌套上传，最好是显示隐藏文件，检查一下有没有，有的话就删除。
+
+    若没有.gitignore文件要如何创建?
+    在当前xxx.github.io文件夹里，鼠标右键选择“Git Bash Here”，打开【git bash】的界面，在命令下输入【touch .gitignore】即可创建.gitignore文件
+
+    而后添加文件到暂存区，把暂存区文件提交到仓库，同步：
+    git add .
+    git commit –m "add branch"
+    git push 
+
+    这样就上传完了，可以去你的github上看一看hexo分支有没有上传上去，其中node_modules、public、db.json已经被忽略掉了，没有关系，不需要上传的，因为在别的电脑上需要重新输入命令安装 。
+
+    最终效果是，一个仓库里，主分支是博客静态文件，hexo分支是博客源码文件
+![](https://i.imgur.com/EnVLEMO.png)
+    
+### 3.更换电脑操作
+
+    - 安装Git
+    - 设置git全局邮箱和用户名
+        git config --global user.name "yourgithubname"
+        git config --global user.email "yourgithubemail"
+    - 设置ssh key
+        ssh-keygen -t rsa -C "youremail"
+        #生成后填到github和coding上（有coding平台的话）
+        #验证是否成功
+        ssh -T git@github.com
+    - 安装nodejs
+        yum install nodejs && yum install npm
+    - 安装hexo
+        npm install hexo-cli -g
+
+    但是已经不需要初始化了,直接在任意文件夹下执行如下命令：git clone git@github.com:xxx/xxx.github.io.git，
+    然后进入克隆到的文件夹：
+        cd xxx.github.io
+        npm install
+        npm install hexo-deployer-git --save
+    生成，部署：
+        hexo g
+        hexo d
+
+    然后就可以开始写你的新博客了：hexo new newpage
+
+    每次写完最好都把源文件上传一下：
+        git add .
+        git commit –m "xxxx"
+        git push 
+
+    如果是在已经编辑过的电脑上，已经有clone文件夹了，那么，每次只要和远端同步一下就行了：git pull
+
+## 4. coding page上部署实现国内外分流
+
+    之前我们已经把hexo托管在github了，但是github是国外的，而且百度的爬虫是不能够爬取github的，所以如果你希望你做的博客能够在百度引擎上被收录，而且想要更快的访问，那么可以在国内的coding page做一个托管，这样在国内访问就是coding page，国外就走github page。
+
+### 1.申请coding账户，新建项目
+
+    先申请一个账户，然后创建新的项目，这一步项目名称应该是随意的。
+
+### 2.添加ssh key
+
+    这一步跟github一样。添加后，检查一下是不是添加成功
+    ssh -T git@git.coding.net
+
+### 3.修改_config.yml
+
+    hexo官方文档是这样的：
+    deploy:
+      type: git
+      message: [message]
+      repo:
+        github: <repository url>,[branch]
+        coding: <repository url>,[branch] 
+
+    那么，我们只需要：
+    deploy:
+      type: git 
+      repo: 
+        coding: git@git.coding.net:ZJUFangzh/ZJUFangzh.git,master 
+        github: git@github.com:ZJUFangzh/ZJUFangzh.github.io.git,master
+
+### 4.部署
+    保存一下，直接
+    hexo g
+    hexo d
+    这样就可以在coding的项目上看到你部署的文件了。
+
+### 5.开启coding pages服务，绑定域名
+
+![](https://i.imgur.com/Jl0IGRy.png)
+
+### 6.阿里云添加解析
+
+![](https://i.imgur.com/gRmkUCM.png)
+
+    这个时候就可以把之前github的解析改成境外，把coding的解析设为默认了。
+
+### 7.去除coding page的跳转广告
+
+    coding page的一个比较恶心人的地方就是，你只是银牌会员的话，访问会先跳转到一个广告，再到你自己的域名。那么它也给出了消除的办法。右上角切换到coding的旧版界面，默认新版是不行的。然后再来到pages服务这里。
+![](https://i.imgur.com/TYIc59t.jpg)
+
+    只要你在页面上添加一行文字，写Hosted by Coding Pages，然后点下面的小勾勾，两个工作日内它就会审核通过了。
+    <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
+    可以把这一行代码放在主题文件夹/layout/common/footer.ejs里面，也就是本来在页面中看到的页脚部分。当然，为了统一，又在后面加上了and Github。
+
+    最终加上去的代码：
+    <p><span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span> and <span><a href="https://github.com" style="font-weight: bold">Github</a></span></p>
 
