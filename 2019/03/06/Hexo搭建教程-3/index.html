@@ -6,33 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yongnights.github.io">
-  <title>Hexo搭建教程(2) | 个人博客</title>
+  <title>Hexo搭建教程(3) | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一部分hexo搭建步骤 安装Git 安装Node.js 安装Hexo GitHub创建个人仓库 生成SSH添加到GitHub 将hexo部署到GitHub 设置个人域名 发布文章  1.安装GitGit是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。也就是用来管理你的hexo博客文章，上传到GitHub的工具。  windows：到git官网上下载,下载">
+  <meta name="description" content="第二部分1、hexo基本配置在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。 1.网站 description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。 author参数用于主题显示文章的作者。 language可以用来解决菜单中文乱码，设置language字段如下:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo搭建教程(2)">
-<meta property="og:url" content="https://yongnights.github.io/2019/03/06/Hexo搭建教程-2/index.html">
+<meta property="og:title" content="Hexo搭建教程(3)">
+<meta property="og:url" content="https://yongnights.github.io/2019/03/06/Hexo搭建教程-3/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="第一部分hexo搭建步骤 安装Git 安装Node.js 安装Hexo GitHub创建个人仓库 生成SSH添加到GitHub 将hexo部署到GitHub 设置个人域名 发布文章  1.安装GitGit是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。也就是用来管理你的hexo博客文章，上传到GitHub的工具。  windows：到git官网上下载,下载">
+<meta property="og:description" content="第二部分1、hexo基本配置在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。 1.网站 description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。 author参数用于主题显示文章的作者。 language可以用来解决菜单中文乱码，设置language字段如下:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.imgur.com/cr1thaV.png">
-<meta property="og:image" content="https://i.imgur.com/U0SjRFv.png">
-<meta property="og:image" content="https://i.imgur.com/OhqQ3nR.png">
-<meta property="og:image" content="https://i.imgur.com/ra9wXhX.png">
-<meta property="og:image" content="https://i.imgur.com/vmdZ0fv.png">
-<meta property="og:image" content="https://i.imgur.com/8Pbc8Ic.png">
-<meta property="og:image" content="https://i.imgur.com/uPTCxKK.png">
-<meta property="og:image" content="https://i.imgur.com/D7DzK0d.png">
-<meta property="og:image" content="https://i.imgur.com/GVxDqDd.png">
-<meta property="og:image" content="https://i.imgur.com/Mgj88RX.png">
-<meta property="og:image" content="https://i.imgur.com/xRs9XZG.png">
-<meta property="og:image" content="https://i.imgur.com/c6iAOKb.png">
-<meta property="og:image" content="https://i.imgur.com/We1CT5T.png">
-<meta property="og:updated_time" content="2019-03-06T06:22:42.023Z">
+<meta property="og:image" content="https://i.imgur.com/uzNRp60.png">
+<meta property="og:image" content="https://i.imgur.com/DuDMHGc.png">
+<meta property="og:image" content="https://i.imgur.com/w9srSbP.png">
+<meta property="og:image" content="https://i.imgur.com/JO3DePn.png">
+<meta property="og:image" content="https://i.imgur.com/BJqguol.png">
+<meta property="og:image" content="https://i.imgur.com/LeIG3lQ.png">
+<meta property="og:updated_time" content="2019-03-06T07:15:19.403Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo搭建教程(2)">
-<meta name="twitter:description" content="第一部分hexo搭建步骤 安装Git 安装Node.js 安装Hexo GitHub创建个人仓库 生成SSH添加到GitHub 将hexo部署到GitHub 设置个人域名 发布文章  1.安装GitGit是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。也就是用来管理你的hexo博客文章，上传到GitHub的工具。  windows：到git官网上下载,下载">
-<meta name="twitter:image" content="https://i.imgur.com/cr1thaV.png">
+<meta name="twitter:title" content="Hexo搭建教程(3)">
+<meta name="twitter:description" content="第二部分1、hexo基本配置在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。 1.网站 description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。 author参数用于主题显示文章的作者。 language可以用来解决菜单中文乱码，设置language字段如下:">
+<meta name="twitter:image" content="https://i.imgur.com/uzNRp60.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -160,286 +153,96 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Hexo搭建教程-2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Hexo搭建教程-3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hexo搭建教程(2)
+      Hexo搭建教程(3)
     </h1>
   
 
         
-        <a href="/2019/03/06/Hexo搭建教程-2/" class="archive-article-date">
-  	<time datetime="2019-03-06T06:07:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
+        <a href="/2019/03/06/Hexo搭建教程-3/" class="archive-article-date">
+  	<time datetime="2019-03-06T06:28:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h2><h3 id="hexo搭建步骤"><a href="#hexo搭建步骤" class="headerlink" title="hexo搭建步骤"></a>hexo搭建步骤</h3><ol>
-<li>安装Git</li>
-<li>安装Node.js</li>
-<li>安装Hexo</li>
-<li>GitHub创建个人仓库</li>
-<li>生成SSH添加到GitHub</li>
-<li>将hexo部署到GitHub</li>
-<li>设置个人域名</li>
-<li>发布文章</li>
-</ol>
-<h3 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h3><pre><code>Git是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。也就是用来管理你的hexo博客文章，上传到GitHub的工具。
+        <h2 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h2><h2 id="1、hexo基本配置"><a href="#1、hexo基本配置" class="headerlink" title="1、hexo基本配置"></a>1、hexo基本配置</h2><pre><code>在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。
+</code></pre><h3 id="1-网站"><a href="#1-网站" class="headerlink" title="1.网站"></a>1.网站</h3><p><img src="https://i.imgur.com/uzNRp60.png" alt></p>
+<pre><code>description主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。
+author参数用于主题显示文章的作者。
+language可以用来解决菜单中文乱码，设置language字段如下:
+    language: zh-Hans 或者 anguage: zh-CN
+    取决于你的主题theme目录下的language目录下有zh-Hans.yml还是zh-CN.yml
+timezone，东八区设置是 Asia/Shanghai
+</code></pre><h3 id="2-网址"><a href="#2-网址" class="headerlink" title="2.网址"></a>2.网址</h3><p><img src="https://i.imgur.com/DuDMHGc.png" alt></p>
+<pre><code>在这里，你需要把url改成你的网站域名，也就是第一步仓库地址的那个，https://xxx.github.io/
+permalink，也就是你生成某个文章时的那个链接格式。
+比如我新建一个文章叫temp.md，那么这个时候他自动生成的地址就是http://yoursite.com/2018/09/05/temp。
 
-windows：到git官网上下载,下载安装后会有一个Git Bash的命令行工具，以后就用这个工具来使用git。
-linux：因为最早的git就是在linux上编写的，只需要一行代码：yum install git (apt-get install git)
+以下是官方给出的示例，关于链接的变量还有很多，需要的可以去官网上查找 永久链接 。
+</code></pre><p><img src="https://i.imgur.com/w9srSbP.png" alt>  </p>
+<pre><code>网站存放在子目录
+如果您的网站存放在子目录中，例如 http://yoursite.com/blog，则请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
 
-安装好后，用git --version 来查看一下版本
-</code></pre><p><img src="https://i.imgur.com/cr1thaV.png" alt></p>
-<pre><code>注意:一定要安装最新的版本，否则到后面使用git时会有如下错误情况：
+再往下翻，中间这些都默认就好了。
 
-错误提示：
-fatal: unable to access &apos;https://github.com/litten/hexo-theme-yilia.git/&apos;: error
-:1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
-错误分析：
-github 2月1日发了个公告Weak cryptographic standards removal notice，简而言之就是不支持TLSv1/TLSv1.1
-解决办法：
-第一种：更新git和tortoisegit至最新版
-第二种：检查TLS版本，git config http.sslVersion
-如果是tlsv1.0，则用下面一句命令行更新至tlsv1.2
-git config --global http.sslVersion tlsv1.2
-</code></pre><h3 id="2-安装nodejs"><a href="#2-安装nodejs" class="headerlink" title="2.安装nodejs"></a>2.安装nodejs</h3><pre><code>Hexo是基于nodejs编写的，需要安装一下nodejs和里面的npm工具。
+theme: landscape
+theme就是选择什么主题，也就是在theme这个文件夹下，在官网上有很多个主题，默认给你安装的是lanscape这个主题。当你需要更换主题时，在官网上下载，把主题的文件放在theme文件夹下，再修改这个参数就可以了。
 
-windows：nodejs选择LTS版本就行了。
-linux：yum install nodejs &amp;&amp; yum install npm
-    或者：sudo apt-get install nodejs
-         sudo apt-get install npm
-
-安装完后，打开命令行，检查一下有没有安装成功
-node -v
-npm -v
-</code></pre><p><img src="https://i.imgur.com/U0SjRFv.png" alt></p>
-<h3 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3.安装hexo"></a>3.安装hexo</h3><pre><code>前面git和nodejs安装好后，就可以安装hexo了。你可以先创建一个文件夹my-blog，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。
-
-安装Hexo脚手架工具，输入命令：
-npm install -g hexo-cli
-
-用hexo -v查看一下版本
-</code></pre><p><img src="https://i.imgur.com/OhqQ3nR.png" alt></p>
-<pre><code>至此所需要的软件就全部安装完了。
-
-接下来初始化一下hexo： 
-
-$ hexo init my-blog # 创建并初始化博客目录
-$ cd my-blog        # 进入该博客目录
-$ npm install       # 创建默认博客文件
-
-新建完成后，指定文件夹目录下有：
-myblog
-├── node_modules  #依赖包
-├── public        #存放生成的页面
-├── scaffolds     #生成文章的一些模板
-├── source        #用来存放你的文章
-|   ├── _drafts   #草稿目录
-|   └── _posts    #发布的文章目录
-└── themes        #主题
-├── _config.yml   #博客配置文件
-├── package.json  #模块和依赖项
-
-个别文件说明：
-1、 _config.yml
-网站主题的的配置文件，和github page关联和切换主题时，需要使用到
-
-    # Hexo Configuration
-    ## Docs: https://hexo.io/docs/configuration.html
-    ## Source: https://github.com/hexojs/hexo/
-
-    # Site
-    title: 网站标题如：Minstorm-blog
-    subtitle: 网站副标题：Minstorm
-    description: 网站描述：Minstorm:a blog for tech
-    author: 网站作者：De scherpe
-    language: 网站的语言
-    timezone: 网站的时间去，默认使用的是电脑的时区
-
-    # URL
-    ## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;
-    url: 网站地址
-    root: 网站根目录,建议是用&apos;/&apos;
-    permalink: 文章的y永久链接格式，默认就好 :year/:month/:day/:title/
-    permalink_defaults: 永久链接中各部分的默认值，不用填
-
-    # Directory
-    source_dir:资源文件夹，存放文章用的：source
-    public_dir: 公共文件夹，用来存放编译之后的文件：public
-    tag_dir: 标签文件夹：tags
-    archive_dir: 归档文件夹，也就是你的全部文章生成的目录：archives
-    category_dir: 分类文件夹：categories
-    code_dir: Include code文件夹：downloads/code
-    i18n_dir: 国际化（i18n）文件夹:lang
-    skip_render: 需要跳过渲染的文件存放的文件夹
-
-    # Writing
-    new_post_name: :title.md # File name of new posts
-    default_layout: 默认文章样式：post
-    titlecase: false # Transform title into titlecase
-    external_link: true # Open external links in new tab
-    filename_case: 0
-    render_drafts: false
-    post_asset_folder: false
-    relative_link: false
-    future: true
-    highlight:
-      enable: true 
-      line_number: true
-      auto_detect: false
-      tab_replace:
-
-    # Home page setting
-    # path: Root path for your blogs index page. (default = &apos;&apos;)
-    # per_page: Posts displayed per page. (0 = disable pagination)
-    # order_by: Posts order. (Order by date descending by default)
-    index_generator:
-      path: &apos;&apos;
-      per_page: 每一页显示的文章：10
-      order_by: -date
-
-    # Category &amp; Tag
-    default_category: uncategorized
-    category_map:
-    tag_map:
-
-    # Date / Time format
-    ## Hexo uses Moment.js to parse and display date
-    ## You can customize the date format as defined in
-    ## http://momentjs.com/docs/#/displaying/format/
-    date_format: YYYY-MM-DD
-    time_format: HH:mm:ss
-
-    # Pagination
-    ## Set per_page to 0 to disable pagination
-    per_page: 10
-    pagination_dir: page
-
-    # Extensions
-    ## Plugins: https://hexo.io/plugins/
-    ## Themes: https://hexo.io/themes/
-    theme: 主题：indigo
-
-    # Deployment
-    ## Docs: https://hexo.io/docs/deployment.html
-    deploy: # 同步使用
-      type: 
-
-接下来开启服务
-
-编译生成静态网页文件，执行如下命令：
-$ hexo generate
-可以简写为$ hexo g
-
-注意，如下图才是命令正确执行，否则按照提示解决错误
-</code></pre><p><img src="https://i.imgur.com/ra9wXhX.png" alt></p>
-<pre><code>本地预览文章，执行如下命令：
-$ hexo server 
-可以简写为$ hexo s
-如果需要预览draft文件夹下面的文件，需要在后面加上--draft参数
-$ hexo s --draft
-</code></pre><p><img src="https://i.imgur.com/vmdZ0fv.png" alt></p>
-<pre><code>在执行hexo s 后，会出现一个网址http://localhost:4000/，将其复制(需要注意的是，在cmd中不可用ctrl + c 来复制，Ctrl + C为停止命令）。
-打开该网址后，可以看到网站的雏形，使用ctrl+c可以把服务关掉。
-
-注：以上的操作实现的效果如下:
-    - 运行服务后，可以在本地预览博客。
-    - 接下来的操作是把博客文件给推送到GitHub上，使用GitHub提供的域名访问博客
-</code></pre><h3 id="4-GitHub创建个人仓库"><a href="#4-GitHub创建个人仓库" class="headerlink" title="4.GitHub创建个人仓库"></a>4.GitHub创建个人仓库</h3><pre><code>首先注册一个GitHub账户(注意：用户名跟你的博客域名有关，请慎重取名)
-注册完登录后，在GitHub.com中看到一个New repository，新建仓库。
-需要创建一个和你用户名相同的仓库，后面加.github.io，只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxx.github.io，其中xxx就是你注册GitHub的用户名。
-</code></pre><p><img src="https://i.imgur.com/8Pbc8Ic.png" alt></p>
-<h3 id="5-生成SSH添加到GitHub"><a href="#5-生成SSH添加到GitHub" class="headerlink" title="5.生成SSH添加到GitHub"></a>5.生成SSH添加到GitHub</h3><pre><code>回到你的git bash中，输入如下两条命令：
-git config --global user.name &quot;yourname&quot;
-git config --global user.email &quot;youremail&quot;
-
-这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。
-
-可以用以下两条，检查一下你有没有输对：
-git config user.name
-git config user.email
-
-然后创建SSH,一路回车
-ssh-keygen -t rsa -C &quot;youremail&quot;
-youremail是你注册GitHub的邮箱
-
-这个时候它会告诉你已经生成了.ssh的文件夹。在你的电脑中找到这个文件夹。
-简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。
-
-而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key，把你的id_rsa.pub里面的信息复制进去。
-</code></pre><p><img src="https://i.imgur.com/uPTCxKK.png" alt></p>
-<pre><code>在gitbash中，查看是否成功
-ssh -T git@github.com
-</code></pre><p><img src="https://i.imgur.com/D7DzK0d.png" alt></p>
-<h3 id="6-将hexo部署到GitHub"><a href="#6-将hexo部署到GitHub" class="headerlink" title="6.将hexo部署到GitHub"></a>6.将hexo部署到GitHub</h3><pre><code>这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。
-
-需要用到hexo的GitHub插件hexo-deployer-git，首先用npm下载这个插件
-$ npm install hexo-deployer-git --save
-
-然后打开站点配置文件_config.yml，翻到最后，修改为YourgithubName就是你的GitHub账户
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:用户名/用户名.github.io.git 
-  branch: master
+  repo: &lt;repository url&gt;
+  branch: [branch]
+deploy就是网站的部署的，repo就是仓库(Repository)的简写。branch选择仓库的哪个分支。而这个在后面进行双平台部署的时候会再次用到。
+</code></pre><h3 id="3-Front-matter"><a href="#3-Front-matter" class="headerlink" title="3.Front-matter"></a>3.Front-matter</h3><pre><code>Front-matter 是文件最上方以 --- 分隔的区域，用于指定个别文件的变量，举例来说：
+title: Hello World
+date: 2013/7/13 20:46:25
+---
 
-配置好了deploy之后，就可以运行以下命令上传项目了
-hexo clean
-hexo generate
-hexo deploy
+下面这些是预先定义的参数，您可在模板中使用这些参数值并加以利用。
+</code></pre><p><img src="https://i.imgur.com/JO3DePn.png" alt></p>
+<pre><code>其中，分类和标签需要区别一下，分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；而标签没有顺序和层次。
+</code></pre><h3 id="4-layout-布局"><a href="#4-layout-布局" class="headerlink" title="4.layout(布局)"></a>4.layout(布局)</h3><pre><code>当你每一次使用代码:hexo new paper,它其实默认使用的是post这个布局，也就是在source文件夹下的_post里面。
 
-其中 hexo clean清除了你之前生成的东西，也可以不加。
-hexo generate 顾名思义，生成静态文章，可以用 hexo g缩写
-hexo deploy 部署文章，可以用hexo d缩写
+Hexo 有三种默认布局：post、page 和 draft，它们分别对应不同的路径，而您自定义的其他布局和 post 相同，都将储存到 source/_posts 文件夹。
+</code></pre><p><img src="https://i.imgur.com/BJqguol.png" alt></p>
+<pre><code>而new这个命令其实是：hexo new [layout] &lt;title&gt;,只不过这个layout默认是post罢了。
+</code></pre><h3 id="5-page"><a href="#5-page" class="headerlink" title="5.page"></a>5.page</h3><pre><code>如果你想另起一页，那么可以使用:hexo new page board
+系统会自动给你在source文件夹下创建一个board文件夹，以及board文件夹中的index.md，这样你访问的board对应的链接就是http://xxx.xxx/board
+</code></pre><h3 id="6-draft"><a href="#6-draft" class="headerlink" title="6.draft"></a>6.draft</h3><pre><code>draft是草稿的意思，也就是你如果想写文章，又不希望被看到，那么可以:hexo new draft newpage
 
-注意deploy时可能要你输入username和password。
+这样会在source/_draft中新建一个newpage.md文件，如果你的草稿文件写的过程中，想要预览一下，那么可以使用:hexo server --draft,在本地端口中开启服务预览。
 
-得到下图就说明部署成功了，过一会儿就可以在https://yourname.github.io 这个网站看到你的博客了！
-</code></pre><p><img src="https://i.imgur.com/GVxDqDd.png" alt></p>
-<h3 id="7-设置个人域名"><a href="#7-设置个人域名" class="headerlink" title="7.设置个人域名"></a>7.设置个人域名</h3><pre><code>现在你的个人网站的地址是 yourname.github.io，如果觉得这个网址逼格不太够，这就需要你设置个人域名了。但是需要花钱。
-注册一个阿里云账户,在阿里云上买一个域名，先去进行实名认证,然后在域名控制台中，看到你购买的域名。
-点解析进去，添加解析
-记录类型选A或CNAME，A记录的记录值就是ip地址，github(官方文档)提供了两个IP地址，192.30.252.153和192.30.252.154，这两个IP地址为github的服务器地址，两个都要填上，解析记录设置两个@，线路就默认就行了，CNAME记录值填你的github博客网址。如下图所示：
-</code></pre><p><img src="https://i.imgur.com/Mgj88RX.png" alt></p>
-<pre><code>注意，解析线路选择默认，(解析线路:境外是后面来做国内外分流用的,在后面会讲到)。记得现在选择默认！
+如果你的草稿文件写完了，想要发表到post中，hexo publish draft newpage,就会自动把newpage.md发送到post中。
+</code></pre><h2 id="2、主题"><a href="#2、主题" class="headerlink" title="2、主题"></a>2、主题</h2><h3 id="1-更换主题"><a href="#1-更换主题" class="headerlink" title="1.更换主题"></a>1.更换主题</h3><pre><code>如果觉得默认的landscape主题不好看，那么可以在官网的主题中，选择你喜欢的一个主题下载，然后进行修改就可以了。
 
-登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入你的网站地址
-</code></pre><p><img src="https://i.imgur.com/xRs9XZG.png" alt></p>
-<pre><code>顺便再勾选上强制使用https，&quot;Enforce HTTPS&quot; 
+进入到博客目录执行如下命令，含义是克隆该主题并存入到博客文件夹下的thems文件下里
+git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
 
-然后在你的博客文件根目录的source中创建一个名为CNAME文件，不要后缀。写上你的网站地址。
-</code></pre><p><img src="https://i.imgur.com/c6iAOKb.png" alt> </p>
-<pre><code>最后，在gitbash中，输入
-hexo clean
-hexo g
-hexo d
+执行后就会在博客目录文件夹的themes中可以找到有yilia的文件。
+找到博客根目录下的_config.yml文件，修改里面的配置
+将theme 修改为theme: yilia，需要注意的是冒号后有空格
 
-稍等一会儿，再打开你的浏览器，输入你自己的网站地址(使用https的方式)，就可以看到搭建的网站啦！
+进入yilia这个文件夹，可以看到里面也有一个配置文件_config.yml，这个配置文件是修改你整个主题的配置文件。
+</code></pre><h3 id="2-menu-菜单栏"><a href="#2-menu-菜单栏" class="headerlink" title="2.menu(菜单栏)"></a>2.menu(菜单栏)</h3><pre><code>也即是如下图所示的这些东西：
+</code></pre><p><img src="https://i.imgur.com/LeIG3lQ.png" alt></p>
+<pre><code>其中，About这个你是找不到网页的，因为你的文章中没有about这个东西。如果你想要的话，可以执行命令：hexo new page about
+它就会在根目录下source文件夹中新建了一个about文件夹，以及index.md，在index.md中写上你想要写的东西，就可以在网站上展示出来了。
 
-总结，GitHub上面的配置和CNAME里面的设置互相结合，有如下几种方式：
-</code></pre><p><img src="https://i.imgur.com/We1CT5T.png" alt></p>
-<pre><code>接下来你就可以正式开始写文章了。
-
-使用命令行工具创建一篇文章
-$ hexo new [layout] &lt;title&gt;
-layout是文章的布局，默认是post布局
-&lt;title&gt; 是文章名称
-例如：hexo new post &apos;我的第一篇文章&apos;
-
-hexo还有一个文件夹是草稿文件夹_draft，可以用理解成私密文章的功能，只要有不想显示的文章但是又不想删除，就可以把文章拖进去_draft文件夹就可以实现隐藏的功能了，也可以用hexo的命令将文章放到草稿文件夹
-$ hexo publish &lt;layout&gt; &lt;filename&gt;
-
-然后在source/_post中打开markdown文件，就可以开始编辑了。当你写完的时候，再
-hexo clean
-hexo g
-hexo d
-就可以看到更新了。
+如果你想要自己再自定义一个菜单栏的选项，那么就：hexo new page yourdiy
+然后在主题配置文件的menu菜单栏添加一个 Yourdiy : /yourdiy，注意冒号后面要有空格，以及前面的空格要和menu中默认的保持整齐。然后在languages文件夹中，找到zh-CN.yml，在index中添加yourdiy: &apos;中文意思&apos;就可以显示中文了。
+</code></pre><h3 id="3-customize-定制"><a href="#3-customize-定制" class="headerlink" title="3.customize(定制)"></a>3.customize(定制)</h3><pre><code>可以修改你的个人logo，默认是那个yilia，在source/css/images文件夹中放入自己要的logo，再改一下url的链接名字就可以了。
+favicon是网站中出现的那个小图标的icon，找一张你喜欢的logo，然后转换成ico格式，放在images文件夹下，配置一下路径就行。
+social_links ，可以显示你的社交链接，而且是有logo的。
 </code></pre>
       
 
@@ -519,7 +322,7 @@ hexo d
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yongnights.github.io/2019/03/06/Hexo搭建教程-2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yongnights.github.io/2019/03/06/Hexo搭建教程-3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -533,18 +336,9 @@ hexo d
   
 <nav id="article-nav">
   
-    <a href="/2019/03/06/Hexo搭建教程-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hexo搭建教程(1)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/06/first/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">first</div>
+    <a href="/2019/03/06/Hexo搭建教程-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo搭建教程(1)</div>
       <i class="icon-circle-right"></i>
     </a>
   
