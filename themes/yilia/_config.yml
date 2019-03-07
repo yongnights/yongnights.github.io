@@ -2,11 +2,15 @@
 
 menu:
   主页: /
-  归档: /archives/index.html
+  分类: /categories
+  归档: /archives
+  标签: /tags
+  关于: /about
 
 # SubNav
 subnav:
-  github: "#"
+  # github: "#"
+  cnblogs: 'https://www.cnblogs.com/sanduzxcvbnm/'
   # weibo: "#"
   # rss: "#"
   # zhihu: "#"
@@ -33,7 +37,7 @@ root: /
 # Content
 
 # 文章太长，截断按钮文字
-excerpt_link: more
+excerpt_link: 
 # 文章卡片右下角常驻链接，不需要请设置为false
 show_all_link: '展开全文'
 # 数学公式
@@ -107,7 +111,7 @@ style:
 # slider的设置
 slider:
   # 是否默认展开tags板块
-  showTags: false
+  showTags: true
 
 # 智能菜单
 # 如不需要，将该对应项置为false
@@ -117,7 +121,7 @@ slider:
 smart_menu:
   innerArchive: '所有文章'
   friends: '友链链接'
-  aboutme: '关于我'
+  # aboutme: '关于我'
 
 friends:
   博客园: https://www.cnblogs.com/sanduzxcvbnm/
@@ -127,4 +131,4 @@ friends:
   # 友情链接5: http://localhost:4000/
   # 友情链接6: http://localhost:4000/
 
-aboutme: 很惭愧<br><br>只做了一点微小的工作<br>谢谢大家
+# aboutme: 很惭愧<br><br>只做了一点微小的工作<br>谢谢大家
