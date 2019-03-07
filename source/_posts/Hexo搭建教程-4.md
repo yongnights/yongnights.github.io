@@ -1,7 +1,10 @@
 ---
 title: Hexo搭建教程(4)
 date: 2019-03-06 17:32:23
-tags:
+tags: 
+  - hexo
+categories:
+- hexo 
 ---
 ## 第三部分
 

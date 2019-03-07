@@ -2,6 +2,9 @@
 title: Hexo搭建教程(3)
 date: 2019-03-06 14:28:14
 tags: 
+  - hexo
+categories:
+- hexo 
 ---
 ## 第二部分
 

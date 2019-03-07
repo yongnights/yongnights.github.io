@@ -1,7 +1,10 @@
 ---
 title: Hexo搭建教程(1)
 date: 2019-03-06 14:08:27
-tags:
+tags: 
+  - hexo
+categories:
+- hexo 
 ---
 ## 简要说明
 
