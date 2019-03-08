@@ -37,6 +37,13 @@ password:
 ### 文章加密
     在文章开头设置password的值即可
 
+### 发布新文章的一般步骤
+    创建草稿文件：hexo new draft "new draft"
+    此时会在source/_drafts目录下生成一个new-draft.md文件。但是这个文件不被显示在页面上，链接也访问不到。也就是说如果你想把某一篇文章移除显示，又不舍得删除，可以把它移动到_drafts目录之中。
+    然后编辑该文件，运行如下命令进行预览：hexo s --drafts --debug
+    或者更改配置文件：render_drafts: true
+    若文章预览后没啥问题可以发布：hexo publish post <filename>
+
 ## 错误集锦
 
 ### 错误类型1
