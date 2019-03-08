@@ -40,12 +40,12 @@ keywords: "Hexo, NexT"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss: 
+rss: /atom.xml
 
 footer:
   # Specify the date when the site was setup.
   # If not defined, current year will be used.
-  #since: 2015
+  since: 2019
 
   # Icon between year and copyright info.
   icon: user
@@ -96,9 +96,9 @@ menu:
   tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
-  # schedule: /schedule/ || calendar
   about: /about/ || user
-  #sitemap: /sitemap.xml || sitemap
+  # schedule: /schedule/ || calendar
+  # sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
 
 # Enable/Disable menu icons.
@@ -142,15 +142,16 @@ social:
 social_icons:
   enable: true
   icons_only: false
-  transition: false
+  transition: true
 
 # Blog rolls
 links_icon: link
-links_title: Links
-links_layout: block
-#links_layout: inline
-#links:
-  #Title: http://example.com/
+links_title: 友情链接
+# links_layout: block
+links_layout: inline
+links:
+  博客园: http://www.cnblogs.com/sanduzxcvbnm/
+  百度: https://www.baidu.com/
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
@@ -162,7 +163,7 @@ toc:
   enable: true
 
   # Automatically add list number to toc.
-  number: true
+  number: false
 
   # If true, all words will placed on next lines if header width longer then sidebar width.
   wrap: false
@@ -217,7 +218,7 @@ excerpt_description: true
 # Automatically Excerpt. Not recommend.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
-  enable: false
+  enable: true
   length: 150
 
 # Post meta display settings
@@ -294,7 +295,7 @@ highlight_theme: night
 # Arial | Tahoma | Helvetica | Times New Roman | Courier New | Verdana | Georgia | Palatino | Garamond | Comic Sans MS | Trebuchet MS
 # ---------------------------------------------------------------
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default).
   host:
@@ -308,33 +309,33 @@ font:
   global:
     external: true
     family: Lato
-    size:
+    size: 18
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6).
   # Fallback to `global` font settings.
   headings:
     external: true
     family:
-    size:
+    size: 30
 
   # Font settings for posts.
   # Fallback to `global` font settings.
   posts:
     external: true
-    family:
+    family: 
 
   # Font settings for Logo.
   # Fallback to `global` font settings.
   logo:
     external: true
     family:
-    size:
+    size: 30
 
   # Font settings for <code> and code blocks.
   codes:
     external: true
     family:
-    size:
+    size: 13
 
 
 # ---------------------------------------------------------------
@@ -450,21 +451,21 @@ jiathis: true
 #           Technorati,Posterous,Tumblr,GoogleBookmarks,Newsvine,
 #           Evernote,Friendfeed,Vkontakte,Odnoklassniki,Mailru
 needmoreshare2:
-  enable: false
+  enable: true
   postbottom:
-    enable: false
+    enable: true #是否开启博客分享按钮
     options:
       iconStyle: box
       boxForm: horizontal
       position: bottomCenter
-      networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
+      networks: Weibo,Wechat,Douban,QQZone
   float:
-    enable: false
+    enable: true #网站分享按钮
     options:
       iconStyle: box
       boxForm: horizontal
       position: middleRight
-      networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
+      networks: Weibo,Wechat,Douban,QQZone
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
@@ -553,21 +554,22 @@ firestore:
 
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
+# 增加不算子访问数量统计
 busuanzi_count:
   # count values only if the other configs are false
-  enable: false
+  enable: true
   # custom uv span for the whole site
   site_uv: true
-  site_uv_header: <i class="fa fa-user"></i>
-  site_uv_footer: 
+  site_uv_header: <i class="fa fa-user"></i> 访问人数
+  site_uv_footer: 人次
   # custom pv span for the whole site
   site_pv: true
-  site_pv_header: <i class="fa fa-eye"></i>
-  site_pv_footer:
+  site_pv_header: <i class="fa fa-eye"></i> 访问总量
+  site_pv_footer: 次
   # custom pv span for one page only
   page_pv: true
-  page_pv_header: <i class="fa fa-file-o"></i>
-  page_pv_footer:
+  page_pv_header: <i class="fa fa-file-o"></i> 浏览
+  page_pv_footer: 次
 
 
 # Tencent analytics ID
@@ -578,7 +580,7 @@ busuanzi_count:
 
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
-baidu_push: false
+baidu_push: true
 
 # Google Calendar
 # Share your recent schedule to others via calendar page
@@ -776,7 +778,7 @@ vendors:
   # pace: //cdn.bootcss.com/pace/1.0.2/pace.min.js
   # pace_css: //cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css
   pace: true
-  pace_css:
+  pace_css: pace-theme-center-atom
 
   # Internal version: 1.0.0
   # https://github.com/hustcc/canvas-nest.js
@@ -822,3 +824,31 @@ version: 5.1.4
 passage_end_tag:
 enabled: true
 
+# 宠物
+live2d: 
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  log: false
+  model:
+    use: live2d-widget-model-haru
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: true
+
+# Fireworks 爆炸效果
+fireworks: true
+
+# 开启动画效果
+use_motion: true  
+
+# 近期文章
+recent_posts_title: 近期文章
+recent_posts_layout: block
+recent_posts: true

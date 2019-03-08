@@ -1,18 +1,20 @@
 ---
 title: Hexo搭建教程(3)
-date: 2019-03-06 14:28:14
+date: {{ date }}
 tags: 
   - hexo
 categories:
 - hexo 
+top: 80
 ---
-## 第二部分
 
-## 1、hexo基本配置
+# 第二部分
+
+## hexo基本配置
 
     在文件根目录下的_config.yml，就是整个hexo框架的配置文件了。可以在里面修改大部分的配置。详细可参考官方的配置描述。
 
-### 1.网站
+### 网站
 
 ![](https://i.imgur.com/uzNRp60.png)
     
@@ -23,25 +25,29 @@ categories:
         取决于你的主题theme目录下的language目录下有zh-Hans.yml还是zh-CN.yml
     timezone，东八区设置是 Asia/Shanghai
 
-### 2.网址
+<escape><!-- more --></escape>
+
+### 网址
 
 ![](https://i.imgur.com/DuDMHGc.png)
 
-    在这里，你需要把url改成你的网站域名，也就是第一步仓库地址的那个，https://xxx.github.io/
+    在这里需要把url改成你的网站域名，也就是第一步仓库地址的那个，https://xxx.github.io/
     permalink，也就是你生成某个文章时的那个链接格式。
-    比如我新建一个文章叫temp.md，那么这个时候他自动生成的地址就是http://yoursite.com/2018/09/05/temp。
+    比如我新建一个文章叫temp.md，那么这个时候他自动生成的地址就是https://xxx.github.io/年/月/日/temp。
 
     以下是官方给出的示例，关于链接的变量还有很多，需要的可以去官网上查找 永久链接 。
 ![](https://i.imgur.com/w9srSbP.png)  
 
     网站存放在子目录
-    如果您的网站存放在子目录中，例如 http://yoursite.com/blog，则请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
+    如果您的网站存放在子目录中，例如 https://xxx.github.io/blog，则请将您的 url 设为 https://xxx.github.io/blog 并把 root 设为 /blog/。
 
     再往下翻，中间这些都默认就好了。
 
     theme: landscape
-    theme就是选择什么主题，也就是在theme这个文件夹下，在官网上有很多个主题，默认给你安装的是lanscape这个主题。当你需要更换主题时，在官网上下载，把主题的文件放在theme文件夹下，再修改这个参数就可以了。
+    theme就是选择什么主题，也就是在theme这个文件夹下，在官网上有很多个主题，默认给你安装的是lanscape这个主题。
+    当你需要更换主题时，在官网上下载，把主题的文件放在theme文件夹下，再修改这个参数就可以了。
 
+    同步到Git
     # Deployment
     ## Docs: https://hexo.io/docs/deployment.html
     deploy:
@@ -50,7 +56,7 @@ categories:
       branch: [branch]
     deploy就是网站的部署的，repo就是仓库(Repository)的简写。branch选择仓库的哪个分支。而这个在后面进行双平台部署的时候会再次用到。
 
-### 3.Front-matter
+### Front-matter
 
     Front-matter 是文件最上方以 --- 分隔的区域，用于指定个别文件的变量，举例来说：
     title: Hello World
@@ -62,7 +68,7 @@ categories:
 
     其中，分类和标签需要区别一下，分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；而标签没有顺序和层次。
 
-### 4.layout(布局)
+### layout(布局)
 
     当你每一次使用代码:hexo new paper,它其实默认使用的是post这个布局，也就是在source文件夹下的_post里面。
 
@@ -71,12 +77,12 @@ categories:
 
     而new这个命令其实是：hexo new [layout] <title>,只不过这个layout默认是post罢了。
 
-### 5.page
+### page
 
     如果你想另起一页，那么可以使用:hexo new page board
-    系统会自动给你在source文件夹下创建一个board文件夹，以及board文件夹中的index.md，这样你访问的board对应的链接就是http://xxx.xxx/board
+    系统会自动给你在source文件夹下创建一个board文件夹，以及board文件夹中的index.md，这样你访问的board对应的链接就是https://xxx.github.io/board
 
-### 6.draft
+### draft
 
     draft是草稿的意思，也就是你如果想写文章，又不希望被看到，那么可以:hexo new draft newpage
     
@@ -84,40 +90,47 @@ categories:
 
     如果你的草稿文件写完了，想要发表到post中，hexo publish draft newpage,就会自动把newpage.md发送到post中。
 
-## 2、主题
+## 主题
 
-### 1.更换主题
+### 更换主题
 
     如果觉得默认的landscape主题不好看，那么可以在官网的主题中，选择你喜欢的一个主题下载，然后进行修改就可以了。
 
     进入到博客目录执行如下命令，含义是克隆该主题并存入到博客文件夹下的thems文件下里
-    git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
+    git clone https://github.com/iissnan/hexo-theme-next.git themes/next
 
-    执行后就会在博客目录文件夹的themes中可以找到有yilia的文件。
+    执行后就会在博客目录文件夹的themes中可以找到有next的文件。
     找到博客根目录下的_config.yml文件，修改里面的配置
-    将theme 修改为theme: yilia，需要注意的是冒号后有空格
+    将theme 修改为theme: next，需要注意的是冒号后有空格
 
-    进入yilia这个文件夹，可以看到里面也有一个配置文件_config.yml，这个配置文件是修改你整个主题的配置文件。
+    进入next这个文件夹，可以看到里面也有一个配置文件_config.yml，这个配置文件是整个主题的配置文件。
+    
+    以下关于主题的配置均是按照next主题设置的。
 
-### 2.menu(菜单栏)
+### menu(菜单栏)
 
     也即是如下图所示的这些东西：
 ![](https://i.imgur.com/LeIG3lQ.png)
 
-    其中，About这个你是找不到网页的，因为你的文章中没有about这个东西。如果你想要的话，可以执行命令：hexo new page about
+    其中，About这个你是找不到网页的，因为你的文章中没有about这个东西。
+    如果你想要的话，可以执行命令：hexo new page about
     它就会在根目录下source文件夹中新建了一个about文件夹，以及index.md，在index.md中写上你想要写的东西，就可以在网站上展示出来了。
 
     如果你想要自己再自定义一个菜单栏的选项，那么就：hexo new page yourdiy
-    然后在主题配置文件的menu菜单栏添加一个 Yourdiy : /yourdiy，注意冒号后面要有空格，以及前面的空格要和menu中默认的保持整齐。然后在languages文件夹中，找到zh-CN.yml，在index中添加yourdiy: '中文意思'就可以显示中文了。
+    然后在主题配置文件的menu菜单栏添加一个 Yourdiy : /yourdiy，注意冒号后面要有空格，以及前面的空格要和menu中默认的保持整齐。
+    然后在languages文件夹中，找到zh-CN.yml，在index中添加yourdiy: '中文意思'就可以显示中文了。
 
-### 3.customize(定制)
+    意思是说在menu中写入的是英文，但是网站使用的话会根据网站使用的语言到相应的语言包中查找到该英语的释义，然后再网站上显示出来。
+    比如menu菜单我写的是home，但是网站语言配置使用的是zh-Hans，此时就会到当前使用主题的语言包下找zh-Hans.yml文件，在该文件中，有一条数据 home:主页，则访问该网站时原先写的是home的地方则会显示出“主页”字样。
 
-    可以修改你的个人logo，默认是那个yilia，在source/css/images文件夹中放入自己要的logo，再改一下url的链接名字就可以了。
+### customize(定制)
+
+    可以修改你的个人logo，在当前使用的主题文件夹下的source/css/images文件夹中放入自己要的logo，再改一下url的链接名字就可以了。
     favicon是网站中出现的那个小图标的icon，找一张你喜欢的logo，然后转换成ico格式，放在images文件夹下，配置一下路径就行。
     social_links ，可以显示你的社交链接，而且是有logo的。
 
  
-### 4.添加RSS
+### 添加RSS
     1. 先安装RSS插件: npm i hexo-generator-feed
     2. 而后在你整个项目的_config.yml中找到Extensions，添加：
         # Extensions 
@@ -131,30 +144,30 @@ categories:
             path: atom.xml 
             limit: 20
     这个时候你的RSS链接就是 域名/atom.xml了
-    3.在主题配置文件中设置：rss: /atom.xml，开启RSS的页面功能，这样你网站上就有那个像wifi一样符号的RSS logo了，注意空格。
+    3.在主题配置文件中设置：rss: ，开启RSS的页面功能，这样你网站上就有那个像wifi一样符号的RSS logo了，注意空格。
     
-### 5.widgets(侧边栏)
+### widgets(侧边栏)
 
     侧边栏的小标签，如果你想自己增加一个，比如我增加了一个联系方式，那么我把communication写在上面，在zh-CN.yml中的sidebar，添加communication: '中文'。
 
     然后在hueman/layout/widget中添加一个communicaiton.ejs，填入模板：
 
-### 6.search(搜索框)
+### search(搜索框)
 
     默认搜索框是不能够用的，需要安装插件：hexo-generator-json-content
 
-### 7.comment(评论系统)
+### comment(评论系统)
 
     valine好像不错，还能统计文章阅读量，可以自己试一试
 
-### 8.设置头像和favicon
+### 设置头像和favicon
     
     头像/图标图片的存放位置是/themes/yilia(主题)/source/下任意位置，可以自己新建一个文件夹存放，比如img文件夹下。
     打开主题相应的配置文件：/themes/yilia/_config.yml。
     设置头像为配置文件中avatar一项，设置图标为配置文件中favicon一项。
     设置路径的根目录为/themes/yilia/source/。例如，我的头像存放的地址是/themes/yilia/source/img/me.png，设置则为avatar: /img/me.png。（图标同理）
 
-### 9.打赏功能
+### 打赏功能
     
     打开主题相应的配置文件：/themes/yilia/_config.yml。
     # 打赏
@@ -167,24 +180,15 @@ categories:
     # 微信二维码图片地址
     weixin: /img/wechat.jpg
 
--总结：
-    
-    整个主题看起来好像很复杂的样子，但是仔细捋一捋其实也比较流畅，
-    
-        languages: 顾名思义
-        layout：布局文件，其实后期想要修改自定义网站上的东西，添加各种各样的信息，主要是在这里修改，其中comment是评论系统，common是常规的布局，最常修改的在这里面，比如修改页面head和footer的内容。
-        scripts：js脚本，暂时没什么用
-        source：里面放了一些css的样式，以及图片
-
-## 3、git分支进行多终端工作
+## git分支进行多终端工作
 
     利用git的分支系统进行多终端工作了，这样每次打开不一样的电脑，只需要进行简单的配置和在github上把文件同步下来，就可以无缝操作了。
 
-### 1.机制
+### 机制
 
     由于hexo d上传部署到github的其实是hexo编译后的文件，是用来生成网页的，不包含源文件，也就是上传的是在本地目录里自动生成的.deploy_git里面。其他文件 ，包括我们写在source 里面的，和配置文件，主题文件，都没有上传到github。所以可以利用git的分支管理，将源文件上传到github的另一个分支即可。
 
-### 2.创建分支
+### 创建分支
 
     找到之前建立的仓库，在其上新建一个hexo分支，如图：
 ![](https://i.imgur.com/kTLTmea.png)
@@ -220,7 +224,7 @@ categories:
     最终效果是，一个仓库里，主分支是博客静态文件，hexo分支是博客源码文件
 ![](https://i.imgur.com/EnVLEMO.png)
     
-### 3.更换电脑操作
+### 更换电脑操作
 
     - 安装Git
     - 设置git全局邮箱和用户名
@@ -254,20 +258,20 @@ categories:
 
     如果是在已经编辑过的电脑上，已经有clone文件夹了，那么，每次只要和远端同步一下就行了：git pull
 
-## 4. coding page上部署实现国内外分流
+## coding page上部署实现国内外分流
 
     之前我们已经把hexo托管在github了，但是github是国外的，而且百度的爬虫是不能够爬取github的，所以如果你希望你做的博客能够在百度引擎上被收录，而且想要更快的访问，那么可以在国内的coding page做一个托管，这样在国内访问就是coding page，国外就走github page。
 
-### 1.申请coding账户，新建项目
+### 申请coding账户，新建项目
 
     先申请一个账户，然后创建新的项目，这一步项目名称应该是随意的。
 
-### 2.添加ssh key
+### 添加ssh key
 
     这一步跟github一样。添加后，检查一下是不是添加成功
     ssh -T git@git.coding.net
 
-### 3.修改_config.yml
+### 修改_config.yml
 
     hexo官方文档是这样的：
     deploy:
@@ -284,23 +288,23 @@ categories:
         coding: git@git.coding.net:ZJUFangzh/ZJUFangzh.git,master 
         github: git@github.com:ZJUFangzh/ZJUFangzh.github.io.git,master
 
-### 4.部署
+### 部署
     保存一下，直接
     hexo g
     hexo d
     这样就可以在coding的项目上看到你部署的文件了。
 
-### 5.开启coding pages服务，绑定域名
+### 开启coding pages服务，绑定域名
 
 ![](https://i.imgur.com/Jl0IGRy.png)
 
-### 6.阿里云添加解析
+### 阿里云添加解析
 
 ![](https://i.imgur.com/gRmkUCM.png)
 
     这个时候就可以把之前github的解析改成境外，把coding的解析设为默认了。
 
-### 7.去除coding page的跳转广告
+### 去除coding page的跳转广告
 
     coding page的一个比较恶心人的地方就是，你只是银牌会员的话，访问会先跳转到一个广告，再到你自己的域名。那么它也给出了消除的办法。右上角切换到coding的旧版界面，默认新版是不行的。然后再来到pages服务这里。
 ![](https://i.imgur.com/TYIc59t.jpg)

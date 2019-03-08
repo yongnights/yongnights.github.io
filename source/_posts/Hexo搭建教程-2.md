@@ -1,14 +1,16 @@
 ---
 title: Hexo搭建教程(2)
-date: 2019-03-06 14:07:52
+date: {{ date }}
 tags: 
   - hexo
 categories:
 - hexo 
+top: 90
 ---
-## 第一部分
 
-### hexo搭建步骤
+# 第一部分
+
+## hexo搭建步骤
 
 1. 安装Git
 2. 安装Node.js
@@ -19,34 +21,36 @@ categories:
 7. 设置个人域名
 8. 发布文章
 
-### 1.安装Git
+<escape><!-- more --></escape>
 
-    Git是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。也就是用来管理你的hexo博客文章，上传到GitHub的工具。
+### 安装Git
+
+    Git是目前世界上最先进的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。
+    也是用来管理你的hexo博客文章，上传到GitHub的工具。
     
     windows：到git官网上下载,下载安装后会有一个Git Bash的命令行工具，以后就用这个工具来使用git。
     linux：因为最早的git就是在linux上编写的，只需要一行代码：yum install git (apt-get install git)
-
     安装好后，用git --version 来查看一下版本
 ![](https://i.imgur.com/cr1thaV.png)
 
-    注意:一定要安装最新的版本，否则到后面使用git时会有如下错误情况：
+    注意:一定要安装最新的版本，若版本太低后面使用git时会有如下错误情况：
 
     错误提示：
-    fatal: unable to access 'https://github.com/litten/hexo-theme-yilia.git/': error
+    fatal: unable to access 'https://github.com/iissnan/hexo-theme-next.git': error
     :1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
-    错误分析：
-    github 2月1日发了个公告Weak cryptographic standards removal notice，简而言之就是不支持TLSv1/TLSv1.1
+    错误分析：github 2月1日发了个公告Weak cryptographic standards removal notice，简而言之就是不支持TLSv1/TLSv1.1
     解决办法：
     第一种：更新git和tortoisegit至最新版
-    第二种：检查TLS版本，git config http.sslVersion
+    第二种：检查TLS版本：git config http.sslVersion
     如果是tlsv1.0，则用下面一句命令行更新至tlsv1.2
     git config --global http.sslVersion tlsv1.2
-   
-### 2.安装nodejs
+
+
+### 安装nodejs
 
     Hexo是基于nodejs编写的，需要安装一下nodejs和里面的npm工具。
 
-    windows：nodejs选择LTS版本就行了。
+    windows：nodejs选择LTS版本，下载，安装。
     linux：yum install nodejs && yum install npm
         或者：sudo apt-get install nodejs
              sudo apt-get install npm
@@ -56,13 +60,11 @@ categories:
     npm -v
 ![](https://i.imgur.com/U0SjRFv.png)
 
-### 3.安装hexo
+### 安装hexo
 
-    前面git和nodejs安装好后，就可以安装hexo了。你可以先创建一个文件夹my-blog，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。
+    前面git和nodejs安装好后，就可以安装hexo了。先创建一个文件夹my-blog，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。
 
-    安装Hexo脚手架工具，输入命令：
-    npm install -g hexo-cli
-
+    安装Hexo脚手架工具，输入命令：npm install -g hexo-cli
     用hexo -v查看一下版本
 ![](https://i.imgur.com/OhqQ3nR.png)
 
@@ -86,8 +88,7 @@ categories:
     ├── _config.yml   #博客配置文件
     ├── package.json  #模块和依赖项
 
-    个别文件说明：
-    1、 _config.yml
+    _config.yml博客配置文件说明：
     网站主题的的配置文件，和github page关联和切换主题时，需要使用到
 
         # Hexo Configuration
@@ -99,14 +100,14 @@ categories:
         subtitle: 网站副标题：Minstorm
         description: 网站描述：Minstorm:a blog for tech
         author: 网站作者：De scherpe
-        language: 网站的语言
-        timezone: 网站的时间去，默认使用的是电脑的时区
+        language: 网站的语言，跟当前使用的主题下的语言文件有关
+        timezone: 网站的时区，默认使用的是电脑的时区
         
         # URL
         ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-        url: 网站地址
+        url: 网站地址，也就是https://xxx.github.io/ 地址
         root: 网站根目录,建议是用'/'
-        permalink: 文章的y永久链接格式，默认就好 :year/:month/:day/:title/
+        permalink: 文章的永久链接格式，默认就好 :year/:month/:day/:title/
         permalink_defaults: 永久链接中各部分的默认值，不用填
         
         # Directory
@@ -164,7 +165,7 @@ categories:
         # Extensions
         ## Plugins: https://hexo.io/plugins/
         ## Themes: https://hexo.io/themes/
-        theme: 主题：indigo
+        theme: 主题：next
         
         # Deployment
         ## Docs: https://hexo.io/docs/deployment.html
@@ -187,21 +188,23 @@ categories:
     $ hexo s --draft
 ![](https://i.imgur.com/vmdZ0fv.png)
 
-    在执行hexo s 后，会出现一个网址http://localhost:4000/，将其复制(需要注意的是，在cmd中不可用ctrl + c 来复制，Ctrl + C为停止命令）。
+    在执行hexo s命令后，会出现一个网址http://localhost:4000/，将其复制(需要注意的是，在cmd中不可用ctrl + c 来复制，Ctrl + C为停止命令）。
     打开该网址后，可以看到网站的雏形，使用ctrl+c可以把服务关掉。
     
     注：以上的操作实现的效果如下:
         - 运行服务后，可以在本地预览博客。
         - 接下来的操作是把博客文件给推送到GitHub上，使用GitHub提供的域名访问博客
 
-### 4.GitHub创建个人仓库
+### GitHub创建个人仓库
 
     首先注册一个GitHub账户(注意：用户名跟你的博客域名有关，请慎重取名)
     注册完登录后，在GitHub.com中看到一个New repository，新建仓库。
-    需要创建一个和你用户名相同的仓库，后面加.github.io，只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxx.github.io，其中xxx就是你注册GitHub的用户名。
+    需要创建一个和你用户名相同的仓库，后面加.github.io，
+    只有这样，将来要部署到GitHub page的时候，才会被识别，也就是xxx.github.io，
+    其中xxx就是你注册GitHub的用户名。
 ![](https://i.imgur.com/8Pbc8Ic.png)
     
-### 5.生成SSH添加到GitHub
+### 生成SSH添加到GitHub
 
     回到你的git bash中，输入如下两条命令：
     git config --global user.name "yourname"
@@ -218,7 +221,8 @@ categories:
     youremail是你注册GitHub的邮箱
 
     这个时候它会告诉你已经生成了.ssh的文件夹。在你的电脑中找到这个文件夹。
-    简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。
+    简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。
+    把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。
 
     而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key，把你的id_rsa.pub里面的信息复制进去。
 ![](https://i.imgur.com/uPTCxKK.png)
@@ -227,7 +231,7 @@ categories:
     ssh -T git@github.com
 ![](https://i.imgur.com/D7DzK0d.png)
 
-### 6.将hexo部署到GitHub
+### 将hexo部署到GitHub
 
     这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。
 
@@ -254,12 +258,14 @@ categories:
     得到下图就说明部署成功了，过一会儿就可以在https://yourname.github.io 这个网站看到你的博客了！
 ![](https://i.imgur.com/GVxDqDd.png)
 
-### 7.设置个人域名
+### 设置个人域名
 
     现在你的个人网站的地址是 yourname.github.io，如果觉得这个网址逼格不太够，这就需要你设置个人域名了。但是需要花钱。
     注册一个阿里云账户,在阿里云上买一个域名，先去进行实名认证,然后在域名控制台中，看到你购买的域名。
     点解析进去，添加解析
-    记录类型选A或CNAME，A记录的记录值就是ip地址，github(官方文档)提供了两个IP地址，192.30.252.153和192.30.252.154，这两个IP地址为github的服务器地址，两个都要填上，解析记录设置两个@，线路就默认就行了，CNAME记录值填你的github博客网址。如下图所示：
+    记录类型选A或CNAME，A记录的记录值就是ip地址，github(官方文档)提供了两个IP地址，192.30.252.153和192.30.252.154，
+    这两个IP地址为github的服务器地址，两个都要填上，解析记录设置两个@，线路就默认就行了，CNAME记录值填你的github博客网址。
+    如下图所示：
 ![](https://i.imgur.com/Mgj88RX.png)
 
     注意，解析线路选择默认，(解析线路:境外是后面来做国内外分流用的,在后面会讲到)。记得现在选择默认！
@@ -291,7 +297,8 @@ categories:
     <title> 是文章名称
     例如：hexo new post '我的第一篇文章'
 
-    hexo还有一个文件夹是草稿文件夹_draft，可以用理解成私密文章的功能，只要有不想显示的文章但是又不想删除，就可以把文章拖进去_draft文件夹就可以实现隐藏的功能了，也可以用hexo的命令将文章放到草稿文件夹
+    hexo还有一个文件夹是草稿文件夹_draft，可以用理解成私密文章的功能，
+    只要有不想显示的文章但是又不想删除，就可以把文章拖进去_draft文件夹就可以实现隐藏的功能了，也可以用hexo的命令将文章放到草稿文件夹
     $ hexo publish <layout> <filename>
 
     然后在source/_post中打开markdown文件，就可以开始编辑了。当你写完的时候，再

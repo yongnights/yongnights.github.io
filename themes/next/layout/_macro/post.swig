@@ -61,6 +61,13 @@
         {% endif %}
 
         <div class="post-meta">
+        
+            {% if post.top == 100 %} 
+                <i class="fa fa-thumb-tack"></i> 
+                <font color=808080>置顶</font> 
+                <span class="post-meta-divider">|</span> 
+            {% endif %}
+
           <span class="post-time">
             {% if theme.post_meta.created_at %}
               <span class="post-meta-item-icon">
@@ -234,7 +241,7 @@
                   <span class="post-meta-item-text">{{ __('post.wordcount') }}&#58;</span>
                 {% endif %}
                 <span title="{{ __('post.wordcount') }}">
-                  {{ wordcount(post.content) }}
+                  {{ wordcount(post.content) }} 字
                 </span>
               {% endif %}
 
@@ -250,11 +257,12 @@
                   <span class="post-meta-item-text">{{ __('post.min2read') }} &asymp;</span>
                 {% endif %}
                 <span title="{{ __('post.min2read') }}">
-                  {{ min2read(post.content) }}
+                  {{ min2read(post.content) }} 分钟
                 </span>
               {% endif %}
             </div>
           {% endif %}
+          
 
           {% if post.description and (not theme.excerpt_description or not is_index) %}
               <div class="post-description">
