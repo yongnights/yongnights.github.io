@@ -699,15 +699,20 @@ https://www.easyicon.net/download/ico/1230452/96/
 
 ### 自定义鼠标样式
     打开themes/next/source/css/_custom/custom.styl,在里面写下如下代码：
+![](/img/mouse.ico)
+![](/img/mouseHandKid.ico)
+    使用这样的方式获得ico图标链接地址
+
     // 鼠标样式
     * {
-        cursor: url("http://om8u46rmb.bkt.clouddn.com/sword2.ico"),auto!important
+        cursor: url("http://blog.ejubei.net/img/mouse.ico"),auto!important
     }
     :active {
-        cursor: url("http://om8u46rmb.bkt.clouddn.com/sword1.ico"),auto!important
+        cursor: url("http://blog.ejubei.net/img/mouse.ico"),auto!important
     }
 
     其中 url 里面必须是 ico 图片，ico 图片可以上传到网上，然后获取外链，复制到 url 里就行了
+    
 
 ### 为博客加上萌萌的宠物
     安装插件：npm install -save hexo-helper-live2d
