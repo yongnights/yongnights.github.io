@@ -5,7 +5,7 @@ tags:
   - hexo
 categories:
 - hexo 
-top: 90
+top: 
 ---
 
 # 第一部分
@@ -34,7 +34,7 @@ top: 90
 ![](https://i.imgur.com/cr1thaV.png)
 
     注意:一定要安装最新的版本，若版本太低后面使用git时会有如下错误情况：
-
+    
     错误提示：
     fatal: unable to access 'https://github.com/iissnan/hexo-theme-next.git': error
     :1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
@@ -49,12 +49,12 @@ top: 90
 ### 安装nodejs
 
     Hexo是基于nodejs编写的，需要安装一下nodejs和里面的npm工具。
-
+    
     windows：nodejs选择LTS版本，下载，安装。
     linux：yum install nodejs && yum install npm
         或者：sudo apt-get install nodejs
              sudo apt-get install npm
-
+    
     安装完后，打开命令行，检查一下有没有安装成功
     node -v
     npm -v
@@ -63,19 +63,19 @@ top: 90
 ### 安装hexo
 
     前面git和nodejs安装好后，就可以安装hexo了。先创建一个文件夹my-blog，然后cd到这个文件夹下（或者在这个文件夹下直接右键git bash打开）。
-
+    
     安装Hexo脚手架工具，输入命令：npm install -g hexo-cli
     用hexo -v查看一下版本
 ![](https://i.imgur.com/OhqQ3nR.png)
 
     至此所需要的软件就全部安装完了。
-
+    
     接下来初始化一下hexo： 
-
+    
     $ hexo init my-blog # 创建并初始化博客目录
     $ cd my-blog        # 进入该博客目录
     $ npm install       # 创建默认博客文件
-
+    
     新建完成后，指定文件夹目录下有：
     myblog
     ├── node_modules  #依赖包
@@ -87,10 +87,10 @@ top: 90
     └── themes        #主题
     ├── _config.yml   #博客配置文件
     ├── package.json  #模块和依赖项
-
+    
     _config.yml博客配置文件说明：
     网站主题的的配置文件，和github page关联和切换主题时，需要使用到
-
+    
         # Hexo Configuration
         ## Docs: https://hexo.io/docs/configuration.html
         ## Source: https://github.com/hexojs/hexo/
@@ -171,13 +171,13 @@ top: 90
         ## Docs: https://hexo.io/docs/deployment.html
         deploy: # 同步使用
           type: 
-
+    
     接下来开启服务
-
+    
     编译生成静态网页文件，执行如下命令：
     $ hexo generate
     可以简写为$ hexo g
-
+    
     注意，如下图才是命令正确执行，否则按照提示解决错误
 ![](https://i.imgur.com/ra9wXhX.png)
 
@@ -209,21 +209,21 @@ top: 90
     回到你的git bash中，输入如下两条命令：
     git config --global user.name "yourname"
     git config --global user.email "youremail"
-
+    
     这里的yourname输入你的GitHub用户名，youremail输入你GitHub的邮箱。这样GitHub才能知道你是不是对应它的账户。
-
+    
     可以用以下两条，检查一下你有没有输对：
     git config user.name
     git config user.email
-
+    
     然后创建SSH,一路回车
     ssh-keygen -t rsa -C "youremail"
     youremail是你注册GitHub的邮箱
-
+    
     这个时候它会告诉你已经生成了.ssh的文件夹。在你的电脑中找到这个文件夹。
     简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。
     把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。
-
+    
     而后在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key，把你的id_rsa.pub里面的信息复制进去。
 ![](https://i.imgur.com/uPTCxKK.png)
     
@@ -234,27 +234,27 @@ top: 90
 ### 将hexo部署到GitHub
 
     这一步，我们就可以将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上。
-
+    
     需要用到hexo的GitHub插件hexo-deployer-git，首先用npm下载这个插件
     $ npm install hexo-deployer-git --save
-
+    
     然后打开站点配置文件_config.yml，翻到最后，修改为YourgithubName就是你的GitHub账户
     deploy:
       type: git
       repo: git@github.com:用户名/用户名.github.io.git 
       branch: master
-
+    
     配置好了deploy之后，就可以运行以下命令上传项目了
     hexo clean
     hexo generate
     hexo deploy
-
+    
     其中 hexo clean清除了你之前生成的东西，也可以不加。
     hexo generate 顾名思义，生成静态文章，可以用 hexo g缩写
     hexo deploy 部署文章，可以用hexo d缩写
-
+    
     注意deploy时可能要你输入username和password。
-
+    
     得到下图就说明部署成功了，过一会儿就可以在https://yourname.github.io 这个网站看到你的博客了！
 ![](https://i.imgur.com/GVxDqDd.png)
 
@@ -269,13 +269,13 @@ top: 90
 ![](https://i.imgur.com/Mgj88RX.png)
 
     注意，解析线路选择默认，(解析线路:境外是后面来做国内外分流用的,在后面会讲到)。记得现在选择默认！
-
+    
     登录GitHub，进入之前创建的仓库，点击settings，设置Custom domain，输入你的网站地址
 
 ![](https://i.imgur.com/xRs9XZG.png)
 
     顺便再勾选上强制使用https，"Enforce HTTPS" 
-
+    
     然后在你的博客文件根目录的source中创建一个名为CNAME文件，不要后缀。写上你的网站地址。
 ![](https://i.imgur.com/c6iAOKb.png) 
 
@@ -296,11 +296,11 @@ top: 90
     layout是文章的布局，默认是post布局
     <title> 是文章名称
     例如：hexo new post '我的第一篇文章'
-
+    
     hexo还有一个文件夹是草稿文件夹_draft，可以用理解成私密文章的功能，
     只要有不想显示的文章但是又不想删除，就可以把文章拖进去_draft文件夹就可以实现隐藏的功能了，也可以用hexo的命令将文章放到草稿文件夹
     $ hexo publish <layout> <filename>
-
+    
     然后在source/_post中打开markdown文件，就可以开始编辑了。当你写完的时候，再
     hexo clean
     hexo g

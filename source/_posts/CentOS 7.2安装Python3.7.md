@@ -5,7 +5,6 @@ tags:
 - CentOS
 - Python
 categories:
-- Python
 - CentOS
 ---
 ### 系统环境

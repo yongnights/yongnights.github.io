@@ -5,8 +5,8 @@ tags:
 - hexo
 categories:
 - hexo
-top: 100
-password: 123456
+top: 
+password: 
 ---
 ## 简要说明
 
@@ -19,8 +19,6 @@ password: 123456
 - Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。
 
 - Hexo 使用 Markdown（或其他渲染引擎）解析文章，并且使用json来进行数据储存，完全不需要数据库来储存数据，在几秒内，即可利用靓丽的主题生成静态网页。因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。
-
-    文章密码：123456
 
 <escape><!-- more --></escape>
 
@@ -45,7 +43,7 @@ password: 123456
 ### Git篇
 
     百度搜索git for windows，点击进入官网点击下载，下载好后确认安装，选择Use Windows的这个选项，我们就可以在cmd窗口中使用git命令
-
+    
     github SSH Key 配置
     来到我们git for win的安装目录下，打开git-bash，输入ssh-keygen -t rsa -C “github的注册邮箱地址”，一路回车生成密钥，默认生成在C:\Users\用户名.ssh目录下面。
     接下来来到github官网，点击头像选择setting
@@ -65,21 +63,21 @@ password: 123456
     
     安装完成后，输入hexo s -p 5555(在指定端口5555启动服务)
     在网页上输入localhost:5555预览一下（localhost表示本地访问）
-
+    
     打开_config.yml文件，需要修改的地方有：title(网站名)，author(作者)，description(介绍)，url(即是“https://用户名.github.io)。
     使用Ctrl+S保存文件.
-
+    
     现在我们打开github获取仓库地址,点击头像->Your profile,点击对应的仓库,点击Clone or download，
     复制仓库地址,在_config.yml的最后找到deploy，输入如下内容（注意要有空格和缩进，不然会报错）
     deploy: 
         type:git
         repository: git@github.com:用户名/用户名.github.io.git 
         branch: master
-
+    
     接下来还需要安装git插件，命令: npm install hexo-deployer-git –save
     安装好后输入hexo g，生成静态文件命令
     再输入命令:hexo d,部署到github
-
+    
     第一提交会提示您配置github的邮箱和用户名,在弹出的输入框中输入用户名，密码登录.
     显示出INFO Deploy done: git表示成功发布到github上
     在浏览器上输入 “用户名.github.io” 即可访问自己的博客
@@ -88,14 +86,15 @@ password: 123456
 
     在hexo官网的Themes下，搜索next，搜索结果点击跳转到github仓库，点击CN查看中文介绍，点击详细安装步骤，下载稳定版本(git clone),拷贝到博客目录的themes下.
     git clone https://github.com/iissnan/hexo-theme-next.git themes/next
-
+    
     或者下载下来主题压缩包文件，解压后修改文件名称放到themes文件夹下
-
+    
     打开_config.yml，修改 theme: next。
     注意是博客目录下的_config.yml，不是主题目录下的
-
+    
     hexo g 重新生成一下
     hexo s -p 5555本地端口部署
     打开浏览器输入：localhost:5555，预览一下主题效果
 
-    
+
+​    
