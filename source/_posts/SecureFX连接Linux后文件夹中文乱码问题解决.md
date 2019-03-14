@@ -1,15 +1,12 @@
 ---
 title: SecureFX连接Linux后文件夹中文乱码问题解决
-copyright: true
-permalink: 1
-top: 0
-date: 2019-03-14 18:16:50
+date: {{date}}
 tags:
 - SecureFX
 - Linux
 categories:
 - Linux
-password:
+password: 
 ---
 ### 在选项中设置字符编码为UTF-8
 ![](https://i.imgur.com/4TN2GUH.png)

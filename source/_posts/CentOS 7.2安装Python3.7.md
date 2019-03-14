@@ -1,6 +1,6 @@
 ---
 title: CentOS 7.2安装Python3.7
-date: 2019-03-13 18:00:32
+date: {{date}}
 tags:
 - CentOS
 - Python

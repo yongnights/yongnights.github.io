@@ -1,14 +1,11 @@
 ---
 title: Linux系统screen命令简述使用
-copyright: true
-permalink: 1
-top: 0
-date: 2019-03-14 18:13:48
+date: {{date}}
 tags:
 - Linux
 categories:
 - Linux
-password:
+password: 
 ---
 ### 背景
     系统管理员经常需要SSH 或者telent 远程登录到Linux 服务器，经常运行一些需要很长时间才能完成的任务，比如系统备份、ftp 传输等等。

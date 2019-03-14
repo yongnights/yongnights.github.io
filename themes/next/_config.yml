@@ -821,7 +821,7 @@ images: images
 version: 5.1.4
 
 # 文章末尾添加“本文结束”标记
-passage_end_tag:
+passage_end_tag: 
 enabled: true
 
 # 宠物

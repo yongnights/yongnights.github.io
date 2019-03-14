@@ -1,6 +1,6 @@
 ---
 title: CentOS 7.2安装redis
-date: 2019-03-13 18:03:19
+date: {{date}}
 tags:
 - CentOS
 - Redis
