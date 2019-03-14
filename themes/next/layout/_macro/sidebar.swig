@@ -108,6 +108,9 @@
                 {% endfor %}
             </div>
           {% endif %}
+          
+          {# 添加网易云音乐外链 #}
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1333220817&auto=1&height=66"></iframe>
 
           {% set cc = {'by': 1, 'by-nc': 1, 'by-nc-nd': 1, 'by-nc-sa': 1, 'by-nd': 1, 'by-sa': 1, 'zero': 1} %}
           {% if theme.creative_commons in cc %}
@@ -134,7 +137,10 @@
               </ul>
             </div>
           {% endif %}
-          
+        
+        
+        
+        
         {% if theme.recent_posts %}
         <div class="links-of-blogroll motion-element {{ "links-of-blogroll-" + theme.recent_posts_layout  }}">
           <div class="links-of-blogroll-title">

@@ -57,6 +57,7 @@ top: 70
 - 腾讯公益404页面
 - 设置动画效果
 - 添加近期文章版块
+- 添加网易云音乐外链
 
 <escape><!-- more --></escape>
 
@@ -93,7 +94,7 @@ top: 70
 ### 设置菜单
     菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 
     NexT使用的是Font Awesome提供的图标， Font Awesome提供了600+的图标，可以满足绝大的多数的场景，同时无须担心在Retina屏幕下图标模糊的问题。
-
+    
     编辑主题配置文件，修改以下内容：
     设定菜单内容，对应的字段是 menu。 菜单内容的设置格式是：item name: link || 图标。其中 item name 是一个名称，这个名称并不直接显示在页面上，它将用于匹配图标以及翻译。
     
@@ -120,7 +121,7 @@ top: 70
     hexo new page 'categories' #创建categories子目录
     hexo new page 'about'      #创建about子目录
     在你的网站根目录下面的source文件夹会分别生成tags、categories以及about文件夹。
-
+    
     修改tags文件夹中的index.md文件，新增type属性，如下：
     ---
     title: tags
@@ -130,7 +131,7 @@ top: 70
     其他的修改类似。这样一来当你新建一篇博文的时候，增加上tags和categories属性值，就能在tags和categories界面检索到你的文章了。 
     
     汇总一下步骤：
-
+    
     tags:添加「标签」页面
     新建「标签」页面，并在菜单中显示「标签」链接。「标签」页面将展示站点的所有标签，若你的所有文章都未包含标签，此页面将是空的。 底下代码是一篇包含标签的文章的例子： 
     ---
@@ -140,7 +141,7 @@ top: 70
       - Another Tag
     ---
     或者使用这种方式：tags: [Testing, Another Tag],中间是先逗号，后空格
-
+    
     1. 修改菜单
     在菜单中添加链接。编辑 主题配置文件 ， 添加 tags 到 menu 中，如下: 
     menu:
@@ -165,7 +166,7 @@ top: 70
     type: "tags"
     comments: false
     ---
-
+    
     categories:添加「分类」页面
     新建「分类」页面，并在菜单中显示「分类」链接。「分类」页面将展示站点的所有分类，若你的所有文章都未包含分类，此页面将是空的。 底下代码是一篇包含分类的文章的例子：
     ---
@@ -173,7 +174,7 @@ top: 70
     categories: 
     - Testing
     ---
-
+    
     1. 修改菜单
     在菜单中添加链接。编辑 主题配置文件 ， 添加 categories 到 menu 中，如下: 
     menu:
@@ -198,7 +199,7 @@ top: 70
     type: "categories"
     comments: false
     ---
-
+    
     分类和标签的差别：
     在 Hexo 中：分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；而标签没有顺序和层次。
 
@@ -331,7 +332,7 @@ top: 70
       enable: true
       icons_only: false
       transition: true
-
+    
     效果如下图：
 ![](https://i.imgur.com/k3N5Chu.png)
 
@@ -602,7 +603,7 @@ top: 70
         family:
         size: 13
     把false改为true，并修改了size的数值，单位是像素。如有需要可自行改变字体。
-
+    
     另外提供一种方法，供会前端的小伙伴参考：Next主题控制字体大小的文件是在主题文件夹中的 source\css_variables 目录下的 base.styl 文件，
     找到该文件：themes\next\source\css_variables\base.styl 文件.
     // Font size
@@ -710,9 +711,9 @@ https://www.easyicon.net/download/ico/1230452/96/
     :active {
         cursor: url("http://blog.ejubei.net/img/mouse.ico"),auto!important
     }
-
-    其中 url 里面必须是 ico 图片，ico 图片可以上传到网上，然后获取外链，复制到 url 里就行了
     
+    其中 url 里面必须是 ico 图片，ico 图片可以上传到网上，然后获取外链，复制到 url 里就行了
+
 
 ### 为博客加上萌萌的宠物
     安装插件：npm install -save hexo-helper-live2d
@@ -1181,7 +1182,7 @@ https://www.easyicon.net/download/ico/1230452/96/
 ### 不蒜子统计
     全局配置：
     编辑 主题配置文件 中的busuanzi_count的配置项。当enable: true时，代表开启全局开关。若site_uv、site_pv、page_pv的值均为false时，不蒜子仅作记录而不会在页面上显示。
-
+    
     站点UV配置：
     当site_uv: true时，代表在页面底部显示站点的UV值。
     site_uv_header和site_uv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[site_uv_header]UV值[site_uv_footer]。
@@ -1189,7 +1190,7 @@ https://www.easyicon.net/download/ico/1230452/96/
     site_uv: true
     site_uv_header: 本站访客数
     site_uv_footer: 人次
-
+    
     站点PV配置：
     当site_pv: true时，代表在页面底部显示站点的PV值。
     site_pv_header和site_pv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[site_pv_header]PV值[site_pv_footer]。
@@ -1197,7 +1198,7 @@ https://www.easyicon.net/download/ico/1230452/96/
     site_pv: true
     site_pv_header: 本站总访问量
     site_pv_footer: 次
-
+    
     单页面PV配置：
     当page_pv: true时，代表在文章页面的标题下显示该页面的PV值（阅读数）。
     page_pv_header和page_pv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[page_pv_header]PV值[page_pv_footer]。
@@ -1269,3 +1270,13 @@ https://www.easyicon.net/download/ico/1230452/96/
     recent_posts_title: 近期文章
     recent_posts_layout: block
     recent_posts: true
+
+### 添加网易云音乐外链
+	修改 themes/next/layout/_macro/sidebar.swig 文件，在联系方式下添加网易云音乐外链：
+	{# 添加网易云音乐外链 #}
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1333220817&auto=1&height=66"></iframe>
+	然后hexo g/hexo d即可。
+	获取网易云外链的方式：打开网易云音乐网站，搜索歌曲，进入到歌曲详情页面，左侧有生成外链的按钮，可以选择是否自动播放等，但是受版权保护的音乐无法生成外链。
+
+
+​	
