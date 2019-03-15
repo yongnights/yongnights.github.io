@@ -10,19 +10,6 @@
   
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
   <br />
-
-  {% if theme.post_wordcount.totalcount %}
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    {% if theme.post_wordcount.item_text %}
-      <span class="post-meta-item-text">{{ __('post.totalcount') }} </span> 
-    {% endif %}
-    <span title="{{ __('post.totalcount') }}">{#
-    #}: {{ totalcount(site, '0,0.0a') }} 字{#
-  #}</span>
-  {% endif %}
 </div>
 
 {% if theme.footer.powered %}
@@ -50,6 +37,20 @@
 #}</div>
 {% endif %}
 
+<div>
+  {% if theme.post_wordcount.totalcount %}
+
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    {% if theme.post_wordcount.item_text %}
+      <span class="post-meta-item-text">{{ __('post.totalcount') }} </span> 
+    {% endif %}
+    <span title="{{ __('post.totalcount') }}">{#
+    #}: {{ totalcount(site, '0,0.0a') }} 字{#
+  #}</span>
+  {% endif %}
+   <span class="post-meta-divider">||</span>
 <!-- 在网页底部添加网站运行时间 --> 
 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> 
 <script> 
@@ -69,6 +70,21 @@
     document.getElementById("timeDate").innerHTML = "博客已运行 "+dnum+" 天 "; 
     document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分钟 " + snum + " 秒"; } setInterval("createtime()",250); 
 </script>
+</div>
+
+<div class="busuanzi-count">
+    <span id="busuanzi_container_page_pv">
+        <i class="fa fa-file-o"></i> 本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <span class="post-meta-divider">||</span>
+    <span id="busuanzi_container_site_uv">
+        <i class="fa fa-user"></i> 本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    </span>
+    <span class="post-meta-divider">||</span>
+    <span id="busuanzi_container_site_pv">
+        <i class="fa fa-eye"></i> 本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</div>
 
 
 
