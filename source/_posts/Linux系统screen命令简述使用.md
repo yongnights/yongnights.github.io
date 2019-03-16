@@ -169,4 +169,14 @@ password:
     2. 在这个新窗口中输入要执行的命令，比如：python 1.py ，就算有打印输出也不碍事，关闭这个终端
     3. 新开一个终端，输入：screen -ls，查看所有打开的screen窗口。
 ![](https://i.imgur.com/Y0rkHBz.png)
+
     4. 使用命令：screen -r xxxx,再次进入上一步的窗口，查看命令的执行情况等。
+
+### 常见问题
+    1. 解决screen状态为Attached连上不的问题
+    问题描述：
+    用 screen -ls, 显式当前状态为Attached， 但当前没有用户登陆些会话。
+    screen此时正常状态应该为(Detached) ，此时用screen -r <session-id>，怎么也登不上
+    解决方法：
+    screen -D  -r ＜session-id>
+    -D -r 先踢掉前一用户，再登陆
