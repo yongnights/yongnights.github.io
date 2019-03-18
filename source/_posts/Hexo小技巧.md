@@ -1,7 +1,5 @@
 ---
 title: Hexo小技巧
-copyright: true
-permalink: 1
 top: 
 date: 2019-03-08 16:28:57
 tags:
