@@ -1,10 +1,10 @@
 ---
 title: SecureFX连接Linux后文件夹中文乱码问题解决
 date: {{date}}
-tags:
+tags: 
 - SecureFX
 - Linux
-categories:
+categories: 
 - Linux
 password: 
 ---

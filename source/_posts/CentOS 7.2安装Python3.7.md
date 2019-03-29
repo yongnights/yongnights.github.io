@@ -1,10 +1,10 @@
 ---
 title: CentOS 7.2安装Python3.7
 date: {{date}}
-tags:
+tags: 
 - CentOS
 - Python
-categories:
+categories: 
 - CentOS
 ---
 ### 系统环境
