@@ -114,15 +114,10 @@ while row <= 9:
 # PyCharm 的调试工具
 - F8 Step Over 可以单步执行代码，会把函数调用看作是一行代码直接执行
 - F7 Step Into 可以单步执行代码，如果是函数，会进入函数内部
-1. 先在该行打断点，也就是在该行行号后面点击一下，如下图所示:
-![](https://i.imgur.com/Dm0tutK.png)
-
+1. 先在该行打断点，也就是在该行行号后面点击一下
 2. 然后使用debug模式运行代码，快捷键是`Shift+F9`
 3. 最下方控制台出现Debug窗口，切换到`Console`
-![](https://i.imgur.com/P2hZJPL.png)
-
 4. 最后根据情况使用`F7`或`F8`
-![](https://i.imgur.com/G9EDyzx.png)
 
 # pyc字节码文件
 > c 是  compiled 编译过 的意思
@@ -141,21 +136,7 @@ while row <= 9:
 - 当  Python 重编译时，它会自动检查源文件和字节码文件的时间戳
 - 如果你又修改了源代码，下次程序运行时，字节码将自动重新创建
 
-# list列表
-![](https://i.imgur.com/vT4jVZg.png)
-
-![](https://i.imgur.com/jqMfvQF.png)
 
 # 元祖
 > 元组中 只包含一个元素 时，需要 在元素后面添加逗号
-
-![](https://i.imgur.com/yXgdtCQ.png)
-
-# 字典
-![](https://i.imgur.com/YJGiiTP.png)
-
-
-
-
-
 
