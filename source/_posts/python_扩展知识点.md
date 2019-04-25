@@ -9,31 +9,107 @@ password:
 ---
 
 # GIL（全局解释器锁）
-
 ## GIL面试题如下
 
->   描述Python GIL的概念， 以及它对python多线程的影响？编写一个多线程抓取网页的程序，并阐明多线程抓取程序是否可比单线程性能有提升，并解释原因。
+> 描述Python GIL的概念， 以及它对python多线程的影响？编写一个多线程抓取网页的程序，并阐明多线程抓取程序是否可比单线程性能有提升，并解释原因。
 
 Guido的声明：<http://www.artima.com/forums/flat.jsp?forum=106&thread=214235>
-
 he language doesn't require the GIL -- it's only the CPython virtual machine that has historically been unable to shed it.
 
-## 参考答案:
+## 单线程死循环
+单独执行该文件会占满一个CPU核心数(相当于单进程单线程)，两个窗口执行该文件会占满两个CPU核心数(相当于两进程两线程)
+```python
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
 
->   1.  Python语言和GIL没有半毛钱关系。仅仅是由于历史原因在Cpython虚拟机(解释器)，难以移除GIL。
->   2.  GIL：全局解释器锁。每个线程在执行的过程都需要先获取GIL，保证同一时刻只有一个线程可以执行代码。
->   3.  线程释放GIL锁的情况： 在IO操作等可能会引起阻塞的system call之前,可以暂时释放GIL,但在执行完毕后,必须重新获取GIL Python 3.x使用计时器（执行时间达到阈值后，当前线程释放GIL）或Python 2.x，tickets计数达到100
->   4.  Python使用多进程是可以利用多核的CPU资源的。
->   5.  多线程爬取比单线程性能有提升，因为遇到IO阻塞会自动释放GIL锁
+# 主线程死循环，占满CPU
+while True:
+    pass # 占位符，空语句，还是要执行的
+```
+
+## 两个线程死循环
+单独执行该文件每个CPU核心会占一半(单进程两线程)
+```python
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+from threading import Thread
+
+# 子线程死循环
+def a():
+    while True:
+        pass
+
+t = Thread(target=a)
+t.start()
+
+# 主线程死循环
+while True:
+    pass
+```
+
+## 两个进程死循环
+单独执行该文件会占满二个CPU核心数
+```python
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+from multiprocessing import Process
+
+# 子进程死循环
+def a():
+    while True:
+        pass
+
+if __name__ == '__main__':
+    t = Process(target=a)
+    t.start()
+    # 主进程死循环
+    while True:
+        pass
+```
+
+总结：多线程并不是真正的并行，而是伪并行，也就是并发。原因就是因为线程有GIL全局解释器锁。只有进程才是真正的并行
+
+## 参考答案
+> 1. Python语言和GIL没有半毛钱关系。仅仅是由于历史原因在Cpython虚拟机(C语言解释器)中难以移除GIL。(其他python解释器没有GIL，比如java语言写的jpython解释器)
+> 2. GIL：全局解释器锁。每个线程在执行的过程都需要先获取GIL，保证同一时刻只有一个线程可以执行代码。
+> 3. 线程释放GIL锁的情况： 在IO操作等可能会引起阻塞的system call之前,可以暂时释放GIL,但在执行完毕后,必须重新获取GIL Python 3.x使用计时器（执行时间达到阈值后，当前线程释放GIL）或Python 2.x，tickets计数达到100
+    >> 计算密集型：程序没有延时，一直在计算数据；IO密集型：输入输出，读写操作
+    >> 线程和协程适用于IO密集型，计算密集型考虑使用进程。
+> 4. Python使用多进程是可以利用多核的CPU资源的。
+> 5. 多线程爬取比单线程性能有提升，因为遇到IO阻塞会自动释放GIL锁
+
+## 使用c语言来解决GIL问题
+子线程使用的是c语言的函数，此时单独执行该文件，会占满两个CPU核心
+```python
+from ctypes import *
+from threading import Thread
+
+# 加载动态库
+# 把一个C语言编译成一个动态库文件的命令(linux平台)
+# gcc libdead_loop.c -shared -o libdead_loop.so
+lib = cdll.LoadLibrary("./libdead_loop.so")
+
+# 创建一个子线程，让其执行c语言编写的函数(DeadLoop)，此函数是一个死循环
+t = Thread(target=lib.DeadLoop)
+t.start()
+
+# 主线程
+while True:
+    pass
+```
+
+## 如何解决GIL
+
+1. 换python解释器，不使用Cpython解释器，使用jpython解释器等
+2. 用其他语言来替代线程中的代码，不如上例中的c语言，(胶水语言)
 
 <escape><!-- more --></escape>
 
 # 深拷贝、浅拷贝
-
 ## 1. 浅拷贝
-
--   浅拷贝是对于一个对象的顶层拷贝
-
+- 浅拷贝是对于一个对象的顶层拷贝
 通俗的理解是：拷贝了引用，并没有拷贝内容
 
 ![](/images_copy/001.png)
@@ -41,8 +117,7 @@ he language doesn't require the GIL -- it's only the CPython virtual machine tha
 ![](/images_copy/002.png)
 
 ## 2. 深拷贝
-
--   深拷贝是对于一个对象所有层次的拷贝(递归)
+- 深拷贝是对于一个对象所有层次的拷贝(递归)
 
 ![](/images_copy/003.png)
 
@@ -53,21 +128,20 @@ he language doesn't require the GIL -- it's only the CPython virtual machine tha
 ![](/images_copy/005.png)
 
 ## 3. 拷贝的其他方式
-
--   分片表达式可以赋值一个序列
+- 分片表达式可以赋值一个序列
 
 ![](/images_copy/006.png)
 
--   字典的copy方法可以拷贝一个字典
+- 字典的copy方法可以拷贝一个字典
 
 ![](/images_copy/007.png)
 
 ## 4. 注意点
-
-## 浅拷贝对不可变类型和可变类型的copy不同
-
+### 浅拷贝对不可变类型和可变类型的copy不同
 1.  copy.copy对于可变类型，会进行浅拷贝
 2.  copy.copy对于不可变类型，不会拷贝，仅仅是指向
+比如：如果copy.copy拷贝的是元组，那么它不会进行浅拷贝，仅仅是指向
+原因：因为元组是不可变类型，那么意味着数据一定不能修改，因此用copy.copy的时候它会自动判断，如果是元组它就指向了它
 
 ```python
 In [88]: a = [11,22,33]
@@ -82,7 +156,6 @@ Out[93]: [11, 22, 33, 44]
 In [94]: b
 Out[94]: [11, 22, 33]
 
-
 In [95]: a = (11,22,33)
 In [96]: b = copy.copy(a)
 In [97]: id(a)
@@ -93,16 +166,40 @@ Out[98]: 58890680
 
 ![](/images_copy/008.png)
 
-## copy.copy和copy.deepcopy的区别
+如果用copy.copy或者copy.deepcopy对一个全部都是不可变类型的数据进行拷贝，那么他们结果相同的，都是引用指向
+如果拷贝的是一个拥有可变类型的数据，即使元组是最顶层，copy.deepcopy依然是深拷贝，而copy.copy还是指向。
 
->   copy.copy
+```python
+In[37]: a = [11,22]
+In[38]: b = [33,44]
+In[39]: c = (a,b)
+In[40]: import copy
+In[41]: d = copy.copy(c)
+In[42]: id(c)
+Out[42]: 86387080
+In[43]: id(d)
+Out[43]: 86387080
+In[44]: e = copy.deepcopy(c)
+In[45]: id(e)
+Out[45]: 87301192
+In[46]: c
+Out[46]: ([11, 22], [33, 44])
+In[47]: e
+Out[47]: ([11, 22], [33, 44])
+In[48]: a.append(55)
+In[49]: c
+Out[49]: ([11, 22, 55], [33, 44])
+In[50]: e
+Out[50]: ([11, 22], [33, 44])
+```
 
+### copy.copy和copy.deepcopy的区别
+> copy.copy
 ![](/images_copy/009.png)
 
 ![](/images_copy/010.png)
 
->    copy.deepcopy
-
+> copy.deepcopy
 ![](/images_copy/011.png)
 
 ![](/images_copy/012.png)
@@ -110,14 +207,13 @@ Out[98]: 58890680
 ![](/images_copy/013.png)
 
 # 私有化
+- xx: 公有变量
+- `_x`: 单前置下划线,私有化属性或方法，from module import * 禁止导入,类对象和子类可以访问
+- `__xx`：双前置下划线,避免与子类中的属性命名冲突，无法在外部直接访问(名字重整所以访问不到)
+- `__xx__`:双前后下划线,用户名字空间的魔法对象或属性。例如:`__init__` , __ 不要自己发明这样的名字
+- `xx_`:单后置下划线,用于避免与Python关键词的冲突
 
--   xx: 公有变量
--   _x: 单前置下划线,私有化属性或方法，from somemodule import *禁止导入,类对象和子类可以访问
--   __xx：双前置下划线,避免与子类中的属性命名冲突，无法在外部直接访问(名字重整所以访问不到)
--   __xx__:双前后下划线,用户名字空间的魔法对象或属性。例如:`__init__` , __ 不要自己发明这样的名字
--   xx_:单后置下划线,用于避免与Python关键词的冲突
-
-通过name mangling（名字重整(目的就是以防子类意外重写基类的方法或者属性)如：_Class__object）机制就可以访问private了。
+通过name mangling（名字重整(目的就是以防子类意外重写基类的方法或者属性)如：_Classobject）机制就可以访问private了。(在 名称 前面加上 _类名 => _类名名称)
 
 ```python
 #coding=utf-8
@@ -178,28 +274,24 @@ print('*'*20)
 s1.showstudent()
 print('*'*20)
 
-Student.testbug()
+Student.testbug()总结
 ```
 
-## 总结
+- `_名`的变量、函数、类在使用`from xxx import *`时都不会被导入，类对象和子类可以访问
+- 父类中属性名为`__名字`的，子类不继承，子类不能访问，子类可以通过父类中的其他方法间接访问
+- 如果在子类中向`__名字`赋值，那么会在子类中定义一个与父类相同名字的属性
 
--   父类中属性名为`__名字`的，子类不继承，子类不能访问
--   如果在子类中向`__名字`赋值，那么会在子类中定义的一个与父类相同名字的属性
--   `_名`的变量、函数、类在使用`from xxx import *`时都不会被导入
 
 # import导入模块
-
 ## 1. import 搜索路径
-
 ![](images_import/001.png)
 
-## 路径搜索
+### 路径搜索
+- 从上面列出的目录里依次查找要导入的模块文件
+-  开头的第一个‘’ 表示当前路径
+-  列表中的路径的先后顺序代表了python解释器在搜索模块时的先后顺序
 
--   从上面列出的目录里依次查找要导入的模块文件
--   '' 表示当前路径
--   列表中的路径的先后顺序代表了python解释器在搜索模块时的先后顺序
-
-## 程序执行时添加新的模块路径
+### 程序执行时添加新的模块路径
 
 ```python
 sys.path.append('/home/itcast/xxx')
@@ -221,7 +313,6 @@ Out[38]:
 ```
 
 ## 2. 重新导入模块
-
 模块被导入后，`import module`不能重新导入模块，重新导入需用`reload`
 
 ![](images_import/002.png)
@@ -315,20 +406,17 @@ if __name__ == "__main__":
 ![](images_import/007.png)
 
 # 再议 封装、继承、多态
-
 封装、继承、多态 是面向对象的3大特性
 
-# 为啥要封装
-
+## 为啥要封装
 ![](/images_duixiang/001.png)
 
 ![](/images_duixiang/002.png)
 
 ## 好处
-
->   1.  在使用面向过程编程时，当需要对数据处理时，需要考虑用哪个模板中哪个函数来进行操作，但是当用面向对象编程时，因为已经将数据存储到了这个独立的空间中，这个独立的空间（即对象）中通过一个特殊的变量（__class__）能够获取到类（模板），而且这个类中的方法是有一定数量的，与此类无关的将不会出现在本类中，因此需要对数据处理时，可以很快速的定位到需要的方法是谁  这样更方便
->   2.  全局变量是只能有1份的，多很多个函数需要多个备份时，往往需要利用其它的变量来进行储存；而通过封装 会将用来存储数据的这个变量 变为了对象中的一个“全局”变量，只要对象不一样那么这个变量就可以再有1份，所以这样更方便
->   3.  代码划分更清晰
+> 1. 在使用面向过程编程时，当需要对数据处理时，需要考虑用哪个模板中哪个函数来进行操作，但是当用面向对象编程时，因为已经将数据存储到了这个独立的空间中，这个独立的空间（即对象）中通过一个特殊的变量（__class__）能够获取到类（模板），而且这个类中的方法是有一定数量的，与此类无关的将不会出现在本类中，因此需要对数据处理时，可以很快速的定位到需要的方法是谁  这样更方便
+> 2. 全局变量是只能有1份的，多很多个函数需要多个备份时，往往需要利用其它的变量来进行储存；而通过封装 会将用来存储数据的这个变量 变为了对象中的一个“全局”变量，只要对象不一样那么这个变量就可以再有1份，所以这样更方便
+> 3. 代码划分更清晰
 
 面向过程
 
@@ -383,17 +471,14 @@ class 类2(object):
         pass
 ```
 
-# 为啥要继承
-
+## 为啥要继承
 ![](/images_duixiang/003.png)
 
-## 说明
+### 说明
+> 1. 能够提升代码的重用率，即开发一个类，可以在多个子功能中直接使用
+> 2. 继承能够有效的进行代码的管理，当某个类有问题只要修改这个类就行，而其继承这个类的子类往往不需要就修改
 
->   1.  能够提升代码的重用率，即开发一个类，可以在多个子功能中直接使用
->   2.  继承能够有效的进行代码的管理，当某个类有问题只要修改这个类就行，而其继承这个类的子类往往不需要就修改
-
-# 怎样理解多态
-
+## 怎样理解多态
 ```python
 class MiniOS(object):
     """MiniOS 操作系统类 """
@@ -450,7 +535,6 @@ print(linux)
 ```
 
 运行结果
-
 ```
 Linux 安装的软件列表为 []
 将 PyCharm [1.0] 的执行程序复制到程序目录...
@@ -461,9 +545,8 @@ Linux 安装的软件列表为 ['PyCharm', 'Chrome']
 ```
 
 # 多继承以及MRO顺序
-
-# 1. 单独调用父类的方法
-
+##  1. 单独调用父类的方法
+父类被调用多次
 ```python
 # coding=utf-8
 
@@ -504,7 +587,6 @@ print("******多继承使用类名.__init__ 发生的状态******\n\n")
 ```
 
 运行结果:
-
 ```
 ******多继承使用类名.__init__ 发生的状态******
 Grandson的init开始被调用
@@ -523,8 +605,8 @@ Grandson的init结束被调用
 ******多继承使用类名.__init__ 发生的状态******
 ```
 
-# 2. 多继承中super调用有所父类的被重写的方法
-
+## 2. 多继承中super调用有所父类的被重写的方法
+使用super方法父类被调用一次
 ```python
 print("******多继承使用super().__init__ 发生的状态******")
 class Parent(object):
@@ -555,8 +637,16 @@ class Grandson(Son1, Son2):
         # super(Grandson, self).__init__(name, age, gender)
         super().__init__(name, age, gender)
         print('Grandson的init结束被调用')
+"""
+# 以下两种写法结果是一样的
+super(Grandson, self).__init__(name, age, gender) # 调用指定类的下一个类
+super().__init__(name, age, gender) # 不指定类的话则默认是当前使用的类的下一个类
 
-print(Grandson.__mro__)
+# 指定类的调用
+super(Son2, self).__init__(name, age, gender) # 指定Son1类的下一个类调用，也就是Son2类
+"""
+        
+print(Grandson.__mro__) # 输出一个元组，父类调用的顺序 # python解释器的C3算法计算出来的结果
 
 gs = Grandson('grandson', 12, '男')
 print('姓名：', gs.name)
@@ -566,8 +656,7 @@ print("******多继承使用super().__init__ 发生的状态******\n\n")
 ```
 
 运行结果：
-
-```
+```python
 ******多继承使用super().__init__ 发生的状态******
 (<class '__main__.Grandson'>, <class '__main__.Son1'>, <class '__main__.Son2'>, <class '__main__.Parent'>, <class 'object'>)
 Grandson的init开始被调用
@@ -584,14 +673,12 @@ Grandson的init结束被调用
 ******多继承使用super().__init__ 发生的状态******
 ```
 
-# 注意：
+注意：
+> 1. 以上2个代码执行的结果不同
+> 2. 如果2个子类中都继承了父类，当在子类中通过父类名调用时，parent被执行了2次
+> 3. 如果2个子类中都继承了父类，当在子类中通过super调用时，parent被执行了1次
 
->   1.  以上2个代码执行的结果不同
->   2.  如果2个子类中都继承了父类，当在子类中通过父类名调用时，parent被执行了2次
->   3.  如果2个子类中都继承了父类，当在子类中通过super调用时，parent被执行了1次
-
-# 3. 单继承中super
-
+## 3. 单继承中super
 ```python
 print("******单继承使用super().__init__ 发生的状态******")
 class Parent(object):
@@ -613,6 +700,8 @@ class Grandson(Son1):
         super().__init__(name, age)  # 单继承不能提供全部参数
         print('Grandson的init结束被调用')
 
+print(Grandson.__mro__)
+
 gs = Grandson('grandson', 12, '男')
 print('姓名：', gs.name)
 print('年龄：', gs.age)
@@ -620,18 +709,30 @@ print('年龄：', gs.age)
 print("******单继承使用super().__init__ 发生的状态******\n\n")
 ```
 
-# 总结
+运行结果：
+```python
+******单继承使用super().__init__ 发生的状态******
+(<class '__main__.Grandson'>, <class '__main__.Son1'>, <class '__main__.Parent'>, <class 'object'>)
+Grandson的init开始被调用
+Son1的init开始被调用
+parent的init开始被调用
+parent的init结束被调用
+Son1的init结束被调用
+Grandson的init结束被调用
+姓名： grandson
+年龄： 12
+******单继承使用super().__init__ 发生的状态******
+```
 
+## 总结
 1.  super().__init__相对于类名.__init__，在单继承上用法基本无差
 2.  但在多继承上有区别，super方法能保证每个父类的方法只会执行一次，而使用类名的方法会导致方法被执行多次，具体看前面的输出结果
 3.  多继承时，使用super方法，对父类的传参数，应该是由于python中super的算法导致的原因，必须把参数全部传递，否则会报错
 4.  单继承时，使用super方法，则不能全部传递，只能传父类方法所需的参数，否则会报错
 5.  多继承时，相对于使用类名.__init__方法，要把每个父类全部写一遍, 而使用super方法，只需写一句话便执行了全部父类的方法，这也是为何多继承需要全部传参的一个原因
 
-# 小试牛刀(以下为面试题)
-
->   以下的代码的输出将是什么? 说出你的答案并解释。
-
+## 小试牛刀(以下为面试题)
+> 以下的代码的输出将是什么? 说出你的答案并解释。
 ```python
 class Parent(object):
     x = 1
@@ -650,7 +751,6 @@ print(Parent.x, Child1.x, Child2.x)
 ```
 
 答案, 以上代码的输出是：
-
 ```
 1 1 1
 1 2 1
@@ -667,12 +767,16 @@ print(Parent.x, Child1.x, Child2.x)
 
 最后，如果该值在父类中被改变（例如，我们执行语句 Parent.x = 3），这个改变会影响到任何未重写该值的子类当中的值（在这个示例中被影响的子类是 Child2）。这就是为什么第三个 print 输出是 3 2 3。
 
+自己的想法，按顺序解析
+print(Parent.x, Child1.x, Child2.x)，其中Parent.x是调用Parent类中的x属性，输出结果是1；Child1.x是输出Child1类中的x属性，本类没有的话则到父类中查找，父类Parent中有，则输出结果是1；Child2.x同理。
+Child1.x = 2相当于给Child1类添加一个类属性。
+print(Parent.x, Child1.x, Child2.x)，其中Parent.x是调用Parent类中的x属性，输出结果是1；Child1.x是输出Child1类中的x属性，本类中有这个属性则直接输出，不用到父类中查找，输出的结果是2；Child2.x还是从父类中查找，输出结果是1。
+Parent.x = 3相当于修改父类Parent中x类属性的值。
+print(Parent.x, Child1.x, Child2.x)，其中Parent.x是调用Parent类中的x属性，输出结果是3；Child1.x是输出Child1类中的x属性，本类中有这个属性则直接输出，不用到父类中查找，输出的结果是2；Child2.x还是从父类中查找，输出结果是3。
+
 # 再论静态方法和类方法
-
 ## 1. 类属性、实例属性
-
 它们在定义和使用中有所区别，而最本质的区别是内存中保存的位置不同，
-
 -   实例属性属于对象
 -   类属性属于类
 
@@ -685,34 +789,36 @@ class Province(object):
         # 实例属性
         self.name = name
 
-
 # 创建一个实例对象
 obj = Province('山东省')
 # 直接访问实例属性
 print(obj.name)
 # 直接访问类属性
 Province.country
+
+# 通过实例对象访问类属性 obj.__class__.country
+
+# Province('山东省')做如下两件事情：
+# 1. 调用__new__方法，创建对象，通俗点说是创建一个内存空间
+# 2. 调用__init__方法，对刚才申请的空间进行初始化
+
+# __class__指向类对象
 ```
 
 由上述代码可以看出【实例属性需要通过对象来访问】【类属性通过类访问】，在使用上可以看出实例属性和类属性的归属是不同的。
 
 其在内容的存储方式类似如下图：
-
 ![](/images_duixiang/004.png)
 
 由上图看出：
-
 -   类属性在内存中只保存一份
 -   实例属性在每个对象中都要保存一份
 
-## 应用场景：
-
--   通过类创建实例对象时，如果每个对象需要具有相同名字的属性，那么就使用类属性，用一份既可
+应用场景：
+- 通过类创建实例对象时，如果每个对象需要具有相同名字的属性，那么就使用类属性，用一份即可
 
 ## 2. 实例方法、静态方法和类方法
-
 方法包括：实例方法、静态方法和类方法，三种方法在内存中都归属于类，区别在于调用方式不同。
-
 -   实例方法：由对象调用；至少一个self参数；执行实例方法时，自动将调用该方法的对象赋值给self；
 -   类方法：由类调用； 至少一个cls参数；执行类方法时，自动将调用该方法的类赋值给cls；
 -   静态方法：由类调用；无默认参数；
@@ -723,21 +829,21 @@ class Foo(object):
         self.name = name
 
     def ord_func(self):
-        """ 定义实例方法，至少有一个self参数 """
+        """ 定义实例方法，至少有一个self参数，传递的是实例对象的引用 """
         # print(self.name)
+        # 实例方法可以修改实例对象的属性
         print('实例方法')
 
     @classmethod
     def class_func(cls):
-        """ 定义类方法，至少有一个cls参数 """
+        """ 定义类方法，至少有一个cls参数 ，传递的是类对象的引用"""
+        # 类方法可以修改类对象的属性
         print('类方法')
 
     @staticmethod
     def static_func():
         """ 定义静态方法 ，无默认参数"""
         print('静态方法')
-
-
 
 f = Foo("中国")
 # 调用实例方法
@@ -748,19 +854,26 @@ Foo.class_func()
 
 # 调用静态方法
 Foo.static_func()
+
+# 通过实例对象调用类方法
+f.__class__.class_func()
+
+# 通过实例对象调用静态方法
+f.__class__.static_func()
+
+# 总结
+# 1.实例对象可以调用类方法，实例方法和静态方法
+# 2.类对象可以调用类方法和静态方法，不能调用实例方法
 ```
 
 ![](/images_duixiang/005.png)
 
-## 对比
-
--   相同点：对于所有的方法而言，均属于类，所以 在内存中也只保存一份
--   不同点：方法调用者不同、调用方法时自动传入的参数不同。
+对比
+-   相同点：对于所有的方法而言，均属于类，所以在内存中也只保存一份
+-   不同点：方法调用者不同、调用方法时自动传入的参数不同
 
 # property属性
-
 ## 1. 什么是property属性
-
 一种用起来像是使用的实例属性一样的特殊属性，可以对应于某个方法
 
 ```python
@@ -769,9 +882,10 @@ class Foo:
     def func(self):
         pass
 
-    # 定义property属性
+    # 定义property属性，把实例方法装饰成一个实例属性
     @property
     def prop(self):
+        """返回一个值"""
         pass
 
 # ######## 调用 ########
@@ -782,23 +896,19 @@ foo_obj.prop  # 调用property属性
 
 ![](/images_duixiang/006.png)
 
-### property属性的定义和调用要注意一下几点：
-
+property属性的定义和调用要注意一下几点：
 -   定义时，在实例方法的基础上添加 @property 装饰器；并且仅有一个self参数
-
 -   调用时，无需括号
 
-    ```python
-      方法：foo_obj.func()
-      property属性：foo_obj.prop
-    ```
+```python
+方法：foo_obj.func()
+property属性：foo_obj.prop
+```
 
 ## 2. 简单的实例
-
->   对于京东商城中显示电脑主机的列表页面，每次请求不可能把数据库中的所有内容都显示到页面上，而是通过分页的功能局部显示，所以在向数据库中请求数据时就要显示的指定获取从第m条到第n条的所有数据 这个分页的功能包括：
->
->   -   根据用户请求的当前页和总数据条数计算出 m 和 n
->   -   根据m 和 n 去数据库中请求数据 
+> 对于京东商城中显示电脑主机的列表页面，每次请求不可能把数据库中的所有内容都显示到页面上，而是通过分页的功能局部显示，所以在向数据库中请求数据时就要显示的指定获取从第m条到第n条的所有数据 这个分页的功能包括：
+>> -  根据用户请求的当前页和总数据条数计算出 m 和 n
+>> -  根据m 和 n 去数据库中请求数据 
 
 ```python
 # ######## 定义 ########
@@ -825,43 +935,41 @@ p.start  # 就是起始值，即：m
 p.end  # 就是结束值，即：n
 ```
 
-## 从上述可见
-
+从上述可见
 -   Python的property属性的功能是：property属性内部进行一系列的逻辑计算，最终将计算结果返回。
 
 ## 3. property属性的有两种方式
+- 装饰器 即：在方法上应用装饰器
+- 类属性 即：在类中定义值为property对象的类属性
 
--   装饰器 即：在方法上应用装饰器
--   类属性 即：在类中定义值为property对象的类属性
-
-## 3.1 装饰器方式
+### 3.1 装饰器方式
 
 在类的实例方法上应用@property装饰器
 
 Python中的类有`经典类`和`新式类`，`新式类`的属性比`经典类`的属性丰富。（ 如果类继object，那么该类是新式类 ）
 
-## 经典类，具有一种@property装饰器
-
+#### 3.1.1经典类，具有一种@property装饰器
 ```python
-# ######## 定义 ########    
+########## 定义 ########    
 class Goods:
+    
     @property
     def price(self):
         return "laowang"
-# ######## 调用 ########
+
+########## 调用 ########
 obj = Goods()
 result = obj.price  # 自动执行 @property 修饰的 price 方法，并获取方法的返回值
 print(result)
 ```
 
-## 新式类，具有三种@property装饰器
-
+####  3.1.2 新式类，具有三种@property装饰器
 ```python
 #coding=utf-8
 # ######## 定义 ########
 class Goods:
     """python3中默认继承object类
-        以python2、3执行此程序的结果不同，因为只有在python3中才有@xxx.setter  @xxx.deleter
+       以python2、3执行此程序的结果不同，因为只有在python3中才有@xxx.setter  @xxx.deleter
     """
     @property
     def price(self):
@@ -882,10 +990,9 @@ obj.price = 123    # 自动执行 @price.setter 修饰的 price 方法，并将 
 del obj.price      # 自动执行 @price.deleter 修饰的 price 方法
 ```
 
-## 注意
-
--   经典类中的属性只有一种访问方式，其对应被 @property 修饰的方法
--   新式类中的属性有三种访问方式，并分别对应了三个被@property、@方法名.setter、@方法名.deleter修饰的方法
+注意
+- 经典类中的属性只有一种访问方式，其对应被 @property 修饰的方法
+- 新式类中的属性有三种访问方式，并分别对应了三个被@property、@方法名.setter、@方法名.deleter修饰的方法
 
 由于新式类中具有三种访问方式，我们可以根据它们几个属性的访问特点，分别将三个方法定义为对同一个属性：获取、修改、删除
 
@@ -918,10 +1025,8 @@ obj.price = 200   # 修改商品原价
 del obj.price     # 删除商品原价
 ```
 
-## 3.2 类属性方式，创建值为property对象的类属性
-
--   当使用类属性的方式创建property属性时，`经典类`和`新式类`无区别
-
+### 3.2 类属性方式
+- 当使用类属性的方式创建property属性时，`经典类`和`新式类`无区别
 ```python
 class Foo:
     def get_bar(self):
@@ -935,7 +1040,6 @@ print(reuslt)
 ```
 
 property方法中有个四个参数
-
 -   第一个参数是方法名，调用 对象.属性 时自动触发执行方法
 -   第二个参数是方法名，调用 对象.属性 ＝ XXX 时自动触发执行方法
 -   第三个参数是方法名，调用 del 对象.属性 时自动触发执行方法
@@ -999,7 +1103,6 @@ del obj.PRICE     # 删除商品原价
 ```
 
 ## 4. Django框架中应用了property属性（了解）
-
 WEB框架 Django 的视图中 request.POST 就是使用的类属性的方式创建的属性
 
 ```python
@@ -1080,15 +1183,13 @@ class WSGIRequest(http.HttpRequest):
     REQUEST = property(_get_request)
 ```
 
-## 综上所述:
+## 5. 总结
 
--   定义property属性共有两种方式，分别是【装饰器】和【类属性】，而【装饰器】方式针对经典类和新式类又有所不同。
--   通过使用property属性，能够简化调用者在获取数据的流程
+- 定义property属性共有两种方式，分别是【装饰器】和【类属性】，而【装饰器】方式针对经典类和新式类又有所不同。
+- 通过使用property属性，能够简化调用者在获取数据的流程
 
 # property属性-应用
-
 ## 1. 私有属性添加getter和setter方法
-
 ```python
 class Money(object):
     def __init__(self):
@@ -1105,7 +1206,6 @@ class Money(object):
 ```
 
 ## 2. 使用property升级getter和setter方法
-
 ```python
 class Money(object):
     def __init__(self):
@@ -1130,9 +1230,7 @@ print(a.money)  # 调用getMoney方法
 ```
 
 ## 3. 使用property取代getter和setter方法
-
--   重新实现一个属性的设置和读取方法,可做边界判定
-
+- 重新实现一个属性的设置和读取方法,可做边界判定
 ```python
 class Money(object):
     def __init__(self):
@@ -1157,13 +1255,10 @@ print(a.money)
 ```
 
 # 魔法属性
-
 无论人或事物往往都有不按套路出牌的情况，Python的类属性也是如此，存在着一些具有特殊含义的属性，详情如下：
 
-## 1. __doc__
-
--   表示类的描述信息
-
+## 1. `__doc__`
+- 表示类的描述信息
 ```python
 class Foo:
     """ 描述类信息，这是用于看片的神奇 """
@@ -1174,11 +1269,9 @@ print(Foo.__doc__)
 #输出：类的描述信息
 ```
 
-## 2. __module__ 和  __class__
-
--   __module__ 表示当前操作的对象在那个模块
--   __class__ 表示当前操作的对象的类是什么
-
+## 2. `__module__` 和  `__class__`
+- `__module__` 表示当前操作的对象在那个模块
+- `__class__` 表示当前操作的对象的类是什么
 ```
 test.py
 # -*- coding:utf-8 -*-
@@ -1194,10 +1287,8 @@ print(obj.__module__)  # 输出 test 即：输出模块
 print(obj.__class__)  # 输出 test.Person 即：输出类
 ```
 
-## 3. __init__
-
--   初始化方法，通过类创建对象时，自动触发执行
-
+## 3. `__init__`
+- 初始化方法，通过类创建对象时，自动触发执行
 ```python
 class Person:
     def __init__(self, name):
@@ -1208,23 +1299,18 @@ class Person:
 obj = Person('laowang')  # 自动执行类中的 __init__ 方法
 ```
 
-## 4. __del__
-
--   当对象在内存中被释放时，自动触发执行。
-
+## 4. `__del__`
+- 当对象在内存中被释放时，自动触发执行。
 注：此方法一般无须定义，因为Python是一门高级语言，程序员在使用时无需关心内存的分配和释放，因为此工作都是交给Python解释器来执行，所以，__del__的调用是由解释器在进行垃圾回收时自动触发执行的。
-
 ```python
 class Foo:
     def __del__(self):
         pass
 ```
 
-## 5. __call__
-
--   对象后面加括号，触发执行。
-
-注：__init__方法的执行是由创建对象触发的，即：`对象 = 类名()` ；而对于 __call__ 方法的执行是由对象后加括号触发的，即：`对象()` 或者 `类()()`
+## 5. `__call__`
+- 对象后面加括号，触发执行。
+注：`__init__`方法的执行是由创建对象触发的，即：`对象 = 类名()` ；而对于` __call__ `方法的执行是由对象后加括号触发的，即：`对象()` 或者 `类()()`
 
 ```python
 class Foo:
@@ -1239,10 +1325,8 @@ obj = Foo()  # 执行 __init__
 obj()  # 执行 __call__
 ```
 
-## 6. __dict__
-
--   类或对象中的所有属性
-
+## 6. `__dict__`
+- 类或对象中的所有属性
 类的实例属性属于对象；类中的类属性和方法等属于类，即：
 
 ```python
@@ -1271,10 +1355,8 @@ print(obj2.__dict__)
 # 输出：{'count': 20000, 'name': '山西'}
 ```
 
-## 7. __str__
-
--   如果一个类中定义了__str__方法，那么在打印 对象 时，默认输出该方法的返回值。
-
+## 7. `__str__`
+- 如果一个类中定义了`__str__`方法，那么在打印 对象 时，默认输出该方法的返回值。
 ```python
 class Foo:
     def __str__(self):
@@ -1286,10 +1368,8 @@ print(obj)
 # 输出：laowang
 ```
 
-## 8、__getitem__、__setitem__、__delitem__
-
--   用于索引操作，如字典。以上分别表示获取、设置、删除数据
-
+## 8、`__getitem__`、`__setitem__`、`__delitem__`
+- 用于索引操作，如字典。以上分别表示获取、设置、删除数据
 ```python
 # -*- coding:utf-8 -*-
 
@@ -1312,10 +1392,8 @@ obj['k2'] = 'laowang'   # 自动触发执行 __setitem__
 del obj['k1']           # 自动触发执行 __delitem__
 ```
 
-## 9、__getslice__、__setslice__、__delslice__
-
--   该三个方法用于分片操作，如：列表
-
+## 9、`__getslice__`、`__setslice__`、`__delslice__`
+- 该三个方法用于分片操作，如：列表
 ```python
 # -*- coding:utf-8 -*-
 
@@ -1338,15 +1416,12 @@ del obj[0:2]                # 自动触发执行 __delslice__
 ```
 
 # 面向对象设计
-
--   继承 - 是基于Python中的属性查找(如X.name)
--   多态 - 在X.method方法中，method的意义取决于X的类型
--   封装 - 方法和运算符实现行为，数据隐藏默认是一种惯例
+- 继承 - 是基于Python中的属性查找(如X.name)
+- 多态 - 在X.method方法中，method的意义取决于X的类型
+- 封装 - 方法和运算符实现行为，数据隐藏默认是一种惯例
 
 ## 参考实例
-
 腾讯即时通信模块,初级封装
-
 ```python
 #! /usr/bin/env python
 # coding: utf-8
@@ -1973,7 +2048,7 @@ class WechatConf(object):
 
 # with与“上下文管理器”
 
-如果你有阅读源码的习惯，可能会看到一些优秀的代码经常出现带有 “with” 关键字的语句，它通常用在什么场景呢？今
+如果你有阅读源码的习惯，可能会看到一些优秀的代码经常出现带有 “with” 关键字的语句，它通常用在什么场景呢？
 
 对于系统资源如文件、数据库连接、socket 而言，应用程序打开这些资源并执行完业务逻辑之后，必须做的一件事就是要关闭（断开）该资源。
 
@@ -1983,8 +2058,7 @@ class WechatConf(object):
 
 来看看如何正确关闭一个文件。
 
-## 普通版：
-
+## 1. 普通版
 ```python
 def m1():
     f = open("output.txt", "w")
@@ -1994,8 +2068,7 @@ def m1():
 
 这样写有一个潜在的问题，如果在调用 write 的过程中，出现了异常进而导致后续代码无法继续执行，close 方法无法被正常调用，因此资源就会一直被该程序占用者释放。那么该如何改进代码呢？
 
-## 进阶版：
-
+## 2. 进阶版
 ```python
 def m2():
     f = open("output.txt", "w")
@@ -2009,8 +2082,7 @@ def m2():
 
 改良版本的程序是对可能发生异常的代码处进行 try 捕获，使用 try/finally 语句，该语句表示如果在 try  代码块中程序出现了异常，后续代码就不再执行，而直接跳转到 except 代码块。而无论如何，finally 块的代码最终都会被执行。因此，只要把  close 放在 finally 代码中，文件就一定会关闭。
 
-## 高级版：
-
+## 3. 高级版
 ```python
 def m3():
     with open("output.txt", "r") as f:
@@ -2036,10 +2108,9 @@ def m3():
 >   看这些都是上下文的典型例子，理解成环境就可以，(而且上下文虽然叫上下文，但是程序里面一般都只有上文而已，只是叫的好听叫上下文。。进程中断在操作系统中是有上有下的，不过不这个高深的问题就不要深究了。。。)
 
 ## 上下文管理器
+任何实现了 `__enter__()` 和 `__exit__()` 方法的对象都可称之为上下文管理器，上下文管理器对象可以使用 with 关键字。显然，文件（file）对象也实现了上下文管理器。
 
-任何实现了 __enter__() 和 __exit__() 方法的对象都可称之为上下文管理器，上下文管理器对象可以使用 with 关键字。显然，文件（file）对象也实现了上下文管理器。
-
-那么文件对象是如何实现这两个方法的呢？我们可以模拟实现一个自己的文件类，让该类实现 __enter__() 和 __exit__() 方法。
+那么文件对象是如何实现这两个方法的呢？我们可以模拟实现一个自己的文件类，让该类实现 `__enter__()` 和 `__exit__()` 方法。
 
 ```python
 class File():
@@ -2058,7 +2129,7 @@ class File():
         self.f.close()
 ```
 
-__enter__() 方法返回资源对象，这里就是你将要打开的那个文件对象，__exit__() 方法处理一些清除工作。
+`__enter__()` 方法返回资源对象，这里就是你将要打开的那个文件对象，`__exit__()` 方法处理一些清除工作。
 
 因为 File 类实现了上下文管理器，现在就可以使用 with 语句了。
 
@@ -2085,12 +2156,126 @@ def my_open(path, mode):
 ```
 
 调用
-
-```
+```python
 with my_open('out.txt', 'w') as f:
     f.write("hello , the simplest context manager")
 ```
 
 ## 总结
-
 Python 提供了 with 语法用于简化资源操作的后续清除操作，是 try/finally 的替代方法，实现原理建立在上下文管理器之上。此外，Python 还提供了一个 contextmanager 装饰器，更进一步简化上下管理器的实现方式。
+
+# ※args、※※kwargs的另外用处拆包
+```python
+def test1(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+
+test1(11,22,33,44,55,name='haha',age=34)
+'''
+输出结果
+11
+22
+(33, 44, 55)
+{'name': 'haha', 'age': 34}
+'''
+```
+
+```python
+def test2(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+
+
+def test1(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+    print('---' * 10)
+    test2(a,b)
+
+test1(11,22,33,44,55,name='haha',age=34)
+'''
+11
+22
+(33, 44, 55)
+{'name': 'haha', 'age': 34}
+`------------------------------`
+11
+22
+()
+{}
+'''
+```
+
+```python
+def test2(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+
+
+def test1(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+    print('---' * 10)
+    test2(a,b,args,kwargs) # 相当于test2(11,22,(33, 44, 55),{'name': 'haha', 'age': 34})
+    # 注意这样写的结果如下：((33, 44, 55), {'name': 'haha', 'age': 34})
+    # 为什么会是这样的一个结果呢？
+    # 是因为在函数test1中，args和kwargs已经是一个变量值了，然后传递给test2函数，被*args接收过去。
+
+test1(11,22,33,44,55,name='haha',age=34)
+'''
+11
+22
+(33, 44, 55)
+{'name': 'haha', 'age': 34}
+`------------------------------`
+11
+22
+((33, 44, 55), {'name': 'haha', 'age': 34})
+{}
+'''
+```
+
+```python
+def test2(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+
+
+def test1(a,b,*args,**kwargs):
+    print(a)
+    print(b)
+    print(args) # 以元组形式输出结果
+    print(kwargs) # 以字典形式输出结果
+    print('---' * 10)
+    # test2(a,b,args,kwargs)  # 相当于test2(11,22,(33, 44, 55),{'name': 'haha', 'age': 34})
+    # test2(a,b,*args,kwargs) # 相当于test2(11,22,33,44,55,{'name': 'haha', 'age': 34})
+    test2(a,b,*args,**kwargs) # 注意这样的写法，相当于test2(11,22,33,44,55,name='haha',age=34)
+    # 结果是：
+    # (33, 44, 55)
+    # {'name': 'haha', 'age': 34}
+
+test1(11,22,33,44,55,name='haha',age=34)
+'''
+11
+22
+(33, 44, 55)
+{'name': 'haha', 'age': 34}
+`------------------------------`
+11
+22
+(33, 44, 55)
+{'name': 'haha', 'age': 34}
+'''
+```
