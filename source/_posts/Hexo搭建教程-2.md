@@ -2,7 +2,7 @@
 title: Hexo搭建教程(2)
 date: {{ date }}
 tags: 
-  - hexo
+- hexo
 categories: 
 - hexo 
 top: 
