@@ -247,9 +247,91 @@ echo "${messages}" | mail -s "${subject}" $1 >>/tmp/sendmail.log 2>&1
 ## 10. 问题
 
 1. 需要先配置好监控主机，尤其是监控项：Agent ping，不然触发动作和测试报警都需要根据实际情况而定
-2. 问题待定
-在web界面看到报警邮件已送达，但是邮箱里并没有收到邮件，垃圾箱中也没有。但是文件/var/spool/mail/root中有相应的报错信息，暂时不知道如何处理。
-解决办法：因为被收件邮箱给拦截了，需要添加发件人白名单才能收到邮件：
-zabbix@localhost.localdomain和zabbix@127.0.0.1 
 
+# 若zabbix部署在阿里云主机上的问题处理
+
+因为阿里云主机默认屏蔽25端口，经测试可以使用ssl的465端口，所以此时采用第二种方法。但是就算使用第二种方法也得做一些其他额外的操作，否则zabbix上提示邮件已送达，但是邮箱收不到邮件。
+
+这个额外的办法就是使用465端口来发邮件需要使得ssl证书认证。
+
+## 1. 关闭其它邮件工具
+```bash
+[root@localhost ~]# systemctl stop sendmail.service
+[root@localhost ~]# systemctl stop postfix.service
+```
+
+## 2. 安装mailx
+```bash
+[root@localhost ~]# yum install mailx
+```
+
+## 3. 注册使用阿里云企业邮箱
+该步骤实现完成，接下来的步骤都是使用该邮箱作为发件箱
+
+## 4. 请求数字证书
+因为使用的发件箱是阿里云的企业邮箱，所以向阿里云请求证书，其他步骤操作类似。
+
+```bash
+[root@localhost ~]# mkdir .certs
+[root@localhost ~]# echo -n | openssl s_client -connect smtp.mxhichina.com:465 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /root/.certs/aliyun.crt
+[root@localhost ~]# certutil -A -n "GeoTrust SSL CA" -t "C,," -d /root/.certs -i /root/.certs/aliyun.crt
+[root@localhost ~]# certutil -A -n "GeoTrust Global CA" -t "C,," -d /root/.certs -i /root/.certs/aliyun.crt
+[root@localhost ~]# certutil -A -n "GeoTrust SSL CA - G3" -t "Pu,Pu,Pu" -d /root/.certs/./ -i /root/.certs/aliyun.crt
+Notice: Trust flag u is set automatically if the private key is present.
+[root@localhost ~]# ls /root/.certs/
+aliyun.crt  cert8.db  key3.db  secmod.db
+[root@localhost ~]# certutil -L -d /root/.certs
+
+Certificate Nickname                                         Trust Attributes
+                                                             SSL,S/MIME,JAR/XPI
+
+GeoTrust SSL CA                                              P,P,P
+```
+
+## 5. 配置/etc/mail.rc
+```bash
+set sendcharsets=iso-8859-1,utf-8
+set from=alram@lrcq.com.cn
+set smtp="smtps://smtp.mxhichina.com:465"
+set smtp-auth-user=alram@lrcq.com.cn
+set smtp-auth-password=xxxxxxxxxxx
+set smtp-auth=login
+set ssl-verify=ignore
+set nss-config-dir=/root/.certs
+```
+
+## 6. 发送邮件测试
+```bash
+[root@localhost ~]# echo "邮件正文" | mail -s "邮件主题" 1103324414@qq.com
+```
+
+## 7. 证书权限处理
+这个证书文件是给zabbix用户使用的，如果是在/root/.certs目录下，zabbix用户无法访问，发送邮件时会出现：Error initializing NSS: Unknown error -8015.
+此时需要把证书移动到zabbix用户可以访问你的地方，比如移动到/etc/zabbix/目录下
+```bash
+[root@localhost ~]# mv /root/.certs /etc/zabbix/.
+# 修改/etc/mail.rc文件中的证书路径
+[root@localhost ~]# vim /etc/mail.rc
+set nss-config-dir=/etc/zabbix/.certs
+```
+
+## 8. 其他操作
+1. 管理，报警媒介类型，创建媒介类型
+
+![](/zabbix_email/01.png)
+
+2. 配置，用户，点击“Admin”，报警媒介，添加
+多次添加则可以添加多个收件人
+
+![](/zabbix_email/02.png)
+
+3. 配置，动作，创建动作
+
+![](/zabbix_email/03.png)
+
+![](/zabbix_email/04.png)
+
+![](/zabbix_email/05.png)
+
+![](/zabbix_email/06.png)
 
