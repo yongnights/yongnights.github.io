@@ -20,7 +20,7 @@ categories:
 <escape><!-- more --></escape>
 
 #### 开始安装
-	# cd /usr/local/src/Python-Python-3.7.1
+	# cd /usr/local/src/Python-3.7.1
 	# ./configure --prefix=/usr/local/python3
 	# make && make install
 	说明：从 Python 3.4 开始就已经自带了 pip 和 easy_install（setuptools 包带的命令） 包管理命令，可以在 /usr/local/python3/bin/ 目录下看到，查看一下已经安装的扩展包：
@@ -32,8 +32,8 @@ categories:
 	更新pip
 	#/usr/local/python3/bin/pip3 install --upgrade pip
 #### 添加软连接
-	#ln -s /usr/local/python/python3/bin/python3 /usr/bin/python3
-	#ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+	# ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+	# ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
 #### 验证
 	# python3 -V
 	# pip3 list
