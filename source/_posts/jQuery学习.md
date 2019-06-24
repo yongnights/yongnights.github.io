@@ -2659,3 +2659,500 @@ $(function(){
 <input type="text" name="" id="txt01">
 <ul class="list"></ul>
 ```
+# 19. 本地存储
+
+本地存储分为cookie，以及新增的localStorage和sessionStorage
+
+1、cookie 存储在本地，容量最大4k，在同源的http请求时携带传递，损耗带宽，可设置访问路径，只有此路径及此路径的子路径才能访问此cookie，在设置的过期时间之前有效。
+
+```js
+// jquery 设置cookie
+$.cookie('mycookie','123',{expires:7,path:'/'});
+// jquery 获取cookie
+$.cookie('mycookie');
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript">
+
+		// 设置cookie 过期时间为7天，存在网站根目录下
+		//$.cookie('mycookie','ok!',{expires:7,path:'/'});
+
+		//读取cookie
+		var mycookie = $.cookie('mycookie');
+		alert(mycookie);
+	</script>
+</head>
+<body>
+	<h1>测试页面</h1>
+</body>
+</html>
+
+```
+
+ **课堂实例** 
+只提示一次的弹框 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hasread = $.cookie('hasread');
+            //alert(hasread);
+
+            // 判断是否存了cookie，没有就弹出弹框
+            if (hasread == undefined) {
+                $('.pop_con').show();
+            }
+
+            //用户点击知道后，存cookie，把弹框关掉
+            $('#user_read').click(function () {
+                $.cookie('hasread', 'read', {expires: 7, path: '/'});
+                $('.pop_con').hide();
+            })
+        })
+
+    </script>
+
+    <style type="text/css">
+        .pop_con {
+            display: none;
+        }
+        .pop {
+            position: fixed;
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border: 3px solid #000;
+            left: 50%;
+            top: 50%;
+            margin-left: -250px;
+            margin-top: -150px;
+            z-index: 9999;
+        }
+        .mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+            left: 0;
+            top: 0;
+            z-index: 9990;
+
+        }
+        .close {
+            float: right;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="pop_con">
+    <div class="pop">
+        亲！本网站最近有优惠活动！请强力关注！
+        <a href="#" id="close" class="close">×</a>
+
+        <a href="javascript:;" id="user_read">朕知道了！</a>
+    </div>
+    <div class="mask"></div>
+</div>
+
+<h1>网站内容</h1>
+</body>
+</html>
+```
+
+
+2、localStorage 存储在本地，容量为5M或者更大，不会在请求时候携带传递，在所有同源窗口中共享，数据一直有效，除非人为删除，可作为长期数据。
+
+```
+//设置：
+localStorage.setItem("dat", "456");
+localStorage.dat = '456';
+
+//获取：
+localStorage.getItem("dat");
+localStorage.dat
+
+//删除
+localStorage.removeItem("dat");
+```
+
+3、sessionStorage 存储在本地，容量为5M或者更大，不会在请求时候携带传递，在同源的当前窗口关闭前有效。
+
+localStorage 和 sessionStorage 合称为Web Storage , Web Storage支持事件通知机制，可以将数据更新的通知监听者，Web Storage的api接口使用更方便。
+
+iPhone的无痕浏览不支持Web Storage，只能用cookie。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+        // 不用加载jQuery文件
+
+        //设置：
+        localStorage.setItem("dat", "456");
+        localStorage.dat = '456';
+
+        //获取：
+        localStorage.getItem("dat");
+        localStorage.dat
+
+        //删除
+        localStorage.removeItem("dat");
+    </script>
+</head>
+<body>
+<h1>测试webstorage</h1>
+</body>
+</html>
+```
+
+# 20. jqueryUI
+
+jQuery UI是以 jQuery 为基础的代码库。包含底层用户交互、动画、特效和可更换主题的可视控件。我们可以直接用它来构建具有很好交互性的web应用程序。
+
+ **jqueryUI 网址** 
+<http://jqueryui.com/>
+
+ **课堂实例** 
+
+## 1、设置数值的滑动条
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>drag</title>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.dragbar').draggable({
+                // 限制在X轴方向拖动
+                axis: 'x',
+                // 限定在父级的范围内拖动
+                containment: 'parent',
+                //containment:[0,0,600,0]
+
+                //设置拖动时候的透明度
+                opacity: 0.6,
+
+                drag: function (ev, ui) {
+                    //console.log(ui.position.left);
+                    //获取拖动的距离
+                    var nowleft = ui.position.left;
+                    $('.progress').css({width: nowleft});
+                    $('.slide_count').val(parseInt(nowleft * 100 / 570));
+                }
+            });
+        })
+    </script>
+    <style type="text/css">
+        .slidebar_con {
+            width: 650px;
+            height: 32px;
+            margin: 50px auto 0;
+        }
+        .slidebar {
+            width: 600px;
+            height: 30px;
+            border: 1px solid #ccc;
+            float: left;
+            position: relative;
+        }
+        .slidebar .dragbar {
+            width: 30px;
+            height: 30px;
+            background-color: gold;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .slidebar .progress {
+            width: 0px;
+            height: 30px;
+            background-color: #f0f0f0;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .slide_count {
+            padding: 0;
+            float: right;
+            width: 40px;
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="slidebar_con">
+    <div class="slidebar">
+        <div class="progress"></div>
+        <div class="dragbar"></div>
+    </div>
+    <input type="text" name="" value="0" class="slide_count">
+</div>
+</body>
+</html>
+```
+## 2 、自定义滚动条
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义滚动条</title>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var h = $('.paragraph').outerHeight();
+            //整体文本的高度减去外面容器的高度
+            var hide = h - 500;
+            $('.scroll_bar').draggable({
+                axis: 'y',
+                containment: 'parent',
+                opacity: 0.6,
+                drag: function (ev, ui) {
+                    var nowtop = ui.position.top;
+                    var nowscroll = parseInt(nowtop / 290 * hide);
+                    $('.paragraph').css({top: -nowscroll});
+                }
+            });
+        })
+
+    </script>
+    <style type="text/css">
+        .scroll_con {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin: 50px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .paragraph {
+            width: 360px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: 'Microsoft Yahei';
+            line-height: 32px;
+            text-indent: 2em;
+        }
+        .scroll_bar_con {
+            width: 10px;
+            height: 490px;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+        .scroll_bar {
+            width: 10px;
+            height: 200px;
+            background-color: #ccc;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll_con">
+        <div class="paragraph">
+            掌握HTML是网页的核心，是一种制作万维网页面的标准语言，是万维网浏览器使用的一种语言，它消除了不同计算机之间信息交流的障碍。因此，它是目前网络上应用最为广泛的语言，也是构成网页文档的主要语言，学好HTML是成为Web开发人员的基本条件。
+            学好CSS是网页外观的重要一点，CSS可以帮助把网页外观做得更加美观。
+            学习JavaScript的基本语法，以及如何使用JavaScript编程将会提高开发人员的个人技能。
+            了解Unix和Linux的基本知识虽然这两点很基础，但是开发人员了解Unix和Linux的基本知识是有益无害的。
+            了解Web服务器当你对Apache的基本配置，htaccess配置技巧有一些掌握的话，将来必定受益，而且这方面的知识学起来也相对容易。
+        </div>
+        <div class="scroll_bar_con">
+            <div class="scroll_bar">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## 3、 拖拽
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.box').draggable({
+				// 限制在x轴向拖动
+				//axis:'x',
+				// 限定在父级的范围内拖动
+				containment:'parent',
+				drag:function(ev,ui){
+					//console.log(ui);
+					//document.title = ui.position.left;
+					$('#shownumber').val(parseInt(100*(ui.position.left/600)))
+				}
+			});
+		})
+	</script>
+	<style type="text/css">
+		.con{
+			width:800px;
+			height:200px;
+			border:1px solid #000;
+			margin:50px auto 0;
+		}
+		.box{
+			width:200px;
+			height:200px;
+			background-color: gold;
+		}
+	</style>
+</head>
+<body>
+	<div class="con">
+		<div class="box"></div>
+	</div>
+	<input type="text" name="" id="shownumber">
+</body>
+</html>
+```
+
+# 21. 移动端js事件
+
+移动端的操作方式和PC端是不同的，移动端主要用手指操作，所以有特殊的touch事件，touch事件包括如下几个事件：
+
+1、touchstart:     //手指放到屏幕上时触发
+2、touchmove:      //手指在屏幕上滑动式触发
+3、touchend:    //手指离开屏幕时触发
+4、touchcancel:     //系统取消touch事件的时候触发，比较少用  
+
+移动端一般有三种操作，点击、滑动、拖动，这三种操作一般是组合使用上面的几个事件来完成的，所有上面的4个事件一般很少单独使用，一般是封装使用来实现这三种操作，可以使用封装成熟的js库。
+
+
+# 22. zeptojs
+
+Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 如果你会用jquery，那么你也会用zepto。Zepto的一些可选功能是专门针对移动端浏览器的；它的最初目标是在移动端提供一个精简的类似jquery的js库。
+
+zepto官网：http://zeptojs.com/
+zepto中文api：http://www.css88.com/doc/zeptojs_api/
+zepto包含很多模块，默认下载版本包含的模块有Core, Ajax, Event, Form, IE模块，如果还需要其他的模块，可以自定义构建。
+zepto自定义构建地址：http://github.e-sites.nl/zeptobuilder/
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			alert( $('#div1').html() );
+		})
+	</script>
+</head>
+<body>
+	<div id="div1">这是一个div元素</div>
+</body>
+</html>
+```
+
+# 23. swiper
+
+swiper.js是一款成熟稳定的应用于PC端和移动端的滑动效果插件，一般用来触屏焦点图、触屏整屏滚动等效果。 swiper分为2.x版本和3.x版本，2.x版本支持低版本浏览器(IE7)，3.x放弃支持低版本浏览器，适合应用在移动端。
+
+2.x版本中文网址：<http://2.swiper.com.cn/>
+3.x版本中文网地址：<http://www.swiper.com.cn/>
+
+## 1. swiper使用方法
+
+```html
+<script type="text/javascript" src="js/swiper.min.js"></script>
+
+<!--
+  如果页面引用了jquery或者zepto，就引用 swiper.jquery.min.js,它的容量比swiper.min.js
+
+  <script src="path/to/swiper.jquery.min.js"></script>
+-->
+
+......
+
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+......
+
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">slider1</div>
+    <div class="swiper-slide">slider2</div>
+    <div class="swiper-slide">slider3</div>
+  </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
+<script> 
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+  prevButton: '.swiper-button-prev',
+  nextButton: '.swiper-button-next',
+    initialSlide :1,
+  paginationClickable: true,
+  loop: true,
+  autoplay:3000,
+  autoplayDisableOnInteraction:false
+});
+</script>
+```
+
+## 2.  swiper使用参数
+
+1、initialSlide：初始索引值，从0开始
+2、direction：滑动方向 horizontal | vertical
+3、speed：滑动速度，单位ms
+4、autoplay：设置自动播放及播放时间
+5、autoplayDisableOnInteraction：用户操作swipe后是否还自动播放，默认是true，不再自动播放
+6、pagination：分页圆点
+7、paginationClickable：分页圆点是否点击
+8、prevButton：上一页箭头
+9、nextButton：下一页箭头
+10、loop：是否首尾衔接 
+
+### swiper制作实例
+
+swiper制作移动端焦点图实例
