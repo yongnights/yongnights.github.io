@@ -1284,3 +1284,1378 @@ $(window).scroll(function(){
 </body>
 </html>
 ```
+
+# 10. jquery属性操作
+
+## 10.1 html() 取出或设置html内容
+```js
+// 取出html内容
+var $htm = $('#div1').html();
+
+// 设置html内容
+$('#div1').html('<span>添加文字</span>');
+```
+
+## 10.2 prop() 取出或设置某个属性的值
+```js
+// 取出图片的绝对地址地址
+var $src = $('#img1').prop('src');
+
+// 设置图片的地址和alt属性
+$('#img1').prop({src: "test.jpg", alt: "Test Image" });
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			var $a = $('.link');
+			var $img = $('#img01');
+			var $div = $('#div1');
+
+			// 读取class属性值
+			console.log( $a.prop('class')); // link
+
+			// 没有设置的属性读取为空
+			console.log($a.prop('title'));
+
+			// 获取是图片的绝对地址
+			console.log($img.prop('src'));
+			//alert($img.prop('src'));
+
+			// 设置属性
+			$a.prop({'href':'http://www.baidu.com','title':'百度网链接'});
+
+			//console.log($a.prop('title'));
+
+			//读取标签内包含的内容
+			console.log($a.html());
+             // 写入标签的内容，会代替原来的内容
+			$div.html('<span>div里面的span元素</span>'); // <span>div里面的span元素</span>
+		})
+	</script>
+</head>
+<body>
+	<a href="#" class="link">这是一个链接</a>
+	<img src="images/002.jpg" id="img01" alt="水果">
+	<div id="div1"></div>
+</body>
+</html>
+```
+# 11. jquery循环
+
+对jquery选择的对象集合分别进行操作，需要用到jquery循环操作，此时可以用对象上的each方法
+
+```js
+$(function () {
+    $('.list li').each(function (i) {
+        alert(i); // 弹出li标签里面的值
+        // alert($(this).index()); // 弹出li标签里面的值的索引
+        // alert($(this).html(i)); // 弹出object对象
+    });
+});
+......
+<ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+```
+
+## 11.1 手风琴练习
+```html
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $li = $('#accordion li');
+            $li.click(function () {
+                //alert($(this).html());
+                $(this).animate({'left': 21 * $(this).index()});
+                //点击的li前面的li向左运动到各自的位置
+                $(this).prevAll().each(function () {
+                    //这里的$(this)指的是循环选择的每个li
+                    $(this).animate({'left': 21 * $(this).index()});
+
+                });
+                //   第5个li在右边的left值   727-21*1 等同于 727-21*(5-$(this).index())
+                //   第4个li在右边的left值   727-21*2 等同于 727-21*(5-$(this).index())
+                //   第3个li在右边的left值   727-21*3 等同于 727-21*(5-$(this).index())
+                $(this).nextAll().each(function () {
+                    $(this).animate({'left': 727 - 21 * (5 - $(this).index())});
+                });
+            })
+        })
+
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-size: 12px;
+        }
+        #accordion {
+            width: 727px;
+            height: 350px;
+            margin: 100px auto 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #CCC;
+        }
+        #accordion ul {
+            list-style: none;
+        }
+        #accordion ul li {
+            width: 643px;
+            height: 350px;
+            position: absolute;
+            background: #FFF;
+        }
+        #accordion ul li span {
+            display: block;
+            width: 20px;
+            height: 350px;
+            float: left;
+            text-align: center;
+            color: #FFF;
+            padding-top: 5px;
+            cursor: pointer;
+        }
+        #accordion ul li img {
+            display: block;
+            float: right;
+        }
+        .bar01 {
+            left: 0px;
+        }
+        .bar02 {
+            left: 643px;
+        }
+        .bar03 {
+            left: 664px;
+        }
+        .bar04 {
+            left: 685px;
+        }
+        .bar05 {
+            left: 706px;
+        }
+        .bar01 span {
+            background: #09E0B5;
+        }
+        .bar02 span {
+            background: #3D7FBB;
+        }
+        .bar03 span {
+            background: #5CA716;
+        }
+        .bar04 span {
+            background: #F28B24;
+        }
+        .bar05 span {
+            background: #7C0070;
+        }
+    </style>
+    <title>手风琴效果</title>
+</head>
+
+<body>
+<div id="accordion">
+    <ul>
+        <li class="bar01"><span>非洲景色01</span><img src="images/001.jpg" /></li>
+        <li class="bar02"><span>非洲景色02</span><img src="images/002.jpg" /></li>
+        <li class="bar03"><span>非洲景色03</span><img src="images/003.jpg" /></li>
+        <li class="bar04"><span>非洲景色04</span><img src="images/004.jpg" /></li>
+        <li class="bar05"><span>非洲景色05</span><img src="images/005.jpg" /></li>
+    </ul>
+</div>
+</body>
+</html>
+
+```
+
+# 12. jquery事件
+
+## 12.1 事件函数列表
+```js
+blur() 元素失去焦点
+focus() 元素获得焦点
+click() 鼠标单击
+mouseover() 鼠标进入（进入子元素也触发）
+mouseout() 鼠标离开（离开子元素也触发）
+mouseenter() 鼠标进入（进入子元素不触发）
+mouseleave() 鼠标离开（离开子元素不触发）
+hover() 同时为mouseenter和mouseleave事件指定处理函数
+ready() DOM加载完成
+resize() 浏览器窗口的大小发生改变
+scroll() 滚动条的位置发生变化
+submit() 用户递交表单
+```
+
+## 12.2 绑定事件的其他方式 
+```js
+$(function(){
+    $('#div1').bind('mouseover click', function(event) {
+        alert($(this).html());
+    });
+});
+```
+
+## 12.3 取消绑定事件 
+```js
+$(function(){
+    $('#div1').bind('mouseover click', function(event) {
+        alert($(this).html());
+
+        // $(this).unbind();
+        $(this).unbind('mouseover');
+
+    });
+});
+```
+
+```html
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        /*
+        $(function () {
+            $("#btn").click(function () {
+                alert('click事件');
+            });
+
+        });
+        */
+        // 点击或者鼠标移入的时候都执行绑定的函数
+        $(function () {
+            $("#btn").bind('click mouseover',function () {
+                alert('bind绑定click事件和mouseover鼠标移入事件');
+                $(this).unbind('mouseover');
+            });
+        });
+    </script>
+    <title>Documet</title>
+</head>
+
+<body>
+
+<input type="button" name="" value="按钮" id="btn">
+
+</body>
+</html>
+```
+
+## 12.4 焦点和提交事件
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 在获得焦点的时候做什么事情
+            /*$('#input01').focus(function(){
+                alert('获得焦点')
+            })*/
+            //focus 一般用来让input元素开始就获取焦点，只能是一个元素获得焦点
+            $('#input01').focus();
+
+            $('#input01').blur(function () {
+                // 获取input元素的value值用 val()
+                var sVal = $(this).val();
+                alert(sVal);
+            });
+
+            $('#form1').submit(function () {
+                //alert('提交');
+                // 阻止默认的提交行为
+                return false;
+
+            });
+        })
+    </script>
+</head>
+<body>
+    <form id="form1" action="http://www.baidu.com">
+        <input type="text" name="dat01" id="input01">
+        <input type="text" name="dat02" id="input02">
+        <input type="submit" name="" value="提交" id="sub">
+    </form>
+</body>
+</html>
+```
+
+## 12.5 鼠标移入移出事件
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            // 鼠标移入，移入的子元素也会触发
+            $('.con').mouseover(function () {
+                alert('移入');
+            });
+
+            $('.con').mouseout(function () {
+                alert('移出');
+            });
+
+            // 鼠标移入，移入的子元素不会触发
+            /*
+            $('.con2').mouseenter(function(){
+                alert('移入');
+            })
+            $('.con2').mouseleave(function(){
+                alert('移出');
+            })
+            */
+
+            // 合并成下面的写法：
+            $('.con2').hover(function () {
+                alert('移入')
+            }, function () {
+                alert('移出')
+            })
+
+
+        })
+
+    </script>
+    <style type="text/css">
+        .con, .con2 {
+            width: 200px;
+            height: 200px;
+            background-color: gold;
+        }
+
+        .box, .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <div class="box"></div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="con2">
+        <div class="box2"></div>
+    </div>
+
+</body>
+</html>
+```
+
+# 13. 事件冒泡
+
+## 13.1 什么是事件冒泡
+
+在一个对象上触发某类事件（比如单击onclick事件），如果此对象定义了此事件的处理程序，那么此事件就会调用这个处理程序，如果没有定义此事件处理程序或者事件返回true，那么这个事件会向这个对象的父级对象传播，从里到外，直至它被处理（父级对象所有同类事件都将被激活），或者它到达了对象层次的最顶层，即document对象（有些浏览器是window）。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 事件冒泡依据的是标签之间的层级关系，不是标签的位置
+            $('.son').click(function () {
+                alert(1);
+            });
+            $('.father').click(function () {
+                alert(2);
+            });
+            $('.grandfather').click(function () {
+                alert(3);
+            });
+        })
+    </script>
+    <style type="text/css">
+        .grandfather {
+            width: 300px;
+            height: 300px;
+            background-color: green;
+            position: relative;
+        }
+        .father {
+            width: 200px;
+            height: 200px;
+            background-color: gold;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 400px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="grandfather">
+    <div class="father">
+        <div class="son"></div>
+    </div>
+</div>
+</body>
+</html>
+```
+
+## 13.2 事件冒泡的作用
+
+事件冒泡允许多个操作被集中处理（把事件处理器添加到一个父级元素上，避免把事件处理器添加到多个子级元素上），它还可以让你在对象层的不同级别捕获事件。
+
+## 13.3 阻止事件冒泡
+
+事件冒泡机制有时候是不需要的，需要阻止掉，通过 event.stopPropagation() 来阻止
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // event 是发生事件的时候的事件对象，使用的时候，通过第一个参数传进来
+            $('.son').click(function (event) {
+                alert(1);
+                //通过event对象上的stopPropagation的方法阻止事件冒泡
+                event.stopPropagation();
+            });
+            $('.father').click(function () {
+                alert(2);
+            });
+
+            $('.grandfather').click(function () {
+                alert(3);
+            });
+        })
+    </script>
+    <style type="text/css">
+        .grandfather {
+            width: 300px;
+            height: 300px;
+            background-color: green;
+            position: relative;
+        }
+        .father {
+            width: 200px;
+            height: 200px;
+            background-color: gold;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grandfather">
+        <div class="father">
+            <div class="son"></div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## 13.4 阻止默认行为
+
+阻止表单提交 
+
+```
+$('#form1').submit(function(event){
+    event.preventDefault();
+})
+```
+
+## 13.5 合并阻止操作
+实际开发中，一般把阻止冒泡和阻止默认行为合并起来写，合并写法可以用  
+
+```
+// event.stopPropagation();
+// event.preventDefault();
+
+// 合并写法：
+return false;
+```
+
+## 13.6 课堂练习
+
+页面弹框（点击弹框外弹框关闭），在document上绑定一个事件
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#btn').click(function () {
+                $('.pop_con').fadeIn();
+                return false;
+            });
+            $(document).click(function () {
+                $('.pop_con').fadeOut();
+            });
+            $('.pop').click(function () {
+                return false;
+            });
+            $('#close').click(function () {
+                $('.pop_con').fadeOut();
+            });
+        });
+    </script>
+    <style type="text/css">
+        .pop_con {
+            display: none;
+        }
+        .pop {
+            position: fixed;
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border: 3px solid #000;
+            left: 50%;
+            top: 50%;
+            margin-left: -250px;
+            margin-top: -150px;
+            z-index: 9999;
+        }
+        .mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+            left: 0;
+            top: 0;
+            z-index: 9990;
+
+        }
+        .close {
+            float: right;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" name="" value="弹出" id="btn">
+    <div class="pop_con">
+        <div class="pop">
+            弹框里面文字
+            投资金额：<input type="text" name="">
+            <a href="#" id="close" class="close">×</a>
+        </div>
+        <div class="mask"></div>
+    </div>
+</body>
+</html>
+```
+
+# 14. 事件委托
+
+事件委托就是利用冒泡的原理，把事件加到父级上，通过判断事件来源的子集，执行相应的操作，事件委托首先可以极大减少事件绑定次数，提高性能；其次可以让新加入的子元素也可以拥有相同的操作。
+
+## 14.1 一般绑定事件的写法
+
+```html
+$(function(){
+    $ali = $('#list li');
+    $ali.click(function() {
+        $(this).css({background:'red'});
+    });
+})
+...
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+```
+
+## 14.2 事件委托的写法
+
+```html
+$(function(){
+    $list = $('#list');
+    $list.delegate('li', 'click', function() {
+        $(this).css({background:'red'});
+    });
+})
+...
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            /*
+            // 这个写法相当于绑定8次，比较损耗性能
+            $('.list li').click(function(){
+                $(this).css({'backgroundColor':'red'});
+            });
+            */
+
+            // 新建一个li元素赋值给$li变量
+            //var $li = $('<li>9</li>');
+
+            //让新加的li有相同的事件，需要单独绑定
+            //$li.click(....)
+
+            // 把新建的li元素放到ul子集的最后面
+            //$('.list').append($li);
+
+            //事件委托，将li要发生的事件委托给li的父级
+            $('.list').delegate('li', 'click', function () {
+                //$(this) 指的是委托的子元素
+                $(this).css({'backgroundColor': 'red'});
+            });
+            var $li = $('<li>9</li>');
+            $('.list').append($li);
+        })
+
+    </script>
+    <style type="text/css">
+        .list {
+            background-color: gold;
+            list-style: none;
+            padding: 10px;
+        }
+        .list li {
+            height: 30px;
+            background-color: green;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+    </ul>
+</body>
+</html>
+```
+
+# 15.jquery元素节点操作
+
+## 15.1 创建节点
+
+```js
+var $div = $('<div>');
+var $div2 = $('<div>这是一个div元素</div>');
+```
+
+## 15.2 插入节点
+1、append()和appendTo()：在现存元素的内部，从后面插入元素
+
+```html
+var $span = $('<span>这是一个span元素</span>');
+$('#div1').append($span);
+......
+<div id="div1"></div>
+```
+
+2、prepend()和prependTo()：在现存元素的内部，从前面插入元素
+3、after()和insertAfter()：在现存元素的外部，从后面插入元素，也就是在现存元素的父级元素后面插入新元素
+4、before()和insertBefore()：在现存元素的外部，从前面插入元素，也就是在现存元素的父级元素前面插入新元素
+
+注意：对已有的节点进行上述操作的话是剪切再粘贴。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+            // 新增节点操作
+
+			// 通过html的字符串的方式添加节点性能最高
+            // 如下的这种方式会替换掉原来的
+            //$('#div1').html('<a href="#">链接</a>')
+            // 先获取到原来的，然后使用+拼接起来
+			//$('#div1').html($('#div1').html()+'<a href="#">链接</a>')
+
+			// 新建一个带有属性的a元素，把它赋值给$a
+			$a = $('<a href="#">链接</a>');
+			// 父元素内的后面放入子元素
+			// $('#div1').append($a);
+            //子元素放入到父元素内部的后面
+			$a.appendTo($('#div1')); // 实际结果跟$('#div1').append($a);一样
+
+			// 新建一个空的a元素
+			$a2 = $('<a>');
+            $('#div1').append($a2); // 实际效果：<a></a>
+
+            $p = $('<p>这是一个p元素</p>');
+			// 父元素内的前面放入子元素
+			//$('#div1').prepend($p);
+			//子元素放入到父元素内部的前面
+			$p.prependTo($('#div1'));
+
+            $h2 = $('<h2>这是一个h2</h2>');
+			//$('#div1').after($h2);
+			$h2.insertAfter($('#div1'));
+
+            $h3 = $('<h3>这是一个h3</h3>');
+			//$('#div1').before($h3);
+			$h3.insertBefore($('#div1'));
+		})
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<h1>这是一个H1元素</h1>
+	</div>
+</body>
+</html>
+```
+
+## 15.3 删除节点
+
+```
+$('#div1').remove();
+```
+
+## 15.4 课堂练习
+
+todolist(计划列表)实例
+
+```html
+<!-- a标签的href属性   -->
+
+<!-- # 默认会链接到页面顶部   -->
+<a href="#">链接</a>
+
+<a href="javascript:alert('ok!');">链接</a>
+<!-- 让链接的默认行为是 执行javascript的空语句，也就是什么都不做   -->
+<a href="javascript:;">链接</a>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var $inputtxt = $('#txt1');
+            var $btn = $('#btn1');
+            var $ul = $('#list');
+
+            $btn.click(function () {
+                // 获取input输入框的内容
+                var $val = $inputtxt.val();
+
+                if ($val == "") {
+                    alert('请输入内容');
+                    return;
+                }
+
+                var $li = $('<li><span>' + $val + '</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a href="javascript:;" class="del">删除</a></li>');
+
+                /*
+                var $a = $li.find('.del');
+
+                    $a.click(function(){
+                        $(this).parent().remove();
+                    })
+                */
+
+                $ul.append($li);
+                $inputtxt.val("");
+
+            });
+
+            /*
+            $('.del').click(function(){
+
+                $(this).parent().remove();
+
+            })
+            */
+
+            $ul.delegate('a', 'click', function () {
+                var $handler = $(this).prop('class');
+                if ($handler == 'del') {
+                    $(this).parent().remove();
+                }
+                if ($handler == 'up') {
+                    if ($(this).parent().prev().length == 0) {
+                        alert('到顶了！');
+                        return;
+                    }
+                    $(this).parent().insertBefore($(this).parent().prev());
+                }
+
+                if ($handler == 'down') {
+                    if ($(this).parent().next().length == 0) {
+                        alert('到底了！');
+                        return;
+                    }
+                    $(this).parent().insertAfter($(this).parent().next());
+                }
+            });
+        });
+
+    </script>
+    <style type="text/css">
+        .list_con {
+            width: 600px;
+            margin: 50px auto 0;
+        }
+        .inputtxt {
+            width: 550px;
+            height: 30px;
+            border: 1px solid #ccc;
+            padding: 0px;
+            text-indent: 10px;
+        }
+        .inputbtn {
+            width: 40px;
+            height: 32px;
+            padding: 0px;
+            border: 1px solid #ccc;
+        }
+        .list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            margin-top: 20px;
+        }
+        .list li {
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #ccc;
+        }
+        .list li span {
+            float: left;
+        }
+        .list li a {
+            float: right;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="list_con">
+    <h2>To do list</h2>
+    <input type="text" name="" id="txt1" class="inputtxt">
+    <input type="button" name="" value="增加" id="btn1" class="inputbtn">
+
+    <ul id="list" class="list">
+        <li><span>学习html</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a
+                href="javascript:;" class="del">删除</a></li>
+        <li><span>学习css</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a
+                href="javascript:;" class="del">删除</a></li>
+        <li><span>学习javascript</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down">
+            ↓ </a><a href="javascript:;" class="del">删除</a></li>
+    </ul>
+
+</div>
+</body>
+</html>
+```
+
+# 16. 滚轮事件与函数节流
+
+## 16.1 jquery.mousewheel插件使用
+jquery中没有鼠标滚轮事件，原生js中的鼠标滚轮事件不兼容，可以使用jquery的滚轮事件插件jquery.mousewheel.js。
+
+## 16.2 函数节流
+javascript中有些事件的触发频率非常高，比如onresize事件(jq中是resize)，onmousemove事件(jq中是mousemove)以及上面说的鼠标滚轮事件，在短事件内多处触发执行绑定的函数，可以巧妙地使用定时器来减少触发的次数，实现函数节流。
+
+## 16.3 课堂实例
+
+### 16.3.1 整屏滚动
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>整页滚动</title>
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $screen = $('.pages_con');
+            var $pages = $('.pages');
+            var $len = $pages.length;
+            var $h = $(window).height();
+            var $points = $('.points li');
+            var timer = null;
+
+            var $nowscreen = 0;
+            $pages.css({'height': $h});
+            $pages.eq(0).addClass('moving');
+
+            $points.click(function () {
+                $nowscreen = $(this).index();
+                $points.eq($nowscreen).addClass('active').siblings().removeClass('active');
+                $screen.animate({'top': -$h * $nowscreen}, 300);
+                $pages.eq($nowscreen).addClass('moving').siblings().removeClass('moving');
+            });
+
+            $(window).mousewheel(function (event, dat) {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+
+                    if (dat == -1) {
+                        $nowscreen++;
+                    } else {
+                        $nowscreen--;
+                    }
+                    if ($nowscreen < 0) {
+                        $nowscreen = 0;
+                    }
+
+                    if ($nowscreen > $len - 1) {
+                        $nowscreen = $len - 1;
+                    }
+
+                    $screen.animate({'top': -$h * $nowscreen}, 300);
+                    $pages.eq($nowscreen).addClass('moving').siblings().removeClass('moving');
+
+                    $points.eq($nowscreen).addClass('active').siblings().removeClass('active');
+
+                }, 200)
+
+            })
+        })
+
+    </script>
+</head>
+<body>
+<div class="pages_con">
+
+    <div class="pages page1">
+        <div class="main_con">
+            <div class="left_img"><img src="images/001.png"></div>
+            <div class="right_info">
+                Web前端开发是从网页制作演变而来的，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，那时网站的主要内容都是静态的，用户使用网站的行为也以浏览为主。
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pages page2">
+        <div class="main_con">
+            <div class="right_img"><img src="images/002.png"></div>
+            <div class="left_info">
+                2005年以后，互联网进入Web2.0时代，各种类似桌面软件的Web应用大量涌现，网站的前端由此发生了翻天覆地的变化。网页不再只是承载单一的文字和图片，各种富媒体让网页的内容更加生动，网页上软件化的交互形式为用户提供了更好的使用体验，这些都是基于前端技术实现的。
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pages page3">
+        <div class="main_con">
+            <div class="left_img"><img src="images/004.png"></div>
+            <div class="right_info">
+                以前会Photoshop和Dreamweaver就可以制作网页，现在只掌握这些已经远远不够了。无论是开发难度上，还是开发方式上，现在的网页制作都更接近传统的网站后台开发，所以现在不再叫网页制作，而是叫Web前端开发。
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pages page4">
+        <div class="main_con">
+            <div class="left_img"><img src="images/003.png"></div>
+            <div class="right_info">
+                Web前端开发在产品开发环节中的作用变得越来越重要，而且需要专业的前端工程师才能做好，这方面的专业人才近几年来备受青睐。Web前端开发是一项很特殊的工作，涵盖的知识面非常广，既有具体的技术，又有抽象的理念。简单地说，它的主要职能就是把网站的界面更好地呈现给用户。
+            </div>
+        </div>
+    </div>
+
+    <div class="pages page5">
+        <div class="main_con">
+            <div class="center_img"><img src="images/005.png"></div>
+        </div>
+
+    </div>
+</div>
+<ul class="points">
+    <li class="active"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+</html>
+```
+
+### 16.3.2 幻灯片
+
+### 16.3.3 制作CSS3动画
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#btn').click(function(){
+				$('.box').addClass('moving');
+			});	
+		})
+	</script>
+    
+	<style type="text/css">
+		.box{
+			width:200px;
+			height:200px;
+			background-color:gold;
+			margin:50px auto 0;
+			transition:all 1s ease;
+		}
+		.moving{
+			transform:rotate(135deg);
+		}
+	</style>
+</head>
+<body>
+	<input type="button" name="" value="动画" id="btn">
+	<div class="box"></div>
+</body>
+</html>
+```
+
+# 17. json
+
+json是 JavaScript Object Notation 的首字母缩写，单词的意思是javascript对象表示法，这里说的json指的是类似于javascript对象的一种数据格式，目前这种数据格式比较流行，逐渐替换掉了传统的xml数据格式。 
+
+## 17.1 javascript自定义对象
+
+```js
+var oMan = {
+    name:'tom',
+    age:16,
+    talk:function(s){
+        alert('我会说'+s);
+    }
+}
+```
+
+## 17.2 json格式的数据
+
+```json
+{
+    "name":"tom",
+    "age":18
+}
+```
+
+与json对象不同的是，json数据格式的属性名称和字符串值需要用双引号引起来，用单引号或者不用引号会导致读取数据错误。
+
+json的另外一个数据格式是数组，和javascript中的数组字面量相同。
+
+```dict
+["tom",18,"programmer"]
+```
+
+# 18. ajax与jsonp
+
+ajax技术的目的是让javascript发送http请求，与后台通信，获取数据和信息。ajax技术的原理是实例化xmlhttp对象，使用此对象与后台通信。ajax通信的过程不会影响后续javascript的执行，从而实现异步。
+
+ **同步和异步** 
+现实生活中，同步指的是同时做几件事情，异步指的是做完一件事后再做另外一件事，程序中的同步和异步是把现实生活中的概念对调，也就是程序中的异步指的是现实生活中的同步，程序中的同步指的是现实生活中的异步。
+
+ **局部刷新和无刷新** 
+ajax可以实现局部刷新，也叫做无刷新，无刷新指的是整个页面不刷新，只是局部刷新，ajax可以自己发送http请求，不用通过浏览器的地址栏，所以页面整体不会刷新，ajax获取到后台数据，更新页面显示数据的部分，就做到了页面局部刷新。
+
+ **同源策略** 
+ajax请求的页面或资源只能是同一个域下面的资源，不能是其他域的资源，这是在设计ajax时基于安全的考虑。
+特征报错提示：
+
+```
+XMLHttpRequest cannot load https://www.baidu.com/. No  
+'Access-Control-Allow-Origin' header is present on the requested resource.  
+Origin 'null' is therefore not allowed access.
+```
+
+ ## 18.1 $.ajax使用方法
+常用参数：
+1、url 请求地址
+2、type 请求方式，默认是'GET'，常用的还有'POST'
+3、dataType 设置返回的数据格式，常用的是'json'格式，也可以设置为'html'
+4、data 设置发送给服务器的数据
+5、success 设置请求成功后的回调函数
+6、error 设置请求失败后的回调函数
+7、async 设置是否异步，默认值是'true'，表示异步  
+
+以前的写法：
+
+```
+$.ajax({
+    url: 'js/data.json',
+    type: 'GET',
+    dataType: 'json',
+    data:{'aa':1}
+    success:function(data){
+        alert(data.name);
+    },
+    error:function(){
+        alert('服务器超时，请重试！');
+    }
+});
+```
+
+新的写法(推荐)：
+
+```
+$.ajax({
+    url: 'js/data.json',
+    type: 'GET',
+    dataType: 'json',
+    data:{'aa':1}
+})
+.done(function(data) {
+    alert(data.name);
+})
+.fail(function() {
+    alert('服务器超时，请重试！');
+});
+
+// data.json里面的数据： {"name":"tom","age":18}
+```
+
+ **课堂练习** 
+制作首页用户信息读取
+```python
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+from flask import Flask,render_template,request,jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        # 和前端约定好，发送网络请求，不管用户名和密码是否验证成功
+        # 我都返回同样格式的json对象给你
+        # {"code":200,"message":""}
+        username = request.form.get('username')
+        password = request.form.get('password')
+        print(username,password)
+
+        data = {
+            'username':username
+        }
+
+        if username == '111' and password == '222':
+            return jsonify({"code":200,"message":"","data":data})
+        else:
+            return jsonify({"code":401,"message":"用户名或密码错误！"})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+```
+
+```html
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script type="text/javascript" src="static/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                var $username = $("#username").val();
+                var $password = $("#password").val();
+
+                var $data = {
+                    "username": $username,
+                    "password": $password
+                };
+
+                $.ajax({
+                    url: "/login",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $data,
+                })
+                    .done(function (data) {
+                        if (data['code'] == 200) {
+                            $("#div01").hide();
+                            $(".div2").append(data['data']['username']);
+                            $(".div2").removeClass("div2");
+                        }
+                    })
+            });
+
+        });
+
+    </script>
+    <style type="text/css">
+        .div2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Index</h2>
+
+    <div id="div01">
+        <p>
+            <span>用户名：</span>
+            <input type="text" name="username" id="username">
+        </p>
+        <p>
+            <span>密码：</span>
+            <input type="password" name="pwd" id="password">
+        </p>
+        <button id="btn" value="submit">提交</button>
+    </div>
+
+    <div class="div2">
+        <span>用户名：</span>
+    </div>
+
+</body>
+</html>
+```
+
+## 18.2  **jsonp**
+
+ajax只能请求同一个域下的数据或资源，有时候需要跨域请求数据，就需要用到jsonp技术，jsonp可以跨域请求数据，它的原理主要是利用了`<script>`标签可以跨域链接资源的特性。jsonp和ajax原理完全不一样，不过jquery将它们封装成同一个函数。
+
+```js
+$.ajax({
+    url:'js/data.js',
+    type:'get',
+    dataType:'jsonp',
+    jsonpCallback:'fnBack'
+})
+.done(function(data){
+    alert(data.name);
+})
+.fail(function() {
+    alert('服务器超时，请重试！');
+});
+
+// data.js里面的数据： fnBack({"name":"tom","age":18});
+```
+
+ **课堂实例** 
+获取360搜索关键词联想数据
+
+```
+$(function(){
+    $('#txt01').keyup(function(){
+        var sVal = $(this).val();
+        $.ajax({
+            url:'https://sug.so.360.cn/suggest?',
+            type:'get',
+            dataType:'jsonp',
+            data: {word: sVal}
+        })
+        .done(function(data){
+            var aData = data.s;
+            $('.list').empty();
+            for(var i=0;i<aData.length;i++)
+            {
+                var $li = $('<li>'+ aData[i] +'</li>');
+                $li.appendTo($('.list'));
+            }
+        })        
+    })
+})
+
+//......
+
+<input type="text" name="" id="txt01">
+<ul class="list"></ul>
+```
