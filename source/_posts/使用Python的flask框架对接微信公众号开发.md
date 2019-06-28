@@ -133,9 +133,636 @@ python 代码在后台运行，假设在代码中想查看获取到的某个变�
 3、测试公众号这边配置的话，先配置本地的这个域名，进行调试测试，没问题的话把代码中的端口修改成8000，然后上传到服务器。然后再在测试公众号上修改这个URL地址为服务器上的域名。
 4、本地代码再结合Git使用，效果更佳
 
+# 公众号接收与发送消息
+
+## 1. 接收普通消息
+
+**当普通微信用户向公众账号发消息时，微信服务器将POST消息的XML数据包到开发者填写的URL上。**
+
+微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次。假如服务器无法保证在五秒内处理并回复，可以直接回复空串，微信服务器不会对此作任何处理，并且不会发起重试。
+
+各消息类型的推送使用XML数据包结构，如：
+
+```xml
+<xml>
+<ToUserName><![CDATA[gh_866835093fea]]></ToUserName>
+<FromUserName><![CDATA[ogdotwSc_MmEEsJs9-ABZ1QL_4r4]]></FromUserName>
+<CreateTime>1478317060</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[你好]]></Content>
+<MsgId>6349323426230210995</MsgId>
+</xml>
+```
+
+**注意：<![CDATA 与 ]]> 括起来的数据不会被xml解析器解析。**
+
+## 普通消息类别
+
+1. 文本消息
+2. 图片消息
+3. 语音消息
+4. 视频消息
+5. 小视频消息
+6. 地理位置消息
+7. 链接消息
+
+## 文本消息
+微信post过来的文本xml数据格式如下：
+
+```xml
+<xml>
+  <ToUserName><![CDATA[toUser]]></ToUserName>
+  <FromUserName><![CDATA[fromUser]]></FromUserName>
+  <CreateTime>1348831860</CreateTime>
+  <MsgType><![CDATA[text]]></MsgType>
+  <Content><![CDATA[this is a test]]></Content>
+  <MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+| 参数         | 描述                     |
+| ------------ | ------------------------ |
+| ToUserName   | 开发者微信号             |
+| FromUserName | 发送方帐号（一个OpenID） |
+| CreateTime   | 消息创建时间 （整型）    |
+| MsgType      | 消息类型，文本为text     |
+| Content      | 文本消息内容             |
+| MsgId        | 消息id，64位整型         |
+
+## 2. 被动回复消息
+
+当用户发送消息给公众号时（或某些特定的用户操作引发的事件推送时），会产生一个POST请求，开发者可以在响应包中返回特定XML结构，来对该消息进行响应（现支持回复文本、图片、图文、语音、视频、音乐）。严格来说，发送被动响应消息其实并不是一种接口，而是对微信服务器发过来消息的一次回复。
+
+假如服务器无法保证在五秒内处理并回复，必须做出下述回复，这样微信服务器才不会对此作任何处理，并且不会发起重试（这种情况下，可以使用客服消息接口进行异步回复），否则，将出现严重的错误提示。详见下面说明：
+
+1. （推荐方式）直接回复success
+2. 直接回复空串（指字节长度为0的空字符串，而不是XML结构体中content字段的内容为空）
+
+**一旦遇到以下情况，微信都会在公众号会话中，向用户下发系统提示“该公众号暂时无法提供服务，请稍后再试”：**
+
+1. 开发者在5秒内未回复任何内容
+2. 开发者回复了异常数据，比如JSON数据等
+
+###  回复的消息类型
+
+1. 文本消息
+2. 图片消息
+3. 语音消息
+4. 视频消息
+5. 音乐消息
+6. 图文消息
+
+###  回复文本消息
+
+```XML
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>12345678</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[你好]]></Content>
+</xml>
+```
+
+| 参数         | 是否必须 | 描述                                                         |
+| ------------ | -------- | ------------------------------------------------------------ |
+| ToUserName   | 是       | 接收方帐号（收到的OpenID）                                   |
+| FromUserName | 是       | 开发者微信号                                                 |
+| CreateTime   | 是       | 消息创建时间 （整型）                                        |
+| MsgType      | 是       | 消息类型，文本为text                                         |
+| Content      | 是       | 回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示） |
+
+## 3. 代码实现
+
+还在原来的路径下，若是get请求，则是进行服务器验证，参考上一步的处理。若是post请求，则进一步处理。
+
+实现的业务逻辑类似与“鹦鹉学舌”，用户发什么内容，我们就传回什么内容。
+
+详看代码：
+
+```python
+# 根据请求方式进行判断
+if request.method == 'POST':
+	获取微信服务器post过来的xml数据
+    xml = request.data
+    # 把xml格式的数据进行处理，转换成字典进行取值
+    req = xmltodict.parse(xml)['xml']
+    # 判断post过来的数据中数据类型是不是文本
+    if 'text' == req.get('MsgType'):
+    	# 获取用户的信息，开始构造返回数据，把用户发送的信息原封不动的返回过去，字典格式
+        resp = {
+            'ToUserName':req.get('FromUserName'),
+            'FromUserName':req.get('ToUserName'),
+            'CreateTime':int(time.time()),
+            'MsgType':'text',
+            'Content':req.get('Content')
+        }
+        # 把构造的字典转换成xml格式
+        xml = xmltodict.unparse({'xml':resp})
+        # print(req.get('Content'))
+        # 返回数据
+        return xml
+    else:
+        resp = {
+            'ToUserName': req.get('FromUserName', ''),
+            'FromUserName': req.get('ToUserName', ''),
+            'CreateTime': int(time.time()),
+            'MsgType': 'text',
+            'Content': 'I LOVE ITCAST'
+        }
+        xml = xmltodict.unparse({'xml':resp})
+        return xml
+```
+注意：
+- QQ表情实际上是字符串转义，仍属于文本消息
+- emoji表情本质是Unicode字符，也属于文本消息
+- 自定义表情：既不是文本，也不是图片，而是一种不支持的格式，微信未提供处理该消息的接口
+
+完整代码
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 
+from flask import Flask, request, make_response
+import hashlib
+import xmltodict
+import time
 
+app = Flask(__name__)
+
+
+@app.route('/',methods=['GET','POST'])
+def index():
+    if request.method =='GET':
+        # 设置token,开发者配置中心使用
+        token = 'wechat_pro'
+
+        # 获取微信服务器发送过来的参数
+        data = request.args
+        signature = data.get('signature')
+        timestamp = data.get('timestamp')
+        nonce = data.get('nonce')
+        echostr = data.get('echostr')
+
+        # 对参数进行字典排序，拼接字符串
+        temp = [timestamp, nonce, token]
+        temp.sort()
+        temp = ''.join(temp)
+
+        # 加密
+        if (hashlib.sha1(temp.encode('utf8')).hexdigest() == signature):
+            return echostr
+        else:
+            return 'error', 403
+
+    # 根据请求方式进行判断
+    if request.method == 'POST':
+        获取微信服务器post过来的xml数据
+        xml = request.data
+        # 把xml格式的数据进行处理，转换成字典进行取值
+        req = xmltodict.parse(xml)['xml']
+        # 判断post过来的数据中数据类型是不是文本
+        if 'text' == req.get('MsgType'):
+            # 获取用户的信息，开始构造返回数据，把用户发送的信息原封不动的返回过去，字典格式
+            resp = {
+                'ToUserName':req.get('FromUserName'),
+                'FromUserName':req.get('ToUserName'),
+                'CreateTime':int(time.time()),
+                'MsgType':'text',
+                'Content':req.get('Content')
+            }
+            # 把构造的字典转换成xml格式
+            xml = xmltodict.unparse({'xml':resp})
+            # print(req.get('Content'))
+            # 返回数据
+            return xml
+        else:
+            resp = {
+                'ToUserName': req.get('FromUserName', ''),
+                'FromUserName': req.get('ToUserName', ''),
+                'CreateTime': int(time.time()),
+                'MsgType': 'text',
+                'Content': 'I LOVE ITCAST'
+            }
+            xml = xmltodict.unparse({'xml':resp})
+            return xml
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
+
+```
+
+## 4. 接收其他普通消息
+
+### 接收图片消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1348831860</CreateTime>
+<MsgType><![CDATA[image]]></MsgType>
+<PicUrl><![CDATA[this is a url]]></PicUrl>
+<MediaId><![CDATA[media_id]]></MediaId>
+<MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+| 参数         | 描述                                                 |
+| ------------ | ---------------------------------------------------- |
+| ToUserName   | 开发者微信号                                         |
+| FromUserName | 发送方帐号（一个OpenID）                             |
+| CreateTime   | 消息创建时间 （整型）                                |
+| MsgType      | image                                                |
+| PicUrl       | 图片链接                                             |
+| MediaId      | 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。 |
+| MsgId        | 消息id，64位整型                                     |
+
+### 接收视频消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[video]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
+<MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+| 参数         | 描述                                                         |
+| ------------ | ------------------------------------------------------------ |
+| ToUserName   | 开发者微信号                                                 |
+| FromUserName | 发送方帐号（一个OpenID）                                     |
+| CreateTime   | 消息创建时间 （整型）                                        |
+| MsgType      | 视频为video                                                  |
+| MediaId      | 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。         |
+| ThumbMediaId | 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。 |
+| MsgId        | 消息id，64位整型                                             |
+
+### 接收小视频消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[shortvideo]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
+<MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+| 参数         | 描述                                                         |
+| ------------ | ------------------------------------------------------------ |
+| ToUserName   | 开发者微信号                                                 |
+| FromUserName | 发送方帐号（一个OpenID）                                     |
+| CreateTime   | 消息创建时间 （整型）                                        |
+| MsgType      | 小视频为shortvideo                                           |
+| MediaId      | 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。         |
+| ThumbMediaId | 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。 |
+| MsgId        | 消息id，64位整型                                             |
+
+### 接收语音消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[voice]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<Format><![CDATA[Format]]></Format>
+<MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+| 参数         | 描述                                                 |
+| ------------ | ---------------------------------------------------- |
+| ToUserName   | 开发者微信号                                         |
+| FromUserName | 发送方帐号（一个OpenID）                             |
+| CreateTime   | 消息创建时间 （整型）                                |
+| MsgType      | 语音为voice                                          |
+| MediaId      | 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。 |
+| Format       | 语音格式，如amr，speex等                             |
+| MsgID        | 消息id，64位整型                                     |
+
+**请注意，开通语音识别后，用户每次发送语音给公众号时，微信会在推送的语音消息XML数据包中，增加一个Recongnition字段（注：由于客户端缓存，开发者开启或者关闭语音识别功能，对新关注者立刻生效，对已关注用户需要24小时生效。开发者可以重新关注此帐号进行测试）。开启语音识别后的语音XML数据包如下：**
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[voice]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<Format><![CDATA[Format]]></Format>
+<Recognition><![CDATA[腾讯微信团队]]></Recognition>
+<MsgId>1234567890123456</MsgId>
+</xml>
+```
+
+**多出的字段中，Format为语音格式，一般为amr，Recognition为语音识别结果，使用UTF8编码。**
+
+## 5.回复其他普通消息
+
+### 回复图片消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>12345678</CreateTime>
+<MsgType><![CDATA[image]]></MsgType>
+<Image>
+<MediaId><![CDATA[media_id]]></MediaId>
+</Image>
+</xml>
+```
+
+| 参数         | 是否必须 | 说明                                       |
+| ------------ | -------- | ------------------------------------------ |
+| ToUserName   | 是       | 接收方帐号（收到的OpenID）                 |
+| FromUserName | 是       | 开发者微信号                               |
+| CreateTime   | 是       | 消息创建时间 （整型）                      |
+| MsgType      | 是       | image                                      |
+| MediaId      | 是       | 通过素材管理接口上传多媒体文件，得到的id。 |
+
+### 回复语音消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>12345678</CreateTime>
+<MsgType><![CDATA[voice]]></MsgType>
+<Voice>
+<MediaId><![CDATA[media_id]]></MediaId>
+</Voice>
+</xml>
+```
+
+| 参数         | 是否必须 | 说明                                     |
+| ------------ | -------- | ---------------------------------------- |
+| ToUserName   | 是       | 接收方帐号（收到的OpenID）               |
+| FromUserName | 是       | 开发者微信号                             |
+| CreateTime   | 是       | 消息创建时间戳 （整型）                  |
+| MsgType      | 是       | 语音，voice                              |
+| MediaId      | 是       | 通过素材管理接口上传多媒体文件，得到的id |
+
+### 回复视频消息
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>12345678</CreateTime>
+<MsgType><![CDATA[video]]></MsgType>
+<Video>
+<MediaId><![CDATA[media_id]]></MediaId>
+<Title><![CDATA[title]]></Title>
+<Description><![CDATA[description]]></Description>
+</Video> 
+</xml>
+```
+
+| 参数         | 是否必须 | 说明                                     |
+| ------------ | -------- | ---------------------------------------- |
+| ToUserName   | 是       | 接收方帐号（收到的OpenID）               |
+| FromUserName | 是       | 开发者微信号                             |
+| CreateTime   | 是       | 消息创建时间 （整型）                    |
+| MsgType      | 是       | video                                    |
+| MediaId      | 是       | 通过素材管理接口上传多媒体文件，得到的id |
+| Title        | 否       | 视频消息的标题                           |
+| Description  | 否       | 视频消息的描述                           |
+
+可以使用微信提供的网页调试工具进行测试：<https://mp.weixin.qq.com/debug/cgi-bin/apiinfo?t=index>
+
+
+# 关注/取消关注事件
+
+用户在关注与取消关注公众号时，微信会把这个事件推送到开发者填写的URL。
+
+微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次。
+
+假如服务器无法保证在五秒内处理并回复，可以直接回复空串，微信服务器不会对此作任何处理，并且不会发起重试。
+
+```xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+</xml>
+```
+
+| 参数         | 描述                                             |
+| ------------ | ------------------------------------------------ |
+| ToUserName   | 开发者微信号                                     |
+| FromUserName | 发送方帐号（一个OpenID）                         |
+| CreateTime   | 消息创建时间 （整型）                            |
+| MsgType      | 消息类型，event                                  |
+| Event        | 事件类型，subscribe(订阅)、unsubscribe(取消订阅) |
+
+代码实现
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from flask import Flask, request, make_response
+import hashlib
+import xmltodict
+import time
+import requests
+import json
+
+app = Flask(__name__)
+
+@app.route('/',methods=['GET','POST'])
+def index():
+    if request.method =='GET':
+        # 设置token,开发者配置中心使用
+        token = 'wechat_pro'
+
+        # 获取微信服务器发送过来的参数
+        data = request.args
+        signature = data.get('signature')
+        timestamp = data.get('timestamp')
+        nonce = data.get('nonce')
+        echostr = data.get('echostr')
+
+        # 对参数进行字典排序，拼接字符串
+        temp = [timestamp, nonce, token]
+        temp.sort()
+        temp = ''.join(temp)
+
+        # 加密
+        if (hashlib.sha1(temp.encode('utf8')).hexdigest() == signature):
+            return echostr
+        else:
+            return 'error', 403
+
+    if request.method == 'POST':
+        xml = request.data
+        req = xmltodict.parse(xml)['xml']
+
+        # print(req)
+
+        MsgType = req.get('MsgType')
+        if 'text' == MsgType:
+            resp = {
+                'ToUserName':req.get('FromUserName'),
+                'FromUserName':req.get('ToUserName'),
+                'CreateTime':int(time.time()),
+                'MsgType':'text',
+                'Content':'这是一个文本消息！'
+            }
+        elif 'event' == MsgType:
+            if "subscribe" == req.get("Event"):
+                resp = {
+                     "ToUserName":req.get("FromUserName", ""),
+                    "FromUserName":req.get("ToUserName", ""),
+                    "CreateTime":int(time.time()),
+                    "MsgType":"text",
+                    "Content":u"感谢您的关注！"
+                }
+            else:
+                resp = None
+        else:
+            resp = {
+                'ToUserName': req.get('FromUserName', ''),
+                'FromUserName': req.get('ToUserName', ''),
+                'CreateTime': int(time.time()),
+                'MsgType': 'text',
+                'Content': '无法识别该消息!'
+            }
+
+        xml = xmltodict.unparse({'xml': resp})
+        return xml
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
+```
+
+# 微信网页授权
+
+现在，我们要实现一个微信内网页，通过微信访问网页时，网页会展示微信用户的个人信息。因为涉及到用户的个人信息，所以需要有用户授权才可以。当用户授权后，我们的网页服务器（开发者服务器）会拿到用户的“授权书”（code）,我们用这个code向微信服务器领取访问令牌（accecc_token）和用户的身份号码（openid)，然后凭借access_token和openid向微信服务器提取用户的个人信息。
+
+1. 第一步：用户同意授权，获取code
+2. 第二步：通过code换取网页授权access_token
+3. 第三步：拉取用户信息(需scope为 snsapi_userinfo)
+
+那么，如何拿到用户的授权code呢？
+
+授权是由微信发起让用户进行确认，在这个过程中是微信在与用户进行交互，所以用户应该先访问微信的内容，用户确认后再由微信将用户导向到我们的网页链接地址，并携带上code参数。我们把这个过程叫做网页回调，类似于我们在程序编写时用到的回调函数，都是回调的思想。
+
+## 1. 设置网页授权回调域名
+
+在微信公众号请求用户网页授权之前，开发者需要先到公众平台官网中的开发者中心页配置授权回调域名。请注意，这里填写的是域名（是一个字符串），而不是URL，因此请勿加 http:// 等协议头；
+
+授权回调域名配置规范为全域名，比如需要网页授权的域名为：www.qq.com，配置以后此域名下面的页面<http://www.qq.com/music.html> 、 <http://www.qq.com/login.html> 都可以进行OAuth2.0鉴权。但<http://pay.qq.com> 、 <http://music.qq.com> 、 <http://qq.com无法进行OAuth2.0鉴权。>
+
+![](/wechat/01.png)
+
+## 2. 用户同意授权，获取code
+
+让用户访问一下链接地址：
+
+> <https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect>
+
+![参数说明](/wechat/02.png)
+
+下图为scope等于snsapi_userinfo时的授权页面：
+
+![授权页面](/wechat/03.png)
+
+**用户同意授权后**
+
+如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。若用户禁止授权，则重定向后不会带上code参数，仅会带上state参数redirect_uri?state=STATE
+
+## 3. 通过code换取网页授权access_token
+
+**请求方法**
+
+> <https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code>
+
+**参数说明**
+
+![参数说明](/wechat/04.png)
+
+**返回值**
+
+正确时返回的JSON数据包如下：
+
+```JSON
+{
+   "access_token":"ACCESS_TOKEN",
+   "expires_in":7200,
+   "refresh_token":"REFRESH_TOKEN",
+   "openid":"OPENID",
+   "scope":"SCOPE"
+}
+```
+
+![返回值](/wechat/05.png)
+
+错误时微信会返回JSON数据包如下（示例为Code无效错误）:
+
+```JSON
+{
+    "errcode":40029,
+    "errmsg":"invalid code"
+}
+```
+
+## 4. 拉取用户信息(需scope为 snsapi_userinfo)
+
+**请求方法**
+
+> <https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN>
+
+**参数说明**
+
+![参数说明](/wechat/06.png)
+
+**返回值**
+
+正确时返回的JSON数据包如下：
+
+```JSON
+{
+   "openid":" OPENID",
+   " nickname": NICKNAME,
+   "sex":"1",
+   "province":"PROVINCE"
+   "city":"CITY",
+   "country":"COUNTRY",
+    "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+    "privilege":[
+    "PRIVILEGE1"
+    "PRIVILEGE2"
+    ],
+    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+}
+```
+
+![返回值](/wechat/07.png)
+
+错误时微信会返回JSON数据包如下:
+
+```JSON
+{
+    "errcode":40003,
+    "errmsg":" invalid openid "
+}
+```
 
 
 

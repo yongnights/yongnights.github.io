@@ -72,7 +72,8 @@ validate_password = off
 ## 6. 文件相关
 默认配置文件路径：
 配置文件：/etc/my.cnf
-日志文件：/var/log//var/log/mysqld.log
+安装路径：/var/lib/mysql
+日志文件：/var/log/mysqld.log
 服务启动脚本：/usr/lib/systemd/system/mysqld.service
 socket文件：/var/run/mysqld/mysqld.pid
 
