@@ -27,8 +27,6 @@ categories:
 - 在服务型环境中部署和调整数据库或其他的后台应用。
 - 从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。
 
-<escape><!-- more --></escape>
-
 ## Docker 的优点
 1. 简化程序
 Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，便可以实现虚拟化。Docker改变了虚拟化的方式，使开发者可以直接将自己的成果放入Docker中进行管理。方便快捷已经是 Docker的最大优势，过去需要用数天乃至数周的 任务，在Docker容器的处理下，只需要数秒就能完成。
@@ -57,6 +55,8 @@ Docker 让开发者可以打包他们的应用以及依赖包到一个可移植�
 | Docker 主机(Host)      | 一个物理或者虚拟的机器用于执行 Docker  守护进程和容器。      |
 | Docker 仓库(Registry)  | Docker 仓库用来保存镜像，可以理解为代码控制中的代码仓库。 Docker Hub(<https://hub.docker.com>) 提供了庞大的镜像集合供使用。 |
 | Docker Machine         | Docker Machine是一个简化Docker安装的命令行工具，通过一个简单的命令行即可在相应的平台上安装Docker，比如VirtualBox、 Digital Ocean、Microsoft Azure。 |
+
+<escape><!-- more --></escape>
 
 # Docker 安装
 
