@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.8.0"
+    "version": "3.9.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "eslint": "^4.12.1",
     "gulp": "^4.0.0",
-    "hexo": "^3.2.0",
+    "hexo": "^3.9.0",
     "hexo-blog-encrypt": "^2.0.10",
     "hexo-deployer-git": "^1.0.0",
     "hexo-generator-archive": "^0.1.4",
