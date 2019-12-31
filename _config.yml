@@ -5,7 +5,7 @@
 # Site
 title: 个人博客
 subtitle: 记录工作中的点点滴滴
-description: Linux,Python,MySQL,ELK Stack,K8S
+description: Linux,Python,MySQL,ELK Stack,K8S,Docker
 author: 永夜初晗凝碧天 
 language: zh-Hans
 timezone: Asia/Shanghai
