@@ -5,3 +5,4 @@ public/
 .deploy*/
 /.npmignore
 .idea/
+/db.json
