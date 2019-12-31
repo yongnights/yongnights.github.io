@@ -1,0 +1,247 @@
+<!-- build time:Tue Dec 31 2019 13:44:20 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="Linux,nc,Windows,"><link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml"><meta name="description" content="说明linux下的文件传输，大家首先会想到rsync、scp之类的工具，但这类工具有一个特点——慢， 因为这类工具都是加密传输，发送端加密，接收端解密，当我们传输一些非敏感文件的时候，完全可以不加密，直接在网络上传输。 安装1. linux系统安装 # yum install -y nc | nmap-ncat ps.ubuntu自带的nc是netcat-openbsd版,不带-c/-e参数。"><meta name="keywords" content="Linux,nc,Windows"><meta property="og:type" content="article"><meta property="og:title" content="使用nc传输超大文件"><meta property="og:url" content="https://yongnights.github.io/2019/12/31/使用nc传输超大文件/index.html"><meta property="og:site_name" content="个人博客"><meta property="og:description" content="说明linux下的文件传输，大家首先会想到rsync、scp之类的工具，但这类工具有一个特点——慢， 因为这类工具都是加密传输，发送端加密，接收端解密，当我们传输一些非敏感文件的时候，完全可以不加密，直接在网络上传输。 安装1. linux系统安装 # yum install -y nc | nmap-ncat ps.ubuntu自带的nc是netcat-openbsd版,不带-c/-e参数。"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://yongnights.github.io/nc/1.png"><meta property="og:updated_time" content="2019-12-31T04:00:48.277Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="使用nc传输超大文件"><meta name="twitter:description" content="说明linux下的文件传输，大家首先会想到rsync、scp之类的工具，但这类工具有一个特点——慢， 因为这类工具都是加密传输，发送端加密，接收端解密，当我们传输一些非敏感文件的时候，完全可以不加密，直接在网络上传输。 安装1. linux系统安装 # yum install -y nc | nmap-ncat ps.ubuntu自带的nc是netcat-openbsd版,不带-c/-e参数。"><meta name="twitter:image" content="https://yongnights.github.io/nc/1.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="https://yongnights.github.io/2019/12/31/使用nc传输超大文件/"><title>使用nc传输超大文件 | 个人博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">个人博客</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">记录工作中的点点滴滴</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://yongnights.github.io/2019/12/31/使用nc传输超大文件/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="永夜初晗凝碧天"><meta itemprop="description" content><meta itemprop="image" content="/img/avatar.png"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="个人博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">使用nc传输超大文件</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">更新于&#58;</span> <time title="更新于" itemprop="dateModified" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span> </a></span></span><span class="post-meta-divider">|</span> <span class="page-pv"><i class="fa fa-file-o"></i>本文总阅读量 <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次</span><div class="post-wordcount"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">3.7k 字 </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span title="阅读时长">15 分钟</span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><pre><code>linux下的文件传输，大家首先会想到rsync、scp之类的工具，但这类工具有一个特点——慢，
+因为这类工具都是加密传输，发送端加密，接收端解密，当我们传输一些非敏感文件的时候，完全可以不加密，直接在网络上传输。
+</code></pre><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>1. linux系统安装
+# yum install -y nc | nmap-ncat
+ps.ubuntu自带的nc是netcat-openbsd版,不带-c/-e参数。
+
+2. windows系统安装
+(1)下载
+下载netcat。下载地址：https://eternallybored.org/misc/netcat/, 
+</code></pre><p><img src="/nc/1.png" alt></p><pre><code>(2)解压文件夹
+(3)将文件夹所在路径添加到用户环境变量里
+(4)打开命令界面：Windows+R  cmd。输入nc 命令即可
+</code></pre><a id="more"></a><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><pre><code>想要连接到某处: nc [-options] hostname port[s] [ports] …
+绑定端口等待连接: nc -l port [-options] [hostname] [port]
+
+-g&lt;网关&gt;：设置路由器跃程通信网关，最多设置8个;
+-G&lt;指向器数目&gt;：设置来源路由指向器，其数值为4的倍数;
+-h：在线帮助;
+-i&lt;延迟秒数&gt;：设置时间间隔，以便传送信息及扫描通信端口;
+-l：使用监听模式，监控传入的资料;
+-n：直接使用ip地址，而不通过域名服务器;
+-o&lt;输出文件&gt;：指定文件名称，把往来传输的数据以16进制字码倾倒成该文件保存;
+-p&lt;通信端口&gt;：设置本地主机使用的通信端口;
+-r：指定源端口和目的端口都进行随机的选择;
+-s&lt;来源位址&gt;：设置本地主机送出数据包的IP地址;
+-u：使用UDP传输协议;
+-v：显示指令执行过程;
+-w&lt;超时秒数&gt;：设置等待连线的时间;
+-z：使用0输入/输出模式，只在扫描通信端口时使用。
+</code></pre><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><h4 id="连接远程主机"><a href="#连接远程主机" class="headerlink" title="连接远程主机"></a>连接远程主机</h4><pre><code>Client连接到Server的TCP 80端口: $nc -nvv 192.168.x.x 8000
+Server监听本机的TCP8000端口: $nc -l 8000
+
+超时控制:
+多数情况我们不希望连接一直保持，那么我们可以使用 -w 参数来指定连接的空闲超时时间，该参数紧接一个数值，代表秒数，如果连接超过指定时间则连接会被终止。
+Server: $nc -l 2389
+Client: $nc -w 10 localhost 2389
+该连接将在 10 秒后中断。注意: 不要在服务器端同时使用 -w 和 -l 参数，因为 -w 参数将在服务器端无效果。
+</code></pre><h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><pre><code>端口扫描经常被系统管理员和黑客用来发现在一些机器上开放的端口，帮助他们识别系统中的漏洞。
+$nc -z -v -n 192.168.1.1 21-25
+可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.
+z 参数告诉netcat使用0 IO,连接成功后立即关闭连接， 不进行数据交换.
+v 参数指详细输出.
+n 参数告诉netcat 不要使用DNS反向查询IP地址的域名.
+以上命令会打印21到25 所有开放的端口。
+
+$nc -v 127.0.0.1 22
+localhost [127.0.0.1] 22 (ssh) open
+SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.4
+&quot;SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.4&quot;为Banner信息。
+Banner是一个文本，Banner是一个你连接的服务发送给你的文本信息。当你试图鉴别漏洞或者服务的类型和版本的时候，Banner信息是非常有用的。
+但是，并不是所有的服务都会发送banner.一旦你发现开放的端口，你可以容易的使用netcat 连接服务抓取他们的banner。
+</code></pre><h4 id="Chat-Server"><a href="#Chat-Server" class="headerlink" title="Chat Server"></a>Chat Server</h4><pre><code>内网聊天,netcat提供了这样一种方法，只需要创建一个Chat服务器，一个预先确定好的端口，这样子就可以在内网聊天沟通了.
+Server: $nc -l 20000
+netcat 命令在20000端口启动了一个tcp 服务器，所有的标准输出和输入会输出到该端口。输出和输入都在此shell中展示。
+
+Client:$nc 192.168.1.1 20000
+不管你在机器Client上键入什么都会出现在机器Server上。
+</code></pre><h4 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h4><pre><code>linux下的文件传输，大家首先会想到rsync、scp之类的工具，但这类工具有一个特点——慢，因为这类工具都是加密传输，发送端加密，接收端解密，当我们传输一些非敏感文件的时候，完全可以不加密，直接在网络上传输。
+Server: $ time nc -l 20000 &lt; file.txt
+命令最前面的time是用来检测该命令运行耗时的。
+Client: $nc -n 192.168.1.1 20000 &gt; file.txt
+我们创建了一个服务器在A上并且重定向netcat的输入为文件file.txt，那么当任何成功连接到该端口，netcat会发送file的文件内容。
+在客户端我们重定向输出到file.txt，当B连接到A，A发送文件内容，B保存文件内容到file.txt.没有必要创建文件源作为Server，我们也可以相反的方法使用。
+
+像下面的我们发送文件从B到A，但是服务器创建在A上，这次我们仅需要重定向netcat的输出并且重定向B的输入文件。
+
+B作为Server
+Server: $nc -l 20000 &gt; file.txt   
+Client: $nc 192.168.1.2 20000 &lt; file.txt
+
+用nc传输有两个特点：
+➤速度快
+➤传输简单，不需要登录对方服务器，不需要验证信息。
+
+nc进度显示
+若你文件实在太大，想看到传输进度，用PV
+
+yum install epel-release -y
+yum install pv -y
+cat file.txt |pv -b | nc  192.168.1.1 20000
+</code></pre><h4 id="中转文件"><a href="#中转文件" class="headerlink" title="中转文件"></a>中转文件</h4><pre><code>A、B、C三台主机，A美国，C日本，C只能访问到B，不能直接访问A，B和AC互通。C要怎么才能拿到A上的文件呢？
+C上执行：nc -l 9999 &gt; google_file.txt
+B上执行：nc -l 9999 | nc (C的外网IP) 9999
+A上执行：nc (B的外网IP) 9999 &lt; google_file.txt
+</code></pre><h4 id="目录传输"><a href="#目录传输" class="headerlink" title="目录传输"></a>目录传输</h4><pre><code>想要发送多个文件，或者整个目录，一样很简单，只需要使用压缩工具tar，压缩后发送压缩包。
+如果你想要通过网络传输一个目录从A到B。
+Server: $tar -cvf – dir_name | nc -l 20000
+Client: $nc -n 192.168.1.1 20000 | tar -xvf -
+在A服务器上，我们创建一个tar归档包并且通过-在控制台重定向它，然后使用管道，重定向给netcat，netcat可以通过网络发送它。
+在客户端我们下载该压缩包通过netcat 管道然后打开文件。
+
+如果想要节省带宽传输压缩包，我们可以使用bzip2或者其他工具压缩。
+Server: $tar -cvf – dir_name| bzip2 -z | nc -l 20000
+通过bzip2压缩
+Client: $nc -n 192.168.1.1 20000 | bzip2 -d |tar -xvf -
+
+还可以把目录制作成iso文件进行传输
+$ yum install mkisofs
+mkisofs -r -o 路径/ISO 文件名 目录文件路径
+例子：mkisofs -r -o /opt/mycd.iso /home
+</code></pre><h4 id="加密通过网络发送的数据"><a href="#加密通过网络发送的数据" class="headerlink" title="加密通过网络发送的数据"></a>加密通过网络发送的数据</h4><pre><code>如果担心你在网络上发送数据的安全，可以在发送你的数据之前用如mcrypt的工具加密。
+
+使用mcrypt工具加密数据。
+Server: $nc localhost 20000 | mcrypt –flush –bare -F -q -d -m ecb &gt; file.txt
+使用mcrypt工具解密数据。
+Client: $mcrypt –flush –bare -F -q -m ecb &lt; file.txt | nc -l 20000
+
+以上两个命令会提示需要密码，确保两端使用相同的密码。
+这里我们是使用mcrypt用来加密，使用其它任意加密工具都可以。
+</code></pre><h4 id="流视频"><a href="#流视频" class="headerlink" title="流视频"></a>流视频</h4><pre><code>虽然不是生成流视频的最好方法，但如果服务器上没有特定的工具，使用netcat，我们仍然有希望做成这件事。
+这里我们只是从一个视频文件中读入并重定向输出到netcat客户端
+Server: $cat video.avi | nc -l 20000
+
+这里我们从socket中读入数据并重定向到mplayer。
+Client: $nc 192.168.1.1 20000 | mplayer -vo x11 -cache 3000 -
+</code></pre><h4 id="克隆一个设备"><a href="#克隆一个设备" class="headerlink" title="克隆一个设备"></a>克隆一个设备</h4><pre><code>如果你已经安装配置一台Linux机器并且需要重复同样的操作对其他的机器，而你不想在重复配置一遍。
+不在需要重复配置安装的过程，只启动另一台机器的一些引导可以随身碟和克隆你的机器。
+克隆Linux PC很简单，假如你的系统在磁盘/dev/sda上
+Server: $dd if=/dev/sda | nc -l 20000
+
+Client: $nc -n 192.168.1.1 20000 | dd of=/dev/sda
+
+dd是一个从磁盘读取原始数据的工具，我通过netcat服务器重定向它的输出流到其他机器并且写入到磁盘中，它会随着分区表拷贝所有的信息。
+但是如果我们已经做过分区并且只需要克隆root分区，我们可以根据我们系统root分区的位置，更改sda 为sda1，sda2.等等。
+</code></pre><h4 id="打开一个shell"><a href="#打开一个shell" class="headerlink" title="打开一个shell"></a>打开一个shell</h4><pre><code>假设你的netcat支持 -c -e 参数(原生 netcat)
+Server: $nc -l 20000 -e /bin/bash -i
+Client: $nc 192.168.1.1 20000
+
+这里我们已经创建了一个netcat服务器并且表示当它连接成功时执行/bin/bash
+假如netcat 不支持-c 或者 -e 参数（openbsd netcat）,我们仍然能够创建远程shell
+
+Server: 
+$mkfifo /tmp/tmp_fifo
+$cat /tmp/tmp_fifo | /bin/sh -i 2&gt;&amp;1 | nc -l 20000 &gt; /tmp/tmp_fifo
+这里我们创建了一个fifo文件，然后使用管道命令把这个fifo文件内容定向到shell 2&gt;&amp;1中。
+2&gt;&amp;1是用来重定向标准错误输出和标准输出，然后管道到netcat 运行的端口20000上。至此，我们已经把netcat的输出重定向到fifo文件中。
+说明：
+从网络收到的输入写到fifo文件中
+cat 命令读取fifo文件并且其内容发送给sh命令
+sh命令进程受到输入并把它写回到netcat。
+netcat 通过网络发送输出到client
+至于为什么会成功是因为管道使命令平行执行，fifo文件用来替代正常文件，因为fifo使读取等待而如果是一个普通文件，cat命令会尽快结束并开始读取空文件。
+在客户端仅仅简单连接到服务器
+
+Client: $nc -n 192.168.1.1 20000
+你会得到一个shell提示符在客户端
+</code></pre><h4 id="反向shell"><a href="#反向shell" class="headerlink" title="反向shell"></a>反向shell</h4><pre><code>反向shell是指在客户端打开的shell。反向shell这样命名是因为不同于其他配置，这里服务器使用的是由客户提供的服务。
+Server: $nc -l 20000
+
+在客户端，简单地告诉netcat在连接完成后，执行shell。
+Client: $nc 192.168.1.1 20000 -e /bin/bash
+
+现在，什么是反向shell的特别之处呢
+反向shell经常被用来绕过防火墙的限制，如阻止入站连接。
+例如，我有一个专用IP地址为192.168.1.1，我使用代理服务器连接到外部网络。如果我想从网络外部访问 这台机器如1.2.3.4的shell，那么我会用反向外壳用于这一目的。
+</code></pre><p>####　指定源端口<br>假设你的防火墙过滤除25端口外其它所有端口，你需要使用-p选项指定源端口。<br>Server：$nc -l 20000<br>Client：$nc 192.168.1.1 20000 25</p><pre><code>使用1024以内的端口需要root权限。
+该命令将在客户端开启25端口用于通讯，否则将使用随机端口。
+</code></pre><h4 id="指定源地址"><a href="#指定源地址" class="headerlink" title="指定源地址"></a>指定源地址</h4><pre><code>假设你的机器有多个地址，希望明确指定使用哪个地址用于外部数据通讯。我们可以在netcat中使用-s选项指定ip地址。
+Server: $nc -u -l 20000 &lt; file.txt
+Client: $nc -u 192.168.1.1 20000 -s 172.31.100.5 &gt; file.txt
+该命令将绑定地址172.31.100.5。
+</code></pre><h4 id="静态web页面服务器"><a href="#静态web页面服务器" class="headerlink" title="静态web页面服务器"></a>静态web页面服务器</h4><pre><code>新建一个网页,命名为somepage.html;
+新建一个shell script:
+while true; do
+    nc -l 80 -q 1 &lt; somepage.html;
+done
+
+用root权限执行，然后在浏览器中输入127.0.0.1打开看看是否正确运行。
+nc 指令通常都是给管理者进行除错或测试等作用的，所以如果只是单纯需要临时的网页服务器，使用 Python 的 SimpleHTTPServer 组会比较方便。
+</code></pre><h4 id="模拟HTTP-Headers"><a href="#模拟HTTP-Headers" class="headerlink" title="模拟HTTP Headers"></a>模拟HTTP Headers</h4><pre><code>$nc www.huanxiangwu.com 80
+GET / HTTP/1.1
+Host: ispconfig.org
+Referrer: mypage.com
+User-Agent: my-browser
+
+HTTP/1.1 200 OK
+Date: Tue, 16 Dec 2008 07:23:24 GMT
+Server: Apache/2.2.6 (Unix) DAV/2 mod_mono/1.2.1 mod_python/3.2.8 Python/2.4.3 mod_perl/2.0.2 Perl/v5.8.8
+Set-Cookie: PHPSESSID=bbadorbvie1gn037iih6lrdg50; path=/
+Expires: 0
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Cache-Control: private, post-check=0, pre-check=0, max-age=0
+Set-Cookie: oWn_sid=xRutAY; expires=Tue, 23-Dec-2008 07:23:24 GMT; path=/
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: text/html
+[......]
+
+在nc命令后，输入红色部分的内容(命令下方的4行内容)，然后按两次回车，即可从对方获得HTTP Headers内容。
+</code></pre><h4 id="Netcat支持IPv6"><a href="#Netcat支持IPv6" class="headerlink" title="Netcat支持IPv6"></a>Netcat支持IPv6</h4><pre><code>netcat 的 -4 和 -6 参数用来指定 IP 地址类型，分别是 IPv4 和 IPv6：
+Server: $ nc -4 -l 2389
+Client: $ nc -4 localhost 2389
+
+然后我们可以使用 netstat 命令来查看网络的情况：
+$ netstat | grep 2389
+tcp        0      0 localhost:2389          localhost:50851         ESTABLISHED
+tcp        0      0 localhost:50851         localhost:2389          ESTABLISHED
+
+接下来我们看看IPv6 的情况：
+Server: $ nc -6 -l 2389
+Client: $ nc -6 localhost 2389
+
+再次运行 netstat 命令：
+$ netstat | grep 2389
+tcp6       0      0 localhost:2389          localhost:33234         ESTABLISHED
+tcp6       0      0 localhost:33234         localhost:2389          ESTABLISHED
+前缀是 tcp6 表示使用的是 IPv6 的地址。
+</code></pre><h4 id="在-Netcat-中禁止从标准输入中读取数据"><a href="#在-Netcat-中禁止从标准输入中读取数据" class="headerlink" title="在 Netcat 中禁止从标准输入中读取数据"></a>在 Netcat 中禁止从标准输入中读取数据</h4><pre><code>该功能使用 -d 参数，请看下面例子：
+Server: $ nc -l 2389
+
+Client: $ nc -d localhost 2389
+Hi
+你输入的 Hi 文本并不会送到服务器端
+</code></pre><h4 id="强制-Netcat-服务器端保持启动状态"><a href="#强制-Netcat-服务器端保持启动状态" class="headerlink" title="强制 Netcat 服务器端保持启动状态"></a>强制 Netcat 服务器端保持启动状态</h4><pre><code>如果连接到服务器的客户端断开连接，那么服务器端也会跟着退出。
+Server: $ nc -l 2389
+Client: $ nc localhost 2389
+^C
+
+Server: $ nc -l 2389
+上述例子中，但客户端断开时服务器端也立即退出。
+
+我们可以通过 -k 参数来控制让服务器不会因为客户端的断开连接而退出。
+Server: $ nc -k -l 2389
+Client: $ nc localhost 2389
+^C
+
+Server: $ nc -k -l 2389
+</code></pre><h4 id="配置-Netcat-客户端不会因为-EOF-而退出"><a href="#配置-Netcat-客户端不会因为-EOF-而退出" class="headerlink" title="配置 Netcat 客户端不会因为 EOF 而退出"></a>配置 Netcat 客户端不会因为 EOF 而退出</h4><pre><code>Netcat 客户端可以通过 -q 参数来控制接收到 EOF 后隔多长时间才退出，该参数的单位是秒：
+Client: $nc  -q 5  localhost 2389
+现在如果客户端接收到 EOF ，它将等待 5 秒后退出。
+</code></pre><h4 id="手动使用-SMTP-协议寄信"><a href="#手动使用-SMTP-协议寄信" class="headerlink" title="手动使用 SMTP 协议寄信"></a>手动使用 SMTP 协议寄信</h4><pre><code>在测试邮件服务器是否正常时，可以使用这样的方式手动发送 Email：
+
+$nc localhost 25 &lt;&lt; EOF
+HELO host.example.com
+MAIL FROM: &lt;user@host.example.com&gt;
+RCPT TO: &lt;user2@host.example.com&gt;
+DATA
+Body of email.
+.
+QUIT
+EOF
+</code></pre><h4 id="透过代理服务器（Proxy）连线"><a href="#透过代理服务器（Proxy）连线" class="headerlink" title="透过代理服务器（Proxy）连线"></a>透过代理服务器（Proxy）连线</h4><pre><code>这指令会使用 10.2.3.4:8080 这个代理服务器，连线至 host.example.com 的42端口。
+$nc -x10.2.3.4:8080 -Xconnect host.example.com 42
+</code></pre><h4 id="使用-Unix-Domain-Socket"><a href="#使用-Unix-Domain-Socket" class="headerlink" title="使用 Unix Domain Socket"></a>使用 Unix Domain Socket</h4><pre><code>这行指令会建立一个 Unix Domain Socket，并接收资料：
+$nc -lU /var/tmp/dsocket
+</code></pre></div><div><div><div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束 <i class="fa fa-paw"></i> 感谢您的阅读-------------</div></div></div><div><div style="padding:10px 0;margin:20px auto;width:90%;text-align:center"><div>如果觉得我的文章对您有用,请随意打赏.您的支持将鼓励我继续创作!</div><br><button id="rewardButton" disable="enable" onclick='var e=document.getElementById("QR");"none"===e.style.display?e.style.display="block":e.style.display="none"'><span>打赏</span></button><div id="QR" style="display:none"><div id="wechat" style="display:inline-block"><img id="wechat_qr" src="/img/wechat.jpg" alt="永夜初晗凝碧天 微信支付"><p>微信支付</p></div><div id="alipay" style="display:inline-block"><img id="alipay_qr" src="/img/alipay.jpg" alt="永夜初晗凝碧天 支付宝"><p>支付宝</p></div></div></div></div><div><div class="post-copyright"><li class="post-copyright-title"><strong>本文标题：</strong> 使用nc传输超大文件</li><li class="post-copyright-author"><strong>文章作者：</strong> 永夜初晗凝碧天</li><li class="post-copyright-author"><strong>发布时间：</strong> 2019年12月31日 - 12:12:27</li><li class="post-copyright-author"><strong>更新时间：</strong> 2019年12月31日 - 12:12:27</li><li class="post-copyright-link"><strong>本文链接：</strong> <a href="/2019/12/31/使用nc传输超大文件/" title="使用nc传输超大文件">https://yongnights.github.io/2019/12/31/使用nc传输超大文件/</a> <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://yongnights.github.io/2019/12/31/使用nc传输超大文件/" aria-label="复制成功！"></i></span></li><li class="post-copyright-license"><strong>版权声明： </strong><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</li></div><script>var clipboard=new Clipboard(".fa-clipboard");$(".fa-clipboard").click(function(){clipboard.on("success",function(){swal({title:"",text:"复制成功",icon:"success",showConfirmButton:!0})})})</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a> <a href="/tags/nc/" rel="tag"><i class="fa fa-tag"></i> nc</a> <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a></div><div class="post-widgets"><div id="needsharebutton-postbottom"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/12/31/与房屋中介公司要押金的斗智斗勇/" rel="next" title="与房屋中介公司要押金的斗智斗勇"><i class="fa fa-chevron-left"></i> 与房屋中介公司要押金的斗智斗勇</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019/12/31/前端知识汇总/" rel="prev" title="前端知识汇总">前端知识汇总 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"><div class="jiathis_style"><span class="jiathis_txt">分享到：</span> <a class="jiathis_button_fav">收藏夹</a> <a class="jiathis_button_copy">复制网址</a> <a class="jiathis_button_email">邮件</a> <a class="jiathis_button_weixin">微信</a> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tqq">腾讯微博</a> <a class="jiathis_button_douban">豆瓣</a> <a class="jiathis_button_share">一键分享</a> <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a></div><script type="text/javascript">var jiathis_config={data_track_clickback:!0,summary:"",shortUrl:!1,hideMore:!1}</script><script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script></div></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/img/avatar.png" alt="永夜初晗凝碧天"><p class="site-author-name" itemprop="name">永夜初晗凝碧天</p><p class="site-description motion-element" itemprop="description">Linux,Python,MySQL</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">48</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">31</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">43</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="tencent://message/?Menu=yes&uin=1103324414" target="_blank" title="QQ"><i class="fa fa-fw fa-qq"></i>QQ</a> </span><span class="links-of-author-item"><a href="mailto:sandu12345@msn.cn" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a></span></div><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1333220817&auto=0&height=66"></iframe><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-link"></i> 友情链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="http://www.cnblogs.com/sanduzxcvbnm/" title="博客园" target="_blank">博客园</a></li><li class="links-of-blogroll-item"><a href="https://www.baidu.com/" title="百度" target="_blank">百度</a></li></ul></div><div class="links-of-blogroll motion-element links-of-blogroll-block"><div class="links-of-blogroll-title"><i class="fa fa-history fa-" aria-hidden="true"></i> 近期文章</div><ul class="links-of-blogroll-list"><li><a href="/2019/12/31/网络_udp/" title="网络_udp" target="_blank">网络_udp</a></li><li><a href="/2019/12/31/网络_tcp/" title="网络_tcp" target="_blank">网络_tcp</a></li><li><a href="/2019/12/31/爬取干货集中营的图片/" title="爬取干货集中营的图片" target="_blank">爬取干货集中营的图片</a></li><li><a href="/2019/12/31/爬取美图录网站图片/" title="爬取美图录网站图片" target="_blank">爬取美图录网站图片</a></li><li><a href="/2019/12/31/多任务_进程/" title="多任务_进程" target="_blank">多任务_进程</a></li></ul></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连接远程主机"><span class="nav-text">连接远程主机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口扫描"><span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chat-Server"><span class="nav-text">Chat Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件传输"><span class="nav-text">文件传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中转文件"><span class="nav-text">中转文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录传输"><span class="nav-text">目录传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密通过网络发送的数据"><span class="nav-text">加密通过网络发送的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流视频"><span class="nav-text">流视频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆一个设备"><span class="nav-text">克隆一个设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开一个shell"><span class="nav-text">打开一个shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向shell"><span class="nav-text">反向shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定源地址"><span class="nav-text">指定源地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态web页面服务器"><span class="nav-text">静态web页面服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模拟HTTP-Headers"><span class="nav-text">模拟HTTP Headers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Netcat支持IPv6"><span class="nav-text">Netcat支持IPv6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Netcat-中禁止从标准输入中读取数据"><span class="nav-text">在 Netcat 中禁止从标准输入中读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强制-Netcat-服务器端保持启动状态"><span class="nav-text">强制 Netcat 服务器端保持启动状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-Netcat-客户端不会因为-EOF-而退出"><span class="nav-text">配置 Netcat 客户端不会因为 EOF 而退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动使用-SMTP-协议寄信"><span class="nav-text">手动使用 SMTP 协议寄信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#透过代理服务器（Proxy）连线"><span class="nav-text">透过代理服务器（Proxy）连线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Unix-Domain-Socket"><span class="nav-text">使用 Unix Domain Socket</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span> <span class="with-love"><i class="fa fa-star"></i> </span><span class="author" itemprop="copyrightHolder">永夜初晗凝碧天</span><br></div><div><span class="post-meta-item-icon"><i class="fa fa-area-chart"></i> </span><span class="post-meta-item-text">博客全站字数统计 </span><span title="博客全站字数统计">: 239.9k 字</span> <span class="post-meta-divider">||</span><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>function createtime(){var n=new Date("03/01/2019 00:00:00");now.setTime(now.getTime()+250),days=(now-n)/1e3/60/60/24,dnum=Math.floor(days),hours=(now-n)/1e3/60/60-24*dnum,hnum=Math.floor(hours),1==String(hnum).length&&(hnum="0"+hnum),minutes=(now-n)/1e3/60-1440*dnum-60*hnum,mnum=Math.floor(minutes),1==String(mnum).length&&(mnum="0"+mnum),seconds=(now-n)/1e3-86400*dnum-3600*hnum-60*mnum,snum=Math.round(seconds),1==String(snum).length&&(snum="0"+snum),document.getElementById("timeDate").innerHTML="博客已运行 "+dnum+" 天 ",document.getElementById("times").innerHTML=hnum+" 小时 "+mnum+" 分钟 "+snum+" 秒"}var now=new Date;setInterval("createtime()",250)</script></div><div class="busuanzi-count"><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i> 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_uv"><i class="fa fa-user"></i> 本站访客数<span id="busuanzi_value_site_uv"></span>人次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> 本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div id="nowDate"><script type="text/javascript">window.onload=function(){function e(){var e=new Date,r=e.getFullYear(),u=e.getMonth()+1,a=e.getDate(),g=e.getDay(),i=e.getHours(),c=e.getMinutes(),d=e.getSeconds(),l="当前时间是："+r+"年"+u+"月"+a+"日 "+t(g)+" "+n(i)+":"+n(c)+":"+n(d);o.innerHTML=l}function t(e){return 0==e?"星期日":1==e?"星期一":2==e?"星期二":3==e?"星期三":4==e?"星期四":5==e?"星期五":"星期六"}function n(e){return e<10?"0"+e:e}var o=document.getElementById("nowDate");e(),setInterval(e,1e3)}</script></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div><div id="needsharebutton-float"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;w<0&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script>!function(){var t=document.createElement("script"),s=window.location.protocol.split(":")[0];"https"===s?t.src="https://zz.bdstatic.com/linksubmit/push.js":t.src="http://push.zhanzhang.baidu.com/push.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}()</script><link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css"><script src="/lib/needsharebutton/needsharebutton.js"></script><script>pbOptions={},pbOptions.iconStyle="box",pbOptions.boxForm="horizontal",pbOptions.position="bottomCenter",pbOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-postbottom",pbOptions),flOptions={},flOptions.iconStyle="box",flOptions.boxForm="horizontal",flOptions.position="middleRight",flOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-float",flOptions)</script><script type="text/javascript" src="/js/src/love.js"></script><canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:1;pointer-events:none"></canvas><script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script><script type="text/javascript" src="/js/src/fireworks.js"></script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/",tagMode:!1})</script></body></html><!-- rebuild by neat -->

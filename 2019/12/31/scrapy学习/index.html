@@ -1,0 +1,395 @@
+<!-- build time:Tue Dec 31 2019 13:44:21 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="Python,Scrapy,"><link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml"><meta name="description" content="scrapy是什么Scrapy 是用 Python 实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架。常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片。 scrapy架构图绿线是数据流向 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、S"><meta name="keywords" content="Python,Scrapy"><meta property="og:type" content="article"><meta property="og:title" content="scrapy学习"><meta property="og:url" content="https://yongnights.github.io/2019/12/31/scrapy学习/index.html"><meta property="og:site_name" content="个人博客"><meta property="og:description" content="scrapy是什么Scrapy 是用 Python 实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架。常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片。 scrapy架构图绿线是数据流向 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、S"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://i.imgur.com/RpWDwoz.png"><meta property="og:image" content="https://i.imgur.com/y1pDfXA.png"><meta property="og:image" content="https://i.imgur.com/og423tA.png"><meta property="og:image" content="https://i.imgur.com/lBSiyp1.png"><meta property="og:image" content="https://i.imgur.com/x5llaYF.png"><meta property="og:updated_time" content="2019-12-31T04:00:48.271Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="scrapy学习"><meta name="twitter:description" content="scrapy是什么Scrapy 是用 Python 实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架。常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片。 scrapy架构图绿线是数据流向 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、S"><meta name="twitter:image" content="https://i.imgur.com/RpWDwoz.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="https://yongnights.github.io/2019/12/31/scrapy学习/"><title>scrapy学习 | 个人博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">个人博客</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">记录工作中的点点滴滴</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://yongnights.github.io/2019/12/31/scrapy学习/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="永夜初晗凝碧天"><meta itemprop="description" content><meta itemprop="image" content="/img/avatar.png"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="个人博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">scrapy学习</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">更新于&#58;</span> <time title="更新于" itemprop="dateModified" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span> </a></span></span><span class="post-meta-divider">|</span> <span class="page-pv"><i class="fa fa-file-o"></i>本文总阅读量 <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次</span><div class="post-wordcount"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">5.8k 字 </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span title="阅读时长">23 分钟</span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="scrapy是什么"><a href="#scrapy是什么" class="headerlink" title="scrapy是什么"></a>scrapy是什么</h3><pre><code>Scrapy 是用 Python 实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架。常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片。
+</code></pre><h3 id="scrapy架构图"><a href="#scrapy架构图" class="headerlink" title="scrapy架构图"></a>scrapy架构图</h3><pre><code>绿线是数据流向
+</code></pre><p><img src="https://i.imgur.com/RpWDwoz.png" alt></p><pre><code>Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
+Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。
+</code></pre><a id="more"></a><pre><code>Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，
+Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器).
+Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方。
+Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。
+Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
+
+注意！只有当调度器中不存在任何request了，整个程序才会停止，（也就是说，对于下载失败的URL，Scrapy也会重新下载。）
+
+制作 Scrapy 爬虫 一共需要4步：
+
+新建项目 (scrapy startproject xxx)：新建一个新的爬虫项目
+明确目标 （编写items.py）：明确你想要抓取的目标
+制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页
+存储内容 （pipelines.py）：设计管道存储爬取内容
+</code></pre><h3 id="scrapy安装"><a href="#scrapy安装" class="headerlink" title="scrapy安装"></a>scrapy安装</h3><pre><code>1. 如果你用的是Anaconda或者Minconda，可以使用下面的命令：conda install -c conda-forge scrapy
+2. 如果你已经安装了python包管理工具PyPI，可以使用下面命令进行安装：pip install Scrapy。值得注意的是，如果你使用的是pip安装，你需要解决相应的包依赖。
+
+scrapy依赖的一些包：
+lxml：一种高效的XML和HTML解析器，
+PARSEL：一个HTML / XML数据提取库，基于上面的lxml，
+w3lib：一种处理URL和网页编码多功能辅助
+twisted,：一个异步网络框架
+cryptography and pyOpenSSL，处理各种网络级安全需求
+
+以上包需要的最低版本：
+Twisted 14.0
+lxml 3.4
+pyOpenSSL 0.14
+
+常见依赖问题:
+1.错误提示：ModuleNotFoundError: No module named &apos;win32api&apos;
+解决方法：
+(1)到这个网站下载跟使用的Python版本相匹配的软件：https://github.com/mhammond/pywin32/releases
+(2)进入使用的Python解释器里的Scripts目录，里面有一个easy_install.exe文件
+(3)打开命令行，使用如下命令进行安装：easy_install.exe pywin32-224.win-amd64-py3.6.exe
+2.错误提示：building &apos;twisted.test.raiser&apos; extension
+解决方法：
+(1)到这个网站下载跟使用的Python版本相匹配的软件：https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted
+(2)进入使用的Python解释器里的Scripts目录，里面有一个pip.exe文件
+(3)打开命令行，使用如下命令进行安装：pip.exe Twisted-18.9.0-cp36-cp36m-win_amd64.whl
+</code></pre><h4 id="win7安装scrapy"><a href="#win7安装scrapy" class="headerlink" title="win7安装scrapy"></a>win7安装scrapy</h4><pre><code>推荐使用Anaconda进行安装
+</code></pre><h4 id="CentOS-7安装scrapy"><a href="#CentOS-7安装scrapy" class="headerlink" title="CentOS 7安装scrapy"></a>CentOS 7安装scrapy</h4><pre><code>CentOS 7系统自带的python版本是2.7，若是python3.5+版本，则不用再安装pip了。
+(1)安装pip
+# yum -y install epel-release
+# yum install python-pip
+# pip install --upgrade pip
+(2)安装依赖包
+# yum install gcc libffi-devel python-devel openssl-devel -y
+(3)安装scrapy
+# pip install scrapy
+</code></pre><h3 id="scrapy入门"><a href="#scrapy入门" class="headerlink" title="scrapy入门"></a>scrapy入门</h3><h4 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h4><pre><code>在开始爬取之前，首先要创建一个scrapy项目，在命令行输入一下命令即可创建:
+# scrapy startproject mySpider
+scrapy  startproject是固定写法，注意scrapy和startproject和mySpider中间是有空格的！ 
+mySpider 为项目名称，可以看到将会创建一个 mySpider 文件夹，目录结构大致如下：
+mySpider/
+    scrapy.cfg
+    mySpider/
+        __init__.py
+        items.py
+        pipelines.py
+        settings.py
+        spiders/
+            __init__.py
+            ......
+
+这些文件分别是:
+    scrapy.cfg: 项目的配置文件。
+    mySpider/: 项目的Python模块，将会从这里引用代码。
+    mySpider/items.py: 项目的目标文件。
+    mySpider/pipelines.py: 项目的管道文件。
+    mySpider/settings.py: 项目的设置文件。
+    mySpider/spiders/: 存储爬虫代码目录。
+</code></pre><h4 id="明确目标"><a href="#明确目标" class="headerlink" title="明确目标"></a>明确目标</h4><pre><code>打开 mySpider 目录下的 items.py，
+Item 定义结构化数据字段，用来保存爬取到的数据，有点像 Python 中的 dict，但是提供了一些额外的保护减少错误。
+可以通过创建一个 scrapy.Item 类， 并且定义类型为 scrapy.Field 的类属性来定义一个 Item（可以理解成类似于 ORM 的映射关系）。
+创建一个 ItcastItem 类，和构建 item 模型（model）：
+import scrapy
+
+class ItcastItem(scrapy.Item):
+   name = scrapy.Field()
+   title = scrapy.Field()
+   info = scrapy.Field()
+</code></pre><h4 id="制作爬虫"><a href="#制作爬虫" class="headerlink" title="制作爬虫"></a>制作爬虫</h4><pre><code>命令：scrapy genspider mingyan2 mingyan2.com
+mingyan2为蜘蛛名，mingyan2.com为要爬取的网站地址
+</code></pre><h4 id="运行蜘蛛"><a href="#运行蜘蛛" class="headerlink" title="运行蜘蛛"></a>运行蜘蛛</h4><pre><code>命令：scrapy crawl  mingyan2
+要重点提醒一下，我们一定要进入：mingyan 这个目录，也就是我们创建的蜘蛛项目目录，以上命令才有效！还有 crawl 后面跟的mingyan2是你类里面定义的蜘蛛名，也就是：name，并不是项目名、也不是类名。
+</code></pre><h4 id="scrapy-start-url（初始链接）的两种不同写法"><a href="#scrapy-start-url（初始链接）的两种不同写法" class="headerlink" title="scrapy start_url（初始链接）的两种不同写法"></a>scrapy start_url（初始链接）的两种不同写法</h4><pre><code>第一种：
+start_urls = [  # 另外一种写法，无需定义start_requests方法
+    &apos;http://lab.scrapyd.cn/page/1/&apos;,
+    &apos;http://lab.scrapyd.cn/page/2/&apos;,
+]，
+必须定义一个方法为：def parse(self, response)，方法名一定是：parse
+第二种：
+自己定义一个start_requests()方法
+
+示例代码：
+&quot;&quot;&quot;
+scrapy初始Url的两种写法，
+一种是常量start_urls，并且需要定义一个方法parse（）
+另一种是直接定义一个方法：star_requests()
+&quot;&quot;&quot;
+import scrapy
+class simpleUrl(scrapy.Spider):
+    name = &quot;simpleUrl&quot;
+    start_urls = [  #另外一种写法，无需定义start_requests方法
+        &apos;http://lab.scrapyd.cn/page/1/&apos;,
+        &apos;http://lab.scrapyd.cn/page/2/&apos;,
+    ]
+
+    # 另外一种初始链接写法
+    # def start_requests(self):
+    #     urls = [ #爬取的链接由此方法通过下面链接爬取页面
+    #         &apos;http://lab.scrapyd.cn/page/1/&apos;,
+    #         &apos;http://lab.scrapyd.cn/page/2/&apos;,
+    #     ]
+    #     for url in urls:
+    #         yield scrapy.Request(url=url, callback=self.parse)
+    # 如果是简写初始url，此方法名必须为：parse
+
+    def parse(self, response):
+        page = response.url.split(&quot;/&quot;)[-2]
+        filename = &apos;mingyan-%s.html&apos; % page
+        with open(filename, &apos;wb&apos;) as f:
+            f.write(response.body)
+        self.log(&apos;保存文件: %s&apos; % filename)
+</code></pre><h4 id="scrapy调试工具：scrapy-shell使用方法"><a href="#scrapy调试工具：scrapy-shell使用方法" class="headerlink" title="scrapy调试工具：scrapy shell使用方法"></a>scrapy调试工具：scrapy shell使用方法</h4><pre><code>进入scrapy shell调试命令：scrapy shell http://lab.scrapyd.cn
+scrapy shell 是固定格式，后面跟的是你要调试的页面。这段代码就是一个下载的过程，一执行这么一段代码scrapy就立马把我们相应链接的相应页面给拿到了
+</code></pre><h4 id="scrapy-css选择器使用"><a href="#scrapy-css选择器使用" class="headerlink" title="scrapy css选择器使用"></a>scrapy css选择器使用</h4><pre><code>进入scrapy shell调试命令：scrapy shell http://lab.scrapyd.cn
+在命令行输入如下命令：
+&gt;&gt;&gt; response.css(&apos;title&apos;) 
+[&lt;Selector xpath=&apos;descendant-or-self::title&apos; data=&apos;&lt;title&gt;SCRAPY爬虫实验室 - SCRAPY中文网提供&lt;/title&gt;&apos;&gt;]
+使用这个命令提取的一个Selector的列表，并不是我们想要的数据；那我们再使用scrapy给我们准备的一些函数来进一步提取，那我们改变一下上面的写法，
+&gt;&gt;&gt; response.css(&apos;title&apos;).extract()
+[&apos;&lt;title&gt;SCRAPY爬虫实验室 - SCRAPY中文网提供&lt;/title&gt;&apos;]
+我们只是在后面加入了：extract() 这么一个函数你就提取到了我们标签的一个列表，更近一步了，那如果我们不要列表，只要title这个标签，要怎么处理呢，看我们的输入：
+&gt;&gt;&gt;  response.css(&apos;title&apos;).extract()[0]
+&apos;&lt;title&gt;爬虫实验室 - SCRAPY中文网提供&lt;/title&gt;&apos;
+这里的话，我们只需要在后面添加：[0]，那代表提取这个列表中的第一个元素，那就得到了我们的title字符串；这里的话scrapy也给我提供了另外一个函数，可以这样来写，一样的效果：
+&gt;&gt;&gt;  response.css(&apos;title&apos;).extract_first()
+&apos;&lt;title&gt;爬虫实验室 - SCRAPY中文网提供&lt;/title&gt;&apos;
+extract_first()就代表提取第一个元素，和我们的：[0]，一样的效果，只是更简洁些，
+至此我们已经成功提取到了我们的title，但是你会发现，肿么多了一个title标签，这并不是你需要的，那要肿么办呢，
+我们可以继续改变一下以上的输入：
+&gt;&gt;&gt; response.css(&apos;title::text&apos;).extract_first()
+&apos;爬虫实验室 - SCRAPY中文网提供&apos;
+在title后面加上了 ::text ,这代表提取标签里面的数据，至此，我们已经成功提取到了我们需要的数据：
+&apos;爬虫实验室 - SCRAPY中文网提供&apos;
+总结一下，其实就这么一段代码：
+response.css(&apos;title::text&apos;).extract_first()
+</code></pre><h4 id="scrapy提取一组数据"><a href="#scrapy提取一组数据" class="headerlink" title="scrapy提取一组数据"></a>scrapy提取一组数据</h4><pre><code>class选择器使用的是&quot;.&quot;,比如.text ，如果是id选择器的话：使用&quot;#&quot;,比如 #text
+示例代码：
+import scrapy
+
+class itemSpider(scrapy.Spider):
+    name = &apos;itemSpider&apos;
+    start_urls = [&apos;http://lab.scrapyd.cn&apos;]
+
+    def parse(self, response):
+        mingyan = response.css(&apos;div.quote&apos;)[0]
+
+        text = mingyan.css(&apos;.text::text&apos;).extract_first()  # 提取名言
+        autor = mingyan.css(&apos;.author::text&apos;).extract_first()  # 提取作者
+        tags = mingyan.css(&apos;.tags .tag::text&apos;).extract()  # 提取标签
+        tags = &apos;,&apos;.join(tags)  # 数组转换为字符串
+
+        fileName = &apos;%s-语录.txt&apos; % autor  # 爬取的内容存入文件，文件名为：作者-语录.txt
+        f = open(fileName, &quot;a+&quot;)  # 追加写入文件
+        f.write(text)  # 写入名言内容
+        f.write(&apos;\n&apos;)  # 换行
+        f.write(&apos;标签：&apos;+tags)  # 写入标签
+        f.close()  # 关闭文件操作
+</code></pre><h4 id="scrapy-爬取多条数据"><a href="#scrapy-爬取多条数据" class="headerlink" title="scrapy 爬取多条数据"></a>scrapy 爬取多条数据</h4><pre><code>这次比上次唯一多了个递归调用，我们来看一下关键变化，原先我们取出一条数据，用的是如下表达式：mingyan = response.css(&apos;div.quote&apos;)[0]
+我们在后面添加了游标 [0]  表示只取出第一条，那我们要取出全部，那我们就不用加了，直接：mingyan = response.css(&apos;div.quote&apos;)
+那现在的变量就是一个数据集，里面有多条数据了，那接下来我们要做的就是循环取出数据集里面的每一条数据，那我们看一下怎么做：
+mingyan = response.css(&apos;div.quote&apos;)  # 提取首页所有名言，保存至变量mingyan
+for v in mingyan:  # 循环获取每一条名言里面的：名言内容、作者、标签
+    text = v.css(&apos;.text::text&apos;).extract_first()  # 提取名言
+    autor = v.css(&apos;.author::text&apos;).extract_first()  # 提取作者
+    tags = v.css(&apos;.tags .tag::text&apos;).extract()  # 提取标签
+    tags = &apos;,&apos;.join(tags)  # 数组转换为字符串
+    # 接下来，进行保存
+
+可以看到，关键是：for v in mingyan:
+表示把 mingyan 这个数据集里面的数据，循环赋值给：v ，第一次循环的话 v 就代表第一条数据，
+那text = v.css(&apos;.text::text&apos;).extract_first() 就代表第一条数据的名言内容，以此类推，把所有数据都取了出来，最终进行保存，我们看一下完整的代码：
+import scrapy
+
+class itemSpider(scrapy.Spider):
+
+    name = &apos;listSpider&apos;
+
+    start_urls = [&apos;http://lab.scrapyd.cn&apos;]
+
+    def parse(self, response):
+        mingyan = response.css(&apos;div.quote&apos;)  # 提取首页所有名言，保存至变量mingyan
+
+        for v in mingyan:  # 循环获取每一条名言里面的：名言内容、作者、标签
+
+            text = v.css(&apos;.text::text&apos;).extract_first()  # 提取名言
+            autor = v.css(&apos;.author::text&apos;).extract_first()  # 提取作者
+            tags = v.css(&apos;.tags .tag::text&apos;).extract()  # 提取标签
+            tags = &apos;,&apos;.join(tags)  # 数组转换为字符串
+
+            &quot;&quot;&quot;
+            接下来进行写文件操作，每个名人的名言储存在一个txt文档里面
+            &quot;&quot;&quot;
+            fileName = &apos;%s-语录.txt&apos; % autor  # 定义文件名,如：木心-语录.txt
+
+            with open(fileName, &quot;a+&quot;) as f:  # 不同人的名言保存在不同的txt文档，“a+”以追加的形式
+                f.write(text)
+                f.write(&apos;\n&apos;)  # ‘\n’ 表示换行
+                f.write(&apos;标签：&apos; + tags)
+                f.write(&apos;\n-------\n&apos;)
+                f.close()
+</code></pre><h4 id="scrapy-爬取下一页"><a href="#scrapy-爬取下一页" class="headerlink" title="scrapy 爬取下一页"></a>scrapy 爬取下一页</h4><pre><code>要爬取下一页，那我们首先要分析链接格式，找到下一页的链接，那爬取就简单了。下一页的链接如下：
+&lt;li class=&quot;next&quot;&gt;
+    &lt;a href=&quot;http://lab.scrapyd.cn/page/2/&quot;&gt;下一页 »&lt;/a&gt;
+&lt;/li&gt;
+每爬一页就用css选择器来查询，是否存在下一页链接，存在：则爬取下一页链接：http://lab.scrapyd.cn/page/*/，
+然后把下一页链接提交给当前爬取的函数，继续爬取，继续查找下一页，知道找不到下一页，说明所有页面已经爬完，那结束爬虫。
+</code></pre><p><img src="https://i.imgur.com/y1pDfXA.png" alt></p><pre><code>爬取内容的代码和上一文档（listSpider）一模一样，唯一区别的是这么一个地方，我们在：listSpider 蜘蛛下面添加了这么几段代码：
+next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first()  
+        if next_page is not None: 
+            next_page = response.urljoin(next_page)
+            yield scrapy.Request(next_page, callback=self.parse)
+首先：我们使用：response.css(&apos;li.next a::attr(href)&apos;).extract_first()查看有木有存在下一页链接，如果存在的话，我们使用：urljoin(next_page)把相对路径，如：page/1转换为绝对路径，其实也就是加上网站域名，如：http://lab.scrapyd.cn/page/1；
+接下来就是爬取下一页或是内容页的秘诀所在，scrapy给我们提供了这么一个方法：scrapy.Request()
+这个方法还有许多参数，后面我们慢慢说，这里我们只使用了两个参数，一个是：我们继续爬取的链接（next_page），
+这里是下一页链接，当然也可以是内容页；另一个是：我们要把链接提交给哪一个函数爬取，这里是parse函数，也就是本函数；
+当然，我们也可以在下面另写一个函数，比如：内容页，专门处理内容页的数据。
+经过这么一个函数，下一页链接又提交给了parse，那就可以不断的爬取了，直到不存在下一页；
+</code></pre><h4 id="scrapy-arguments：指定蜘蛛参数爬取"><a href="#scrapy-arguments：指定蜘蛛参数爬取" class="headerlink" title="scrapy arguments：指定蜘蛛参数爬取"></a>scrapy arguments：指定蜘蛛参数爬取</h4><pre><code>scrapy提供了可传参的爬虫，首先按scrapy 参数格式定义好参数，如下：
+def start_requests(self):
+    url = &apos;http://lab.scrapyd.cn/&apos;
+    tag = getattr(self, &apos;tag&apos;, None)  # 获取tag值，也就是爬取时传过来的参数
+    if tag is not None:  # 判断是否存在tag，若存在，重新构造url
+        url = url + &apos;tag/&apos; + tag  # 构造url若tag=爱情，url= &quot;http://lab.scrapyd.cn/tag/爱情&quot;
+    yield scrapy.Request(url, self.parse)  # 发送请求爬取参数内容
+可以看到   tag = getattr(self, &apos;tag&apos;, None)  就是获取传过来的参数，然后根据不同的参数，构造不同的url，然后进行不同的爬取，经过这么一个处理，我们的蜘蛛就灰常的灵活了，我们来看一下完整代码：
+# -*- coding: utf-8 -*-
+
+import scrapy
+
+class ArgsspiderSpider(scrapy.Spider):
+
+        name = &quot;argsSpider&quot;
+
+        def start_requests(self):
+            url = &apos;http://lab.scrapyd.cn/&apos;
+            tag = getattr(self, &apos;tag&apos;, None)  # 获取tag值，也就是爬取时传过来的参数
+            if tag is not None:  # 判断是否存在tag，若存在，重新构造url
+                url = url + &apos;tag/&apos; + tag  # 构造url若tag=爱情，url= &quot;http://lab.scrapyd.cn/tag/爱情&quot;
+            yield scrapy.Request(url, self.parse)  # 发送请求爬取参数内容
+
+        &quot;&quot;&quot;
+        以下内容为上一讲知识，若不清楚具体细节，请查看上一讲！
+        &quot;&quot;&quot;
+
+        def parse(self, response):
+            mingyan = response.css(&apos;div.quote&apos;)
+            for v in mingyan:
+                text = v.css(&apos;.text::text&apos;).extract_first()
+                tags = v.css(&apos;.tags .tag::text&apos;).extract()
+                tags = &apos;,&apos;.join(tags)
+                fileName = &apos;%s-语录.txt&apos; % tags
+                with open(fileName, &quot;a+&quot;) as f:
+                    f.write(text)
+                    f.write(&apos;\n&apos;)
+                    f.write(&apos;标签：&apos; + tags)
+                    f.write(&apos;\n-------\n&apos;)
+                    f.close()
+            next_page = response.css(&apos;li.next a::attr(href)&apos;).extract_first()
+            if next_page is not None:
+                next_page = response.urljoin(next_page)
+                yield scrapy.Request(next_page, callback=self.parse)
+
+要如何传参,可以这样：scrapy crawl argsSpider -a tag=爱情
+</code></pre><h3 id="详解scrapy"><a href="#详解scrapy" class="headerlink" title="详解scrapy"></a>详解scrapy</h3><h4 id="scrapy如何打开页面"><a href="#scrapy如何打开页面" class="headerlink" title="scrapy如何打开页面"></a>scrapy如何打开页面</h4><pre><code>那蜘蛛要发送请求，那总得要有请求链接，如果木有，蜘蛛肯定得不到返回，那页面也就打不开了，因此引出了scrapy spiders的第一个必须的常量：start_urls
+URL有两种写法，一种作为类的常量、一种作为start_requests(self)方法的常量，无论哪一种写法，URL都是必须的！
+有了URL那就可以发送请求了，如果URL是定义在start_request(self)这个方法里面，那我们就要使用： yield scrapy.Request 方法发送请求：如下：
+
+import scrapy
+
+class simpleUrl(scrapy.Spider):
+
+    name = &quot;simpleUrl&quot;
+
+    # 另外一种初始链接写法
+    def start_requests(self):
+         urls = [ #爬取的链接由此方法通过下面链接爬取页面
+             &apos;http://lab.scrapyd.cn/page/1/&apos;,
+             &apos;http://lab.scrapyd.cn/page/2/&apos;,
+         ]
+         for url in urls:
+            #发送请求
+             yield scrapy.Request(url=url, callback=self.parse)
+
+这样写的一个麻烦之处就是我们需要处理我们的返回，也就是我们还需要写一个callback方法来处理response；
+因此大多数我们都是把URL作为类的常量，然后再加上另外一个方法： parse(response)
+
+使用这个方法来发送请求，可以看到里面有个参数已经是：response（返回），也就是说这个方法自动化的完成了：request（请求页面）-response（返回页面）的过程，我们就不必要再写函数接受返回
+
+import scrapy
+
+class simpleUrl(scrapy.Spider):
+
+    name = &quot;simpleUrl&quot;
+
+    start_urls = [  #另外一种写法，无需定义start_requests方法
+        &apos;http://lab.scrapyd.cn/page/1/&apos;,
+        &apos;http://lab.scrapyd.cn/page/2/&apos;,
+    ]
+
+    def parse(self, response):
+        page = response.url.split(&quot;/&quot;)[-2]
+        filename = &apos;mingyan-%s.html&apos; % page
+        with open(filename, &apos;wb&apos;) as f:
+            f.write(response.body)
+        self.log(&apos;保存文件: %s&apos; % filename)
+</code></pre><h4 id="scrapy-css选择器"><a href="#scrapy-css选择器" class="headerlink" title="scrapy css选择器"></a>scrapy css选择器</h4><pre><code>和scrapy相关的函数就这么三个而已：response.css(&quot;css表达式&quot;)、extract()、extract_first()。
+有变化的就是：css表达式的写法,按照HTML标签的结构可以分为：标签属性值提取、标签内容提取
+1. 标签属性值的提取 
+提取属性是用：“标签名::attr(属性名)”，首先找到要提取的标签最近的class或id，缩小范围！
+比如我们要提取url表达式就是：a::attr(href)，要提取图片地址的表达式就是：img::attr(src)
+限定一下提取的范围，最好的方法就是找到要提取目标最近的class或是id，可以看到这段代码中有个class=&quot;page-navigator&quot;，那我们就可以这样来写：response.css(&quot;.page-navigator a::attr(href)&quot;).extract()
+
+说明：.page-navigator，其中点代表class选择器，如果代码中是：id=“page-navigator”，那我们这里就要写成：“#page-navigator”
+
+2. 标签内容的提取
+提取标签内容是用：“::text”
+含有嵌套标签文字的提取：response.css(&quot;.post-content *::text&quot;).extract()
+可以看到，“::tex“t前面有个“*”号，表示当前class或id下所有标签
+
+3. CSS 高级用法
+CSS选择器用于选择你想要的元素的样式的模式。&quot;CSS&quot;列表示在CSS版本的属性定义（CSS1，CSS2，或对CSS3）
+</code></pre><p><img src="https://i.imgur.com/og423tA.png" alt></p><h4 id="scrapy-xpath选择器"><a href="#scrapy-xpath选择器" class="headerlink" title="scrapy xpath选择器"></a>scrapy xpath选择器</h4><pre><code>从几个方面说：一、属性提取；二、内容提取；三、标签内包含标签又包含标签的最外层标签里的所有内容提取；
+1. scrapy xpath 属性提取
+XPath 使用路径表达式在 XML 文档中选取节点。节点是通过沿着路径或者 step 来选取的。 下面列出了最有用的路径表达式：
+</code></pre><p><img src="https://i.imgur.com/lBSiyp1.png" alt></p><pre><code>调试的话我们还是在命令行使用下面命令：scrapy shell lab.scrapyd.cn
+函数：response.xpath(&quot;表达式&quot;)，提取属性的话既然使用：@，那我们要提取href就是：@href，试一下：response.xpath(&quot;//@href&quot;)
+限定我们的属性，使用的是：标签[@属性名=&apos;属性值&apos;]；
+表达式就是：//@属性名，缩小标签范围、限定属性的方式
+
+2. scrapy xpath 标签内容提取
+表达式为：//text() 
+
+3. 包含HTML标签的所有文字内容提取
+这种用法主要是提取一些内容页，标签里夹杂着文字，但我们只要文字！比如下面的这段代码：
+&lt;div class=&quot;post-content&quot; itemprop=&quot;articleBody&quot;&gt;
+   &lt;p&gt;如果你因失去了太阳而流泪，那么你也将失去群星了。 
+   &lt;br&gt;If you shed tears when you miss the sun, you also miss the stars. 
+   &lt;/p&gt;
+   &lt;p&gt;&lt;a href=&quot;http://www.scrapyd.cn&quot;&gt;scrapy中文网（&lt;/a&gt;&lt;a href=&quot;http://www.scrapyd.cn&quot;&gt;http://www.scrapyd.cn&lt;/a&gt;）整理&lt;/p&gt;        
+&lt;/div&gt;
+如果我们用表达式：//div[@class=&apos;post-content&apos;]//text()，你会发现虽然能提取但是一个列表，不是整段文字。
+那就用到一个xpath函数：string()，可以把表达式这样写：response.xpath(&quot;string(//div[@class=&apos;post-content&apos;])&quot;).extract()，可看到我们没有使用：text()，而是用：string(要提取内容的标签)，这样的话就能把数据都提取出来了，而且都合成为一条，并非一个列表。
+这一种用法在我们提取商品详情、小说内容的时候经常用到
+
+4. xpath实例
+</code></pre><p><img src="https://i.imgur.com/x5llaYF.png" alt></p><h3 id="scrapy命令行工具"><a href="#scrapy命令行工具" class="headerlink" title="scrapy命令行工具"></a>scrapy命令行工具</h3><pre><code>1. scrapy全局命令
+scrapy startproject project_name
+scrapy genspider example example.com (cd project_name)
+scrapy crawl XX（运行XX蜘蛛）
+scrapy shell www.example.com
+(1)startproject
+创建项目的，如，创建一个名为：scrapyChina的项目：scrapy strartproject scrapychina
+(2)genspider
+根据蜘蛛模板创建蜘蛛的命令
+(3)settings
+scray设置参数,比如我们想得到蜘蛛的下载延迟，我们可以使用：scrapy settings --get DOWNLOAD_DELAY;比如我们想得到蜘蛛的名字：scrapy settings --get BOT_NAME
+(4)runspider
+运行蜘蛛除了使用：scrapy crawl XX之外，我们还能用：runspider，
+前者是基于项目运行，后者是基于文件运行，也就是说你按照scrapy的蜘蛛格式编写了一个py文件，那你不想创建项目，那你就可以使用runspider，比如你编写了一个：scrapyd_cn.py的蜘蛛，你要直接运行就是：scrapy runspider scrapy_cn.py
+(5)shell
+主要是调试用
+(6)fetch
+模拟蜘蛛下载页面，也就是说用这个命令下载的页面就是蜘蛛运行时下载的页面，好处是能准确诊断出，得到的html结构到底是不是我们所看到的，然后能及时调整我们编写爬虫的策略。演示window下如下如何把下载的页面保存：scrapy fetch http://www.scrapyd.cn &gt;d:/3.html
+(7)view
+和fetch类似都是查看蜘蛛看到的是否和你看到的一致，便于排错，用法：scrapy view http://www.scrapyd.cn
+(8)version
+查看scrapy版本，用法：scrapy version
+
+2. scrapy项目命令
+需要在项目文件夹下面打开CMD命令，然后再执行下面的这些命令
+(1)crawl
+运行蜘蛛
+(2)check
+检查蜘蛛
+(3)list
+显示有多少个蜘蛛,这里的蜘蛛就是指spider文件夹下面xx.py文件中定义的name，你有10个py文件但是只有一个定义了蜘蛛的name，那只算一个蜘蛛
+</code></pre></div><div><div><div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束 <i class="fa fa-paw"></i> 感谢您的阅读-------------</div></div></div><div><div style="padding:10px 0;margin:20px auto;width:90%;text-align:center"><div>如果觉得我的文章对您有用,请随意打赏.您的支持将鼓励我继续创作!</div><br><button id="rewardButton" disable="enable" onclick='var e=document.getElementById("QR");"none"===e.style.display?e.style.display="block":e.style.display="none"'><span>打赏</span></button><div id="QR" style="display:none"><div id="wechat" style="display:inline-block"><img id="wechat_qr" src="/img/wechat.jpg" alt="永夜初晗凝碧天 微信支付"><p>微信支付</p></div><div id="alipay" style="display:inline-block"><img id="alipay_qr" src="/img/alipay.jpg" alt="永夜初晗凝碧天 支付宝"><p>支付宝</p></div></div></div></div><div><div class="post-copyright"><li class="post-copyright-title"><strong>本文标题：</strong> scrapy学习</li><li class="post-copyright-author"><strong>文章作者：</strong> 永夜初晗凝碧天</li><li class="post-copyright-author"><strong>发布时间：</strong> 2019年12月31日 - 12:12:27</li><li class="post-copyright-author"><strong>更新时间：</strong> 2019年12月31日 - 12:12:27</li><li class="post-copyright-link"><strong>本文链接：</strong> <a href="/2019/12/31/scrapy学习/" title="scrapy学习">https://yongnights.github.io/2019/12/31/scrapy学习/</a> <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://yongnights.github.io/2019/12/31/scrapy学习/" aria-label="复制成功！"></i></span></li><li class="post-copyright-license"><strong>版权声明： </strong><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</li></div><script>var clipboard=new Clipboard(".fa-clipboard");$(".fa-clipboard").click(function(){clipboard.on("success",function(){swal({title:"",text:"复制成功",icon:"success",showConfirmButton:!0})})})</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a> <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i> Scrapy</a></div><div class="post-widgets"><div id="needsharebutton-postbottom"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/12/31/python_面向对象/" rel="next" title="python_面向对象"><i class="fa fa-chevron-left"></i> python_面向对象</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019/12/31/与房屋中介公司要押金的斗智斗勇/" rel="prev" title="与房屋中介公司要押金的斗智斗勇">与房屋中介公司要押金的斗智斗勇 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"><div class="jiathis_style"><span class="jiathis_txt">分享到：</span> <a class="jiathis_button_fav">收藏夹</a> <a class="jiathis_button_copy">复制网址</a> <a class="jiathis_button_email">邮件</a> <a class="jiathis_button_weixin">微信</a> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tqq">腾讯微博</a> <a class="jiathis_button_douban">豆瓣</a> <a class="jiathis_button_share">一键分享</a> <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a></div><script type="text/javascript">var jiathis_config={data_track_clickback:!0,summary:"",shortUrl:!1,hideMore:!1}</script><script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script></div></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/img/avatar.png" alt="永夜初晗凝碧天"><p class="site-author-name" itemprop="name">永夜初晗凝碧天</p><p class="site-description motion-element" itemprop="description">Linux,Python,MySQL</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">48</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">31</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">43</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="tencent://message/?Menu=yes&uin=1103324414" target="_blank" title="QQ"><i class="fa fa-fw fa-qq"></i>QQ</a> </span><span class="links-of-author-item"><a href="mailto:sandu12345@msn.cn" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a></span></div><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1333220817&auto=0&height=66"></iframe><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-link"></i> 友情链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="http://www.cnblogs.com/sanduzxcvbnm/" title="博客园" target="_blank">博客园</a></li><li class="links-of-blogroll-item"><a href="https://www.baidu.com/" title="百度" target="_blank">百度</a></li></ul></div><div class="links-of-blogroll motion-element links-of-blogroll-block"><div class="links-of-blogroll-title"><i class="fa fa-history fa-" aria-hidden="true"></i> 近期文章</div><ul class="links-of-blogroll-list"><li><a href="/2019/12/31/网络_udp/" title="网络_udp" target="_blank">网络_udp</a></li><li><a href="/2019/12/31/网络_tcp/" title="网络_tcp" target="_blank">网络_tcp</a></li><li><a href="/2019/12/31/爬取干货集中营的图片/" title="爬取干货集中营的图片" target="_blank">爬取干货集中营的图片</a></li><li><a href="/2019/12/31/爬取美图录网站图片/" title="爬取美图录网站图片" target="_blank">爬取美图录网站图片</a></li><li><a href="/2019/12/31/多任务_进程/" title="多任务_进程" target="_blank">多任务_进程</a></li></ul></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy是什么"><span class="nav-text">scrapy是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy架构图"><span class="nav-text">scrapy架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy安装"><span class="nav-text">scrapy安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#win7安装scrapy"><span class="nav-text">win7安装scrapy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CentOS-7安装scrapy"><span class="nav-text">CentOS 7安装scrapy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy入门"><span class="nav-text">scrapy入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建项目"><span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#明确目标"><span class="nav-text">明确目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#制作爬虫"><span class="nav-text">制作爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行蜘蛛"><span class="nav-text">运行蜘蛛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-start-url（初始链接）的两种不同写法"><span class="nav-text">scrapy start_url（初始链接）的两种不同写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy调试工具：scrapy-shell使用方法"><span class="nav-text">scrapy调试工具：scrapy shell使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-css选择器使用"><span class="nav-text">scrapy css选择器使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy提取一组数据"><span class="nav-text">scrapy提取一组数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-爬取多条数据"><span class="nav-text">scrapy 爬取多条数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-爬取下一页"><span class="nav-text">scrapy 爬取下一页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-arguments：指定蜘蛛参数爬取"><span class="nav-text">scrapy arguments：指定蜘蛛参数爬取</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详解scrapy"><span class="nav-text">详解scrapy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy如何打开页面"><span class="nav-text">scrapy如何打开页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-css选择器"><span class="nav-text">scrapy css选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy-xpath选择器"><span class="nav-text">scrapy xpath选择器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy命令行工具"><span class="nav-text">scrapy命令行工具</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span> <span class="with-love"><i class="fa fa-star"></i> </span><span class="author" itemprop="copyrightHolder">永夜初晗凝碧天</span><br></div><div><span class="post-meta-item-icon"><i class="fa fa-area-chart"></i> </span><span class="post-meta-item-text">博客全站字数统计 </span><span title="博客全站字数统计">: 239.9k 字</span> <span class="post-meta-divider">||</span><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>function createtime(){var n=new Date("03/01/2019 00:00:00");now.setTime(now.getTime()+250),days=(now-n)/1e3/60/60/24,dnum=Math.floor(days),hours=(now-n)/1e3/60/60-24*dnum,hnum=Math.floor(hours),1==String(hnum).length&&(hnum="0"+hnum),minutes=(now-n)/1e3/60-1440*dnum-60*hnum,mnum=Math.floor(minutes),1==String(mnum).length&&(mnum="0"+mnum),seconds=(now-n)/1e3-86400*dnum-3600*hnum-60*mnum,snum=Math.round(seconds),1==String(snum).length&&(snum="0"+snum),document.getElementById("timeDate").innerHTML="博客已运行 "+dnum+" 天 ",document.getElementById("times").innerHTML=hnum+" 小时 "+mnum+" 分钟 "+snum+" 秒"}var now=new Date;setInterval("createtime()",250)</script></div><div class="busuanzi-count"><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i> 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_uv"><i class="fa fa-user"></i> 本站访客数<span id="busuanzi_value_site_uv"></span>人次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> 本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div id="nowDate"><script type="text/javascript">window.onload=function(){function e(){var e=new Date,r=e.getFullYear(),u=e.getMonth()+1,a=e.getDate(),g=e.getDay(),i=e.getHours(),c=e.getMinutes(),d=e.getSeconds(),l="当前时间是："+r+"年"+u+"月"+a+"日 "+t(g)+" "+n(i)+":"+n(c)+":"+n(d);o.innerHTML=l}function t(e){return 0==e?"星期日":1==e?"星期一":2==e?"星期二":3==e?"星期三":4==e?"星期四":5==e?"星期五":"星期六"}function n(e){return e<10?"0"+e:e}var o=document.getElementById("nowDate");e(),setInterval(e,1e3)}</script></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div><div id="needsharebutton-float"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;w<0&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script>!function(){var t=document.createElement("script"),s=window.location.protocol.split(":")[0];"https"===s?t.src="https://zz.bdstatic.com/linksubmit/push.js":t.src="http://push.zhanzhang.baidu.com/push.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}()</script><link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css"><script src="/lib/needsharebutton/needsharebutton.js"></script><script>pbOptions={},pbOptions.iconStyle="box",pbOptions.boxForm="horizontal",pbOptions.position="bottomCenter",pbOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-postbottom",pbOptions),flOptions={},flOptions.iconStyle="box",flOptions.boxForm="horizontal",flOptions.position="middleRight",flOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-float",flOptions)</script><script type="text/javascript" src="/js/src/love.js"></script><canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:1;pointer-events:none"></canvas><script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script><script type="text/javascript" src="/js/src/fireworks.js"></script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/",tagMode:!1})</script></body></html><!-- rebuild by neat -->

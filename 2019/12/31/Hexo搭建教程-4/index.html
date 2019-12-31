@@ -1,0 +1,1065 @@
+<!-- build time:Tue Dec 31 2019 13:44:22 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="hexo,"><link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml"><meta name="description" content="第三部分我这个博客采用的是next主题，接下来把我博客关于主题的配置汇总一下，给使用该主题的其他用户做个参考。 安装主题启用主题选择Scheme设置语言设置菜单分类/标签添加fork me on github动态背景添加点击爱心效果设置RSS修改文章底部的那个带#号的标签在每篇文章末尾统一添加“本文结束”标记侧边栏社交小图标设置主页文章加阴影设置网站图标设置旋转头像开启打赏功能设置首页不显示全文("><meta name="keywords" content="hexo"><meta property="og:type" content="article"><meta property="og:title" content="Hexo搭建教程(4)"><meta property="og:url" content="https://yongnights.github.io/2019/12/31/Hexo搭建教程-4/index.html"><meta property="og:site_name" content="个人博客"><meta property="og:description" content="第三部分我这个博客采用的是next主题，接下来把我博客关于主题的配置汇总一下，给使用该主题的其他用户做个参考。 安装主题启用主题选择Scheme设置语言设置菜单分类/标签添加fork me on github动态背景添加点击爱心效果设置RSS修改文章底部的那个带#号的标签在每篇文章末尾统一添加“本文结束”标记侧边栏社交小图标设置主页文章加阴影设置网站图标设置旋转头像开启打赏功能设置首页不显示全文("><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://i.imgur.com/Mw8BUEY.png"><meta property="og:image" content="https://i.imgur.com/ZmDSwtR.png"><meta property="og:image" content="https://i.imgur.com/vXQJwuF.png"><meta property="og:image" content="https://i.imgur.com/2eQivHp.png"><meta property="og:image" content="https://i.imgur.com/sANksxb.png"><meta property="og:image" content="https://i.imgur.com/l3Aj2n6.png"><meta property="og:image" content="https://i.imgur.com/mynZnVs.png"><meta property="og:image" content="https://i.imgur.com/yJBLDX0.png"><meta property="og:image" content="https://i.imgur.com/gGJjy8Q.png"><meta property="og:image" content="https://i.imgur.com/EehAb9Y.png"><meta property="og:image" content="https://i.imgur.com/k3N5Chu.png"><meta property="og:image" content="https://i.imgur.com/6YUPqCl.png"><meta property="og:image" content="https://i.imgur.com/mJBylc2.png"><meta property="og:image" content="https://i.imgur.com/4wCIBvM.png"><meta property="og:image" content="https://i.imgur.com/H4SfbYL.png"><meta property="og:image" content="https://i.imgur.com/plEvfdi.png"><meta property="og:image" content="https://i.imgur.com/emTnWEj.png"><meta property="og:image" content="https://i.imgur.com/BlepAIz.png"><meta property="og:image" content="https://i.imgur.com/Zil0rL9.png"><meta property="og:image" content="https://i.imgur.com/ZyUxJkp.png"><meta property="og:image" content="https://i.imgur.com/q7h8pMY.png"><meta property="og:image" content="https://i.imgur.com/toIlveV.png"><meta property="og:image" content="https://yongnights.github.io/img/mouse.ico"><meta property="og:image" content="https://yongnights.github.io/img/mouseHandKid.ico"><meta property="og:updated_time" content="2019-12-31T04:00:48.254Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Hexo搭建教程(4)"><meta name="twitter:description" content="第三部分我这个博客采用的是next主题，接下来把我博客关于主题的配置汇总一下，给使用该主题的其他用户做个参考。 安装主题启用主题选择Scheme设置语言设置菜单分类/标签添加fork me on github动态背景添加点击爱心效果设置RSS修改文章底部的那个带#号的标签在每篇文章末尾统一添加“本文结束”标记侧边栏社交小图标设置主页文章加阴影设置网站图标设置旋转头像开启打赏功能设置首页不显示全文("><meta name="twitter:image" content="https://i.imgur.com/Mw8BUEY.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="https://yongnights.github.io/2019/12/31/Hexo搭建教程-4/"><title>Hexo搭建教程(4) | 个人博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513;color:#fff;position:absolute;top:0;border:0;right:0" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">个人博客</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">记录工作中的点点滴滴</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://yongnights.github.io/2019/12/31/Hexo搭建教程-4/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="永夜初晗凝碧天"><meta itemprop="description" content><meta itemprop="image" content="/img/avatar.png"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="个人博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Hexo搭建教程(4)</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">更新于&#58;</span> <time title="更新于" itemprop="dateModified" datetime="2019-12-31T12:00:48+08:00">2019-12-31 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span> </a></span></span><span class="post-meta-divider">|</span> <span class="page-pv"><i class="fa fa-file-o"></i>本文总阅读量 <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次</span><div class="post-wordcount"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">8.8k 字 </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span title="阅读时长">41 分钟</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="第三部分"><a href="#第三部分" class="headerlink" title="第三部分"></a>第三部分</h2><pre><code>我这个博客采用的是next主题，接下来把我博客关于主题的配置汇总一下，给使用该主题的其他用户做个参考。
+</code></pre><ul><li>安装主题</li><li>启用主题</li><li>选择Scheme</li><li>设置语言</li><li>设置菜单</li><li>分类/标签</li><li>添加fork me on github</li><li>动态背景</li><li>添加点击爱心效果</li><li>设置RSS</li><li>修改文章底部的那个带#号的标签</li><li>在每篇文章末尾统一添加“本文结束”标记</li><li>侧边栏社交小图标设置</li><li>主页文章加阴影</li><li>设置网站图标</li><li>设置旋转头像</li><li>开启打赏功能</li><li>设置首页不显示全文(只显示预览)</li><li>文章字数统计和阅读时长</li><li>文章底部增加版权信息</li><li>网站底部字数统计</li><li>隐藏网页底部 由Hexo强力驱动</li><li>修改网页底部的桃心</li><li>修改文章内链接文本样式</li><li>添加顶部加载条</li><li>修改字体大小</li><li>文章加密访问</li><li>添加jiathis分享</li><li>博文置顶</li><li>自定义鼠标样式</li><li>为博客加上萌萌的宠物</li><li>搜索功能</li><li>双击鼠标显示爆炸效果</li><li>自定义文章的默认头部信息</li><li>文章标签显示设置</li><li>在底部增加运行时间</li><li>利用 Gulp 来压缩你的 Hexo 博客的静态文件</li><li>添加网站和文章分享按钮</li><li>压缩页面静态资源</li><li>删除博文目录自动生成的序数</li><li>不蒜子统计</li><li>添加友情链接</li><li>腾讯公益404页面</li><li>设置动画效果</li><li>添加近期文章版块</li><li>添加网易云音乐外链</li></ul><a id="more"></a><h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><pre><code>在博客根目录下打开命令行输入以下命令：
+git clone https://github.com/theme-next/hexo-theme-next themes/next
+就会将将next主题下载到当前目录下的themes里面的next文件夹中
+</code></pre><h3 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h3><pre><code>在博客根目录下修改站点配置文件_config.yml
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: next
+注意冒号后面有个空格
+</code></pre><h3 id="选择-Scheme"><a href="#选择-Scheme" class="headerlink" title="选择 Scheme"></a>选择 Scheme</h3><pre><code>Scheme是NexT提供的一种特性，借助于Scheme，NexT为你提供多种不同的外观。
+同时，几乎所有的配置都可以在Scheme之间共用。目前 NexT 支持四种 Scheme，他们是：
+Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白
+Mist - Muse 的紧凑版本，整洁有序的单栏外观
+Pisces - 双栏 Scheme，小家碧玉似的清新
+Gemini - 左侧网站信息及目录，块+片段结构布局
+
+scheme 的切换通过更改主题配置文件，搜索Schemes关键字。我选择的是scheme: Gemini
+你会看到有四行scheme的配置，将你需用启用的scheme前面注释 # 去除即可。
+然后使用命令：hexo s --debug，打开浏览器输入地址：127.0.0.1:4000即可查看效果
+</code></pre><h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><pre><code>编辑站点配置文件，将language设置成你所需要的语言，建议明确设置你所需要的语言，例如选用简体中文。
+配置如下：language: zh-Hans。注意这个要看主题文件夹中的语言包中文语言包的名称，我设置的是language: zh-Hans
+注意：使用hexo s预览的时候，会发现是设置了语言之后界面还是英文，此时使用hexo clean清理下database文件夹以及public文件夹就行了，然后再使用hexo s 预览。
+</code></pre><h3 id="设置菜单"><a href="#设置菜单" class="headerlink" title="设置菜单"></a>设置菜单</h3><pre><code>菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 
+NexT使用的是Font Awesome提供的图标， Font Awesome提供了600+的图标，可以满足绝大的多数的场景，同时无须担心在Retina屏幕下图标模糊的问题。
+
+编辑主题配置文件，修改以下内容：
+设定菜单内容，对应的字段是 menu。 菜单内容的设置格式是：item name: link || 图标。其中 item name 是一个名称，这个名称并不直接显示在页面上，它将用于匹配图标以及翻译。
+
+我的设置如下：
+menu:
+  home: / || home
+  tags: /tags/ || tags
+  categories: /categories/ || th
+  archives: /archives/ || archive
+  about: /about/ || user
+显示效果如下：
+</code></pre><p><img src="https://i.imgur.com/Mw8BUEY.png" alt></p><pre><code>关于设置的是英语，网站显示的是中文，这个要如何理解？
+1. 主题配置文件中菜单设置的是英文，但是站点配置文件配置的网站语言是zh-Hans，也就是简体中文。
+2. 此时，访问网站的话菜单会从主题文件的语言包中找到zh-Hans.yml这个中文语言包，查找其中是否有关于menu的翻译，若有，则网站上显示出来。如下图所示：
+</code></pre><p><img src="https://i.imgur.com/ZmDSwtR.png" alt></p><h3 id="分类-标签"><a href="#分类-标签" class="headerlink" title="分类/标签"></a>分类/标签</h3><pre><code>比如设置的有分类，但是点击进去却报错：Cannot GET /tags/，不能获取tags，默认这些需要我们自己创建。
+介绍一下创建page的语法：hexo new page &apos;name&apos;
+在控制台输入以下命令：
+hexo new page &apos;tags&apos;       #创建tags子目录
+hexo new page &apos;categories&apos; #创建categories子目录
+hexo new page &apos;about&apos;      #创建about子目录
+在你的网站根目录下面的source文件夹会分别生成tags、categories以及about文件夹。
+
+修改tags文件夹中的index.md文件，新增type属性，如下：
+---
+title: tags
+date: 2018-01-04 11:45:41
+type: &quot;tags&quot;
+---
+其他的修改类似。这样一来当你新建一篇博文的时候，增加上tags和categories属性值，就能在tags和categories界面检索到你的文章了。 
+
+汇总一下步骤：
+
+tags:添加「标签」页面
+新建「标签」页面，并在菜单中显示「标签」链接。「标签」页面将展示站点的所有标签，若你的所有文章都未包含标签，此页面将是空的。 底下代码是一篇包含标签的文章的例子： 
+---
+title: 标签测试文章
+tags:
+  - Testing
+  - Another Tag
+---
+或者使用这种方式：tags: [Testing, Another Tag],中间是先逗号，后空格
+
+1. 修改菜单
+在菜单中添加链接。编辑 主题配置文件 ， 添加 tags 到 menu 中，如下: 
+menu:
+  home: / || home
+  archives: /archives || archives
+  tags: /tags || tags
+2. 新建页面
+在终端窗口下，定位到 Hexo 站点目录下。使用 hexo new page 新建一个页面，命名为 tags ：
+$ cd your-hexo-site
+$ hexo new page tags
+3. 设置页面类型
+编辑刚新建的页面，将页面的类型设置为 tags ，主题将自动为这个页面显示标签云。页面内容如下：
+---
+title: tags
+date: 2014-12-22 12:39:04
+type: &quot;tags&quot;
+---
+注意：如果有集成评论服务，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false，如： 
+---
+title: tags
+date: 2014-12-22 12:39:04
+type: &quot;tags&quot;
+comments: false
+---
+
+categories:添加「分类」页面
+新建「分类」页面，并在菜单中显示「分类」链接。「分类」页面将展示站点的所有分类，若你的所有文章都未包含分类，此页面将是空的。 底下代码是一篇包含分类的文章的例子：
+---
+title: 分类测试文章
+categories: 
+- Testing
+---
+
+1. 修改菜单
+在菜单中添加链接。编辑 主题配置文件 ， 添加 categories 到 menu 中，如下: 
+menu:
+  home: / || home
+  archives: /archives || archives
+  categories: /categories || categories
+2. 新建页面
+在终端窗口下，定位到 Hexo 站点目录下。使用 hexo new page 新建一个页面，命名为 categories ：
+$ cd your-hexo-site
+$ hexo new page categories
+3. 设置页面类型
+编辑刚新建的页面，将页面的 type 设置为 categories ，主题将自动为这个页面显示分类。页面内容如下：
+---
+title: categories
+date: 2014-12-22 12:39:04
+type: &quot;categories&quot;
+---
+注意：如果有集成评论服务，页面也会带有评论。 若需要关闭的话，请添加字段 comments 并将值设置为 false，如： 
+---
+title: categories
+date: 2014-12-22 12:39:04
+type: &quot;categories&quot;
+comments: false
+---
+
+分类和标签的差别：
+在 Hexo 中：分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；而标签没有顺序和层次。
+</code></pre><h3 id="添加fork-me-on-github"><a href="#添加fork-me-on-github" class="headerlink" title="添加fork me on github"></a>添加fork me on github</h3><pre><code>在http://tholman.com/github-corners/或者https://github.com/blog/273-github-ribbons
+选择合适的样式复制代码到themes/next/layout/_layout.swig，在&lt;div class=&quot;headband&quot;&gt;&lt;/div&gt;下面： 
+</code></pre><p><img src="https://i.imgur.com/vXQJwuF.png" alt></p><pre><code>我选用的效果：
+</code></pre><p><img src="https://i.imgur.com/2eQivHp.png" alt></p><h3 id="动态背景"><a href="#动态背景" class="headerlink" title="动态背景"></a>动态背景</h3><pre><code>目前NexT主题有4种动态背景，设置方法也很简单，直接设置里需要的动态背景为true：
+- Canvas-nest
+- three_waves
+- canvas_lines
+- canvas_sphere
+我设置的是：canvas_nest: true
+</code></pre><h3 id="添加点击爱心效果"><a href="#添加点击爱心效果" class="headerlink" title="添加点击爱心效果"></a>添加点击爱心效果</h3><pre><code>在/themes/next/source/js/src下新建文件love.js，接着把该代码拷贝粘贴到love.js文件中。
+代码如下：
+!
+function(e, t, a) {
+    function n() {
+        c(&quot;.heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: &apos;&apos;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}&quot;),
+        o(),
+        r()
+    }
+    function r() {
+        for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;);
+        requestAnimationFrame(r)
+    }
+    function o() {
+        var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick;
+        e.onclick = function(e) {
+            t &amp;&amp; t(),
+            i(e)
+        }
+    }
+    function i(e) {
+        var a = t.createElement(&quot;div&quot;);
+        a.className = &quot;heart&quot;,
+        d.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: s()
+        }),
+        t.body.appendChild(a)
+    }
+    function c(e) {
+        var a = t.createElement(&quot;style&quot;);
+        a.type = &quot;text/css&quot;;
+        try {
+            a.appendChild(t.createTextNode(e))
+        } catch(t) {
+            a.styleSheet.cssText = e
+        }
+        t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)
+    }
+    function s() {
+        return &quot;rgb(&quot; + ~~ (255 * Math.random()) + &quot;,&quot; + ~~ (255 * Math.random()) + &quot;,&quot; + ~~ (255 * Math.random()) + &quot;)&quot;
+    }
+    var d = [];
+    e.requestAnimationFrame = function() {
+        return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame ||
+        function(e) {
+            setTimeout(e, 1e3 / 60)
+        }
+    } (),
+    n()
+} (window, document);
+然后修改_layout.swig，在\themes\next\layout\_layout.swig文件末尾添加：  
+&lt;!-- 页面点击小红心 --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/love.js&quot;&gt;&lt;/script&gt;
+效果如下：
+</code></pre><p><img src="https://i.imgur.com/sANksxb.png" alt></p><h3 id="设置RSS"><a href="#设置RSS" class="headerlink" title="设置RSS"></a>设置RSS</h3><pre><code>在博客个目录下运行命令行，安装插件：npm install --save hexo-generator-feed，
+然后打开站点配置文件，在末尾添加如下内容： (请注意在冒号后面要加一个空格，不然会发生错误！)
+# Extensions
+## Plugins: https://hexo.io/plugins/
+#RSS订阅
+plugin:
+- hexo-generator-feed
+最后在next主题配置文件中找到rss,设置成：rss: /atom.xml。
+配置完之后运行：hexo g,重新生成一次，你会在./public 文件夹中看到 atom.xml 文件。
+效果展示：
+</code></pre><p><img src="https://i.imgur.com/l3Aj2n6.png" alt></p><h3 id="修改文章底部的那个带-号的标签"><a href="#修改文章底部的那个带-号的标签" class="headerlink" title="修改文章底部的那个带#号的标签"></a>修改文章底部的那个带#号的标签</h3><pre><code>默认文章底部会出现# test的标签，现在修改该标签显示，把#换成其他样式：
+修改模板/themes/next/layout/_macro/post.swig，搜索 rel=&quot;tag&quot;&gt;#，将#换成&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;
+</code></pre><p><img src="https://i.imgur.com/mynZnVs.png" alt></p><h3 id="在每篇文章末尾统一添加“本文结束”标记"><a href="#在每篇文章末尾统一添加“本文结束”标记" class="headerlink" title="在每篇文章末尾统一添加“本文结束”标记"></a>在每篇文章末尾统一添加“本文结束”标记</h3><pre><code>在路径 \themes\next\layout\_macro 中新建 passage-end-tag.swig 文件,并添加以下内容： 
+&lt;div&gt; 
+{% if not is_index %} 
+        <div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束 <i class="fa fa-paw"></i> 感谢您的阅读-------------</div> 
+    {% endif %} 
+&lt;/div&gt;
+接着打开\themes\next\layout\_macro\post.swig文件，在post-body 之后， 添加以下代码： 
+&lt;div&gt;
+    {% if not is_index %}
+            {% include 'passage-end-tag.swig' %}
+        {% endif %}
+&lt;/div&gt;
+添加位置如图：
+</code></pre><p><img src="https://i.imgur.com/yJBLDX0.png" alt></p><pre><code>然后打开主题配置文件（_config.yml),在末尾添加：
+# 文章末尾添加“本文结束”标记
+passage_end_tag:
+enabled: true
+完成以上设置之后，在每篇文章之后都会显示如下图的效果。
+</code></pre><p><img src="https://i.imgur.com/gGJjy8Q.png" alt></p><h3 id="侧边栏社交小图标设置"><a href="#侧边栏社交小图标设置" class="headerlink" title="侧边栏社交小图标设置"></a>侧边栏社交小图标设置</h3><pre><code>打开主题配置文件_config.yml，搜索social:, ||之后是在图标库中对应的图标。注意空格就行。
+图标库链接：http://fontawesome.io/icons/
+我的配置如下图：
+</code></pre><p><img src="https://i.imgur.com/EehAb9Y.png" alt></p><pre><code>social_icons:
+  enable: true
+  icons_only: false
+  transition: true
+
+效果如下图：
+</code></pre><p><img src="https://i.imgur.com/k3N5Chu.png" alt></p><h3 id="主页文章加阴影"><a href="#主页文章加阴影" class="headerlink" title="主页文章加阴影"></a>主页文章加阴影</h3><pre><code>打开\themes\next\source\css\_custom\custom.styl,向里面加入：
+// 主页文章添加阴影效果 
+.post { 
+    margin-top: 60px; 
+    margin-bottom: 60px; 
+    padding: 25px; 
+    -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5); 
+    -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5); 
+}
+</code></pre><h3 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h3><pre><code>默认的网站图标是一个N，当然是需要制定一个图了，在网上找到图后，将其放在/themes/next/source/img里面，然后在主题配置文件中修改下图所示图片位置：
+</code></pre><p><img src="https://i.imgur.com/6YUPqCl.png" alt></p><h3 id="设置旋转头像"><a href="#设置旋转头像" class="headerlink" title="设置旋转头像"></a>设置旋转头像</h3><pre><code>Hexo Next主题将头像显示成圆形，鼠标放上去有旋转效果。
+先设置头像，在网上找到图后，将其放在/themes/next/source/img里面，然后在主题配置文件中修改下图所示图片位置：
+</code></pre><p><img src="https://i.imgur.com/mJBylc2.png" alt></p><pre><code>然后找到/themes/next/source/css/_common/components/sidebar/sidebar-author.styl，把里面的内容替换如下：
+.site-author-image {
+  display: block;
+  margin: 0 auto;
+  padding: $site-author-image-padding;
+  max-width: $site-author-image-width;
+  height: $site-author-image-height;
+  border: $site-author-image-border-width solid $site-author-image-border-color;
+}
+
+.site-author-name {
+  margin: $site-author-name-margin;
+  text-align: $site-author-name-align;
+  color: $site-author-name-color;
+  font-weight: $site-author-name-weight;
+}
+
+.site-description {
+  margin-top: $site-description-margin-top;
+  text-align: $site-description-align;
+  font-size: $site-description-font-size;
+  color: $site-description-color;
+}
+
+.site-author-image {
+    display: block;
+    margin: 0 auto;
+    padding: $site-author-image-padding;
+    max-width: $site-author-image-width;
+    height: $site-author-image-height;
+    border: $site-author-image-border-width solid $site-author-image-border-color;
+    /* 头像圆形*/
+    border-radius: 80px;
+    -webkit-border-radius: 80px;
+    -moz-border-radius: 80px;
+    box-shadow: inset 0 -1px 0 #333sf;
+    /* 设置循环动画 [animation: (play)动画名称 (2s)动画播放时长单位秒或微秒 (ase-out)动画播放的速度曲线为以低速结束 (1s)等待1秒然后开始动画 (1)动画播放次数(infinite为循环播放) ]*/
+    /* 鼠标经过头像旋转360度*/
+    -webkit-transition: -webkit-transform 1.0s ease-out;
+    -moz-transition: -moz-transform 1.0s ease-out;
+    transition: transform 1.0s ease-out;
+}
+img:hover {
+    /* 鼠标经过停止头像旋转 -webkit-animation-play-state:paused;
+    animation-play-state:paused;*/
+    /* 鼠标经过头像旋转360度*/
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+}
+/* Z 轴旋转动画*/
+    @-webkit-keyframes play {
+    0% {
+    -webkit-transform: rotateZ(0deg);
+}
+100% {
+    -webkit-transform: rotateZ(-360deg);
+}
+} @-moz-keyframes play {
+    0% {
+    -moz-transform: rotateZ(0deg);
+}
+100% {
+    -moz-transform: rotateZ(-360deg);
+}
+} @keyframes play {
+    0% {
+    transform: rotateZ(0deg);
+}
+100% {
+    transform: rotateZ(-360deg);
+}
+}
+</code></pre><h3 id="开启打赏功能"><a href="#开启打赏功能" class="headerlink" title="开启打赏功能"></a>开启打赏功能</h3><pre><code>主题配置文件，修改信息如下，同时把微信和支付宝收款码保存到指定路径：
+</code></pre><p><img src="https://i.imgur.com/4wCIBvM.png" alt></p><pre><code>打赏功能文件路径：\themes\next\layout\_macro\reward.swig
+</code></pre><h3 id="设置首页不显示全文-只显示预览"><a href="#设置首页不显示全文-只显示预览" class="headerlink" title="设置首页不显示全文(只显示预览)"></a>设置首页不显示全文(只显示预览)</h3><pre><code>打开主题配置文件_config.yml，ctrl + F搜索找到&quot;auto_excerpt&quot;，可以看见
+# Automatically Excerpt. Not recommand.
+# Please use &lt;!-- more --&gt; in the post to control excerpt accurately.
+auto_excerpt:
+    enable: false
+    length: 150
+length就是预览显示的文字长度
+第一种方法：修改如上的配置，把enable对应的false改为true，然后hexo d -g即可
+第二种方法：在_post目录下的文章中适当位置添加上<!-- more -->，顶行写，即可。
+若两种方法同时存在，则优先使用第二种
+</code></pre><h3 id="文章字数统计和阅读时长"><a href="#文章字数统计和阅读时长" class="headerlink" title="文章字数统计和阅读时长"></a>文章字数统计和阅读时长</h3><pre><code>NexT主题默认已经集成了文章【字数统计】、【阅读时长】统计功能。
+如果我们需要使用，只需要在主题配置文件(\themes\next\_config.yml)中打开wordcount 统计功能即可。
+post_wordcount:
+  item_text: true
+  wordcount: true
+  min2read: true
+  totalcount: true
+  separated_meta: false
+最后一个separated_meta是换行显示的，不用开启
+仅仅只是打开开关，部署之后会发现文章的【字数统计】和【阅读时长】后面没有对应的xxx字，xx分钟等字样，只有光秃秃的数字在那里。
+找到themes\next\layout\_macro\post.swig 文件
+- 字数统计
+添加 “字”到{{ wordcount(post.content) }} 后面，修改后为：
+&lt;span title=&quot;{{ __('post.wordcount') }}&quot;&gt;
+    {{ wordcount(post.content) }} 字
+&lt;/span&gt;
+- 阅读时长
+添加 “分钟”到{{ min2read(post.content) }} 后面，修改后为：
+&lt;span title=&quot;{{ __('post.min2read') }}&quot;&gt;
+   {{ min2read(post.content) }} 分钟
+&lt;/span&gt;
+再次运行，就能得到正常的如“字数统计 1888字”“阅读时长 6分钟”这样的样式了，如下图所示：
+</code></pre><p><img src="https://i.imgur.com/H4SfbYL.png" alt></p><h3 id="文章底部增加版权信息"><a href="#文章底部增加版权信息" class="headerlink" title="文章底部增加版权信息"></a>文章底部增加版权信息</h3><pre><code>在主题配置文件中找到post_copyright，把enable的值修改成true,然后找到themes\next\layout\_macro\post-copyright.swig文件修改如下：
+&lt;div class=&quot;post-copyright&quot;&gt;
+  &lt;li class=&quot;post-copyright-title&quot;&gt;
+    &lt;strong&gt;{{ __('本文标题') + __('symbol.colon') }}&lt;/strong&gt;
+    {{ page.title }}
+  &lt;/li&gt;
+  &lt;li class=&quot;post-copyright-author&quot;&gt;
+    &lt;strong&gt;{{ __('文章作者') + __('symbol.colon') }}&lt;/strong&gt;
+    {{ post.author | default(config.author) }}
+  &lt;/li&gt;
+    &lt;li class=&quot;post-copyright-author&quot;&gt;
+    &lt;strong&gt;{{ __('发布时间') + __('symbol.colon') }}&lt;/strong&gt;
+    {{ page.date.format("YYYY年MM月DD日 - HH:MM:SS") }}
+  &lt;/li&gt;
+    &lt;li class=&quot;post-copyright-author&quot;&gt;
+    &lt;strong&gt;{{ __('更新时间') + __('symbol.colon') }}&lt;/strong&gt;
+    {{ page.updated.format("YYYY年MM月DD日 - HH:MM:SS") }}
+  &lt;/li&gt;
+  &lt;li class=&quot;post-copyright-link&quot;&gt;
+    &lt;strong&gt;{{ __('本文链接') + __('symbol.colon') }}&lt;/strong&gt;
+    &lt;a href=&quot;{{ url_for(page.path) }}&quot; title=&quot;{{ page.title }}&quot;&gt;{{ page.permalink }}&lt;/a&gt;
+    &lt;span class=&quot;copy-path&quot;  title=&quot;点击复制文章链接&quot;&gt;&lt;i class=&quot;fa fa-clipboard&quot; data-clipboard-text=&quot;{{ page.permalink }}&quot;  aria-label=&quot;复制成功！&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;post-copyright-license&quot;&gt;
+    &lt;strong&gt;{{ __('post.copyright.license_title') + __('symbol.colon') }} &lt;/strong&gt;
+    &lt;i class=&quot;fa fa-creative-commons&quot;&gt;&lt;/i&gt; &lt;a rel=&quot;license&quot; href=&quot;https://creativecommons.org/licenses/by-nc-nd/4.0/&quot; target=&quot;_blank&quot; title=&quot;Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)&quot;&gt;署名-非商业性使用-禁止演绎 4.0 国际&lt;/a&gt; 转载请保留原文链接及作者。
+  &lt;/li&gt;
+&lt;/div&gt;
+
+&lt;script&gt; 
+    var clipboard = new Clipboard(&apos;.fa-clipboard&apos;);
+      $(&quot;.fa-clipboard&quot;).click(function(){
+      clipboard.on(&apos;success&apos;, function(){
+        swal({   
+          title: &quot;&quot;,   
+          text: &apos;复制成功&apos;,
+          icon: &quot;success&quot;, 
+          showConfirmButton: true
+          });
+        });
+    });  
+&lt;/script&gt;
+实现效果：
+</code></pre><p><img src="https://i.imgur.com/plEvfdi.png" alt></p><h3 id="网站底部字数统计"><a href="#网站底部字数统计" class="headerlink" title="网站底部字数统计"></a>网站底部字数统计</h3><pre><code>安装插件：npm install hexo-wordcount --save
+因为在[文章字数统计和阅读时长]中有一个totalcount: true，默认已经开启该功能了，找到如下文件：themes\next\layout\_partials\footer.swig，修改如下，显示‘字’：
+</code></pre><p><img src="https://i.imgur.com/emTnWEj.png" alt></p><pre><code>效果如下：
+</code></pre><p><img src="https://i.imgur.com/BlepAIz.png" alt></p><h3 id="隐藏网页底部-由Hexo强力驱动"><a href="#隐藏网页底部-由Hexo强力驱动" class="headerlink" title="隐藏网页底部 由Hexo强力驱动"></a>隐藏网页底部 由Hexo强力驱动</h3><pre><code>在主题配置文件中找到powered，设置成false即可。
+</code></pre><h3 id="修改网页底部的桃心"><a href="#修改网页底部的桃心" class="headerlink" title="修改网页底部的桃心"></a>修改网页底部的桃心</h3><pre><code>打开themes/next/layout/_partials/footer.swig，找到：
+</code></pre><p><img src="https://i.imgur.com/Zil0rL9.png" alt></p><pre><code>然后还是在[图标库](http://fontawesome.io/icons/ &quot;图标库&quot;)中找到你自己喜欢的图标，然后修改画红线的部分就可以了。
+</code></pre><p><img src="https://i.imgur.com/ZyUxJkp.png" alt></p><h3 id="修改文章内链接文本样式"><a href="#修改文章内链接文本样式" class="headerlink" title="修改文章内链接文本样式"></a>修改文章内链接文本样式</h3><pre><code>修改文件 themes\next\source\css\_common\components\post\post.styl ，在末尾添加如下css样式：
+// 文章内链接文本样式
+.post-body p a{
+  color: #0593d3;
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+  &amp;:hover {
+    color: #fc6423;
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423;
+  }
+}
+其中选择 .post-body 是为了不影响标题，选择 p 是为了不影响首页“阅读全文”的显示样式,颜色可以自己定义。
+</code></pre><h3 id="添加顶部加载条"><a href="#添加顶部加载条" class="headerlink" title="添加顶部加载条"></a>添加顶部加载条</h3><pre><code>进入博客文件夹的/themes/next文件夹下,
+下载安装Progress module:git clone https://github.com/theme-next/theme-next-pace source/lib/pace
+修改主题配置文件(_config.yml),修改如下：
+# Progress bar in the top during page loading.
+# Dependencies: https://github.com/theme-next/theme-next-pace
+pace: true #是否开启进度条
+# Themes list:
+# pace-theme-big-counter | pace-theme-bounce | pace-theme-barber-shop | pace-theme-center-atom
+# pace-theme-center-circle | pace-theme-center-radar | pace-theme-center-simple | pace-theme-corner-indicator
+# pace-theme-fill-left | pace-theme-flash | pace-theme-loading-bar | pace-theme-mac-osx | pace-theme-minimal
+# For example
+pace_theme: pace-theme-center-atom #选择进度条样式
+</code></pre><h3 id="修改字体大小"><a href="#修改字体大小" class="headerlink" title="修改字体大小"></a>修改字体大小</h3><pre><code>在主题目录配置文件下，查找font：
+font:
+  enable: true
+
+  # Uri of fonts host. E.g. //fonts.googleapis.com (Default).
+  host:
+
+  # body元素的字体设置
+  global:
+    external: true
+    family: Lato
+    size: 18
+
+  # 标题的基础字体设置
+  headings:
+    external: true
+    family:
+    size: 30
+
+  # 文章字体设置
+  posts:
+    external: true
+    family: 18
+
+  # logo字体设置
+  logo:
+    external: true
+    family:
+    size: 30
+
+  # 代码块字体设置
+  codes:
+    external: true
+    family:
+    size: 13
+把false改为true，并修改了size的数值，单位是像素。如有需要可自行改变字体。
+
+另外提供一种方法，供会前端的小伙伴参考：Next主题控制字体大小的文件是在主题文件夹中的 source\css_variables 目录下的 base.styl 文件，
+找到该文件：themes\next\source\css_variables\base.styl 文件.
+// Font size
+$font-size-base           = 16px    //修改以前是14，我改成了16
+$font-size-small          = $font-size-base - 2px
+$font-size-smaller        = $font-size-base - 4px
+$font-size-large          = $font-size-base + 2px
+$font-size-larger         = $font-size-base + 4px
+
+// Headings font size
+$font-size-headings-step    = 2px
+$font-size-headings-base    = 24px  //这个是标题大小，如果你觉得不满意，可以改的更大一点
+修改完之后，保存文件。重新部署 hexo ，就可以看到博客字体已经变成你想要的大小了。
+</code></pre><h3 id="文章加密访问"><a href="#文章加密访问" class="headerlink" title="文章加密访问"></a>文章加密访问</h3><pre><code>先安装插件：npm install hexo-blog-encrypt --save
+在根目录中package.json中添加依赖：&quot;hexo-blog-encrypt&quot;: &quot;2.0.*&quot;
+在站点配置文件中开启，没有则添加：
+# Security
+encrypt:
+    enable: true
+打开主题目录下layout/_partials/head.swig文件,在meta标签后面插入这样一段代码：
+&lt;script&gt;
+    (function(){
+        if(&apos;{{ page.password }}&apos;){
+            if (prompt(&apos;请输入文章密码&apos;) !== &apos;{{ page.password }}&apos;){
+                alert(&apos;密码错误！&apos;);
+                history.back();
+            }
+        }
+    })();
+&lt;/script&gt;
+</code></pre><p><img src="https://i.imgur.com/q7h8pMY.png" alt></p><pre><code>然后文章头部信息中添加password：
+password: 你设置的密码
+</code></pre><p><img src="https://i.imgur.com/toIlveV.png" alt></p><pre><code>如果password后面为空，则表示不用密码。
+</code></pre><h3 id="添加jiathis分享"><a href="#添加jiathis分享" class="headerlink" title="添加jiathis分享"></a>添加jiathis分享</h3><pre><code>主题配置文件，设置如下：
+# JiaThis 分享服务
+jiathis: true
+</code></pre><h3 id="博文置顶"><a href="#博文置顶" class="headerlink" title="博文置顶"></a>博文置顶</h3><pre><code>修改 hero-generator-index 插件，把文件：node_modules/hexo-generator-index/lib/generator.js 内的代码替换为：
+&apos;use strict&apos;;
+var pagination = require(&apos;hexo-pagination&apos;);
+module.exports = function(locals){
+  var config = this.config;
+  var posts = locals.posts;
+    posts.data = posts.data.sort(function(a, b) {
+        if(a.top &amp;&amp; b.top) { // 两篇文章top都有定义
+            if(a.top == b.top) return b.date - a.date; // 若top值一样则按照文章日期降序排
+            else return b.top - a.top; // 否则按照top值降序排
+        }
+        else if(a.top &amp;&amp; !b.top) { // 以下是只有一篇文章top有定义，那么将有top的排在前面（这里用异或操作居然不行233）
+            return -1;
+        }
+        else if(!a.top &amp;&amp; b.top) {
+            return 1;
+        }
+        else return b.date - a.date; // 都没定义按照文章日期降序排
+    });
+  var paginationDir = config.pagination_dir || &apos;page&apos;;
+  return pagination(&apos;&apos;, posts, {
+    perPage: config.index_generator.per_page,
+    layout: [&apos;index&apos;, &apos;archive&apos;],
+    format: paginationDir + &apos;/%d/&apos;,
+    data: {
+      __index: true
+    }
+  });
+};
+在文章中添加 top 值，数值越大文章越靠前，如：
+---
+title: Hexo搭建教程(1)
+date: {{ date }}
+tags: 
+- hexo
+categories:
+- hexo
+top: 100
+---
+</code></pre><p><a href="https://www.easyicon.net/download/ico/1230452/96/" target="_blank" rel="noopener">https://www.easyicon.net/download/ico/1230452/96/</a></p><pre><code>添加置顶标志：到next\layout_macro下的post.swig，找到&lt;div class=&quot;post-meta&quot;&gt; ，在下面添加对应代码
+{% if post.top == 100 %} 
+        <i class="fa fa-thumb-tack"></i> 
+        <font color="808080">置顶</font> 
+        <span class="post-meta-divider">|</span> 
+    {% endif %}
+</code></pre><h3 id="自定义鼠标样式"><a href="#自定义鼠标样式" class="headerlink" title="自定义鼠标样式"></a>自定义鼠标样式</h3><pre><code>打开themes/next/source/css/_custom/custom.styl,在里面写下如下代码：
+</code></pre><p><img src="/img/mouse.ico" alt><br><img src="/img/mouseHandKid.ico" alt><br>使用这样的方式获得ico图标链接地址</p><pre><code>// 鼠标样式
+* {
+    cursor: url(&quot;http://blog.ejubei.net/img/mouse.ico&quot;),auto!important
+}
+:active {
+    cursor: url(&quot;http://blog.ejubei.net/img/mouse.ico&quot;),auto!important
+}
+
+其中 url 里面必须是 ico 图片，ico 图片可以上传到网上，然后获取外链，复制到 url 里就行了
+</code></pre><h3 id="为博客加上萌萌的宠物"><a href="#为博客加上萌萌的宠物" class="headerlink" title="为博客加上萌萌的宠物"></a>为博客加上萌萌的宠物</h3><pre><code>安装插件：npm install -save hexo-helper-live2d
+然后在博客站点的_config.yml 文件或主题的 _config.yml 文件中添加配置：
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-wanko
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: true
+然后hexo clean ，hexo g ，hexo d 就可以看到了。
+可以自定义使用的宠物模型，地址：https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md
+</code></pre><h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><pre><code>安装插件：npm install hexo-generator-search --save
+在主题配置文件下，查找local_search:
+local_search:
+  enable: false
+  trigger: auto
+  top_n_per_article: 1
+enable的值修改为true
+在根目录配置文件中，添加以下代码：
+# 本地搜索功能
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+</code></pre><h3 id="点击爆炸效果"><a href="#点击爆炸效果" class="headerlink" title="点击爆炸效果"></a>点击爆炸效果</h3><pre><code>首先在themes/next/source/js/src里面建一个叫fireworks.js的文件，代码如下：
+&quot;use strict&quot;;
+function updateCoords(e) {
+    pointerX = (e.clientX || e.touches[0].clientX) - canvasEl.getBoundingClientRect().left,
+    pointerY = e.clientY || e.touches[0].clientY - canvasEl.getBoundingClientRect().top
+}
+function setParticuleDirection(e) {
+    var t = anime.random(0, 360) * Math.PI / 180,
+    a = anime.random(50, 180),
+    n = [ - 1, 1][anime.random(0, 1)] * a;
+    return {
+        x: e.x + n * Math.cos(t),
+        y: e.y + n * Math.sin(t)
+    }
+}
+function createParticule(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = colors[anime.random(0, colors.length - 1)],
+    a.radius = anime.random(16, 32),
+    a.endPos = setParticuleDirection(a),
+    a.draw = function() {
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.fillStyle = a.color,
+        ctx.fill()
+    },
+    a
+}
+function createCircle(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = &quot;#F00&quot;,
+    a.radius = 0.1,
+    a.alpha = 0.5,
+    a.lineWidth = 6,
+    a.draw = function() {
+        ctx.globalAlpha = a.alpha,
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.lineWidth = a.lineWidth,
+        ctx.strokeStyle = a.color,
+        ctx.stroke(),
+        ctx.globalAlpha = 1
+    },
+    a
+}
+function renderParticule(e) {
+    for (var t = 0; t &lt; e.animatables.length; t++) {
+        e.animatables[t].target.draw()
+    }
+}
+function animateParticules(e, t) {
+    for (var a = createCircle(e, t), n = [], i = 0; i &lt; numberOfParticules; i++) {
+        n.push(createParticule(e, t))
+    }
+    anime.timeline().add({
+        targets: n,
+        x: function(e) {
+            return e.endPos.x
+        },
+        y: function(e) {
+            return e.endPos.y
+        },
+        radius: 0.1,
+        duration: anime.random(1200, 1800),
+        easing: &quot;easeOutExpo&quot;,
+        update: renderParticule
+    }).add({
+        targets: a,
+        radius: anime.random(80, 160),
+        lineWidth: 0,
+        alpha: {
+            value: 0,
+            easing: &quot;linear&quot;,
+            duration: anime.random(600, 800)
+        },
+        duration: anime.random(1200, 1800),
+        easing: &quot;easeOutExpo&quot;,
+        update: renderParticule,
+        offset: 0
+    })
+}
+function debounce(e, t) {
+    var a;
+    return function() {
+        var n = this,
+        i = arguments;
+        clearTimeout(a),
+        a = setTimeout(function() {
+            e.apply(n, i)
+        },
+        t)
+    }
+}
+var canvasEl = document.querySelector(&quot;.fireworks&quot;);
+if (canvasEl) {
+    var ctx = canvasEl.getContext(&quot;2d&quot;),
+    numberOfParticules = 30,
+    pointerX = 0,
+    pointerY = 0,
+    tap = &quot;mousedown&quot;,
+    colors = [&quot;#FF1461&quot;, &quot;#18FF92&quot;, &quot;#5A87FF&quot;, &quot;#FBF38C&quot;],
+    setCanvasSize = debounce(function() {
+        canvasEl.width = 2 * window.innerWidth,
+        canvasEl.height = 2 * window.innerHeight,
+        canvasEl.style.width = window.innerWidth + &quot;px&quot;,
+        canvasEl.style.height = window.innerHeight + &quot;px&quot;,
+        canvasEl.getContext(&quot;2d&quot;).scale(2, 2)
+    },
+    500),
+    render = anime({
+        duration: 1 / 0,
+        update: function() {
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+        }
+    });
+    document.addEventListener(tap,
+    function(e) {
+        &quot;sidebar&quot; !== e.target.id &amp;&amp; &quot;toggle-sidebar&quot; !== e.target.id &amp;&amp; &quot;A&quot; !== e.target.nodeName &amp;&amp; &quot;IMG&quot; !== e.target.nodeName &amp;&amp; (render.play(), updateCoords(e), animateParticules(pointerX, pointerY))
+    },
+    !1),
+    setCanvasSize(),
+    window.addEventListener(&quot;resize&quot;, setCanvasSize, !1)
+}
+&quot;use strict&quot;;
+function updateCoords(e) {
+    pointerX = (e.clientX || e.touches[0].clientX) - canvasEl.getBoundingClientRect().left,
+    pointerY = e.clientY || e.touches[0].clientY - canvasEl.getBoundingClientRect().top
+}
+function setParticuleDirection(e) {
+    var t = anime.random(0, 360) * Math.PI / 180,
+    a = anime.random(50, 180),
+    n = [ - 1, 1][anime.random(0, 1)] * a;
+    return {
+        x: e.x + n * Math.cos(t),
+        y: e.y + n * Math.sin(t)
+    }
+}
+function createParticule(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = colors[anime.random(0, colors.length - 1)],
+    a.radius = anime.random(16, 32),
+    a.endPos = setParticuleDirection(a),
+    a.draw = function() {
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.fillStyle = a.color,
+        ctx.fill()
+    },
+    a
+}
+function createCircle(e, t) {
+    var a = {};
+    return a.x = e,
+    a.y = t,
+    a.color = &quot;#F00&quot;,
+    a.radius = 0.1,
+    a.alpha = 0.5,
+    a.lineWidth = 6,
+    a.draw = function() {
+        ctx.globalAlpha = a.alpha,
+        ctx.beginPath(),
+        ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0),
+        ctx.lineWidth = a.lineWidth,
+        ctx.strokeStyle = a.color,
+        ctx.stroke(),
+        ctx.globalAlpha = 1
+    },
+    a
+}
+function renderParticule(e) {
+    for (var t = 0; t &lt; e.animatables.length; t++) {
+        e.animatables[t].target.draw()
+    }
+}
+function animateParticules(e, t) {
+    for (var a = createCircle(e, t), n = [], i = 0; i &lt; numberOfParticules; i++) {
+        n.push(createParticule(e, t))
+    }
+    anime.timeline().add({
+        targets: n,
+        x: function(e) {
+            return e.endPos.x
+        },
+        y: function(e) {
+            return e.endPos.y
+        },
+        radius: 0.1,
+        duration: anime.random(1200, 1800),
+        easing: &quot;easeOutExpo&quot;,
+        update: renderParticule
+    }).add({
+        targets: a,
+        radius: anime.random(80, 160),
+        lineWidth: 0,
+        alpha: {
+            value: 0,
+            easing: &quot;linear&quot;,
+            duration: anime.random(600, 800)
+        },
+        duration: anime.random(1200, 1800),
+        easing: &quot;easeOutExpo&quot;,
+        update: renderParticule,
+        offset: 0
+    })
+}
+function debounce(e, t) {
+    var a;
+    return function() {
+        var n = this,
+        i = arguments;
+        clearTimeout(a),
+        a = setTimeout(function() {
+            e.apply(n, i)
+        },
+        t)
+    }
+}
+var canvasEl = document.querySelector(&quot;.fireworks&quot;);
+if (canvasEl) {
+    var ctx = canvasEl.getContext(&quot;2d&quot;),
+    numberOfParticules = 30,
+    pointerX = 0,
+    pointerY = 0,
+    tap = &quot;mousedown&quot;,
+    colors = [&quot;#FF1461&quot;, &quot;#18FF92&quot;, &quot;#5A87FF&quot;, &quot;#FBF38C&quot;],
+    setCanvasSize = debounce(function() {
+        canvasEl.width = 2 * window.innerWidth,
+        canvasEl.height = 2 * window.innerHeight,
+        canvasEl.style.width = window.innerWidth + &quot;px&quot;,
+        canvasEl.style.height = window.innerHeight + &quot;px&quot;,
+        canvasEl.getContext(&quot;2d&quot;).scale(2, 2)
+    },
+    500),
+    render = anime({
+        duration: 1 / 0,
+        update: function() {
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+        }
+    });
+    document.addEventListener(tap,
+    function(e) {
+        &quot;sidebar&quot; !== e.target.id &amp;&amp; &quot;toggle-sidebar&quot; !== e.target.id &amp;&amp; &quot;A&quot; !== e.target.nodeName &amp;&amp; &quot;IMG&quot; !== e.target.nodeName &amp;&amp; (render.play(), updateCoords(e), animateParticules(pointerX, pointerY))
+    },
+    !1),
+    setCanvasSize(),
+    window.addEventListener(&quot;resize&quot;, setCanvasSize, !1)
+};
+打开themes/next/layout/_layout.swig,在&lt;/body&gt;上面写下如下代码：
+  &lt;!-- 爆炸效果 --&gt;
+  {% if theme.fireworks %}
+         <canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:1;pointer-events:none"></canvas> 
+         <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+         <script type="text/javascript" src="/js/src/fireworks.js"></script>
+      {% endif %}
+打开主题配置文件，在里面最后写下：
+# Fireworks
+fireworks: true
+</code></pre><h3 id="自定义文章的默认头部信息"><a href="#自定义文章的默认头部信息" class="headerlink" title="自定义文章的默认头部信息"></a>自定义文章的默认头部信息</h3><pre><code>在根目录的/scaffolds/post.md文件中添加：
+---
+title: {{ title }}
+date: {{ date }}
+tags:                #标签
+categories:      #分类
+copyright: true #版权声明
+permalink: 01  #文章链接，有默认值
+top: 0              #置顶优先级
+password:      #密码保护
+---
+</code></pre><h3 id="文章标签显示设置"><a href="#文章标签显示设置" class="headerlink" title="文章标签显示设置"></a>文章标签显示设置</h3><pre><code>在主题配置文件中，查找post_meta：
+# 文章标签显示设置
+post_meta:
+  item_text: true
+  created_at: true  # 发表时间
+  updated_at: false  # 更新时间
+  categories: true  # 分类
+
+# 文章字数显示设置（需要wordcount，前面已经下载）
+post_wordcount:
+  item_text: true
+  wordcount: true  # 显示字数
+  min2read: false   # 所需时间
+  totalcount: false  # 总字数
+  separated_meta: true # 分割符
+</code></pre><h3 id="在底部增加运行时间"><a href="#在底部增加运行时间" class="headerlink" title="在底部增加运行时间"></a>在底部增加运行时间</h3><pre><code>打开文件：\themes\next\layout\_partials\footer.swig，在最后添加如下代码：
+&lt;!-- 在网页底部添加网站运行时间 --&gt; 
+&lt;span id=&quot;timeDate&quot;&gt;载入天数...&lt;/span&gt;&lt;span id=&quot;times&quot;&gt;载入时分秒...&lt;/span&gt; 
+&lt;script&gt; 
+    var now = new Date(); 
+    function createtime() { 
+    var grt= new Date(&quot;03/01/2019 00:00:00&quot;);//此处修改你的建站时间或者网站上线时间,2019-03-01 
+    now.setTime(now.getTime()+250); 
+    days = (now - grt ) / 1000 / 60 / 60 / 24; 
+    dnum = Math.floor(days); 
+    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); 
+    hnum = Math.floor(hours); 
+    if(String(hnum).length ==1 ){hnum = &quot;0&quot; + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = &quot;0&quot; + mnum;} 
+    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+    snum = Math.round(seconds); 
+    if(String(snum).length ==1 ){snum = &quot;0&quot; + snum;} 
+    document.getElementById(&quot;timeDate&quot;).innerHTML = &quot;博客已运行&quot;+dnum+&quot; 天 &quot;; 
+    document.getElementById(&quot;times&quot;).innerHTML = hnum + &quot; 小时 &quot; + mnum + &quot; 分钟 &quot; + snum + &quot; 秒&quot;; } setInterval(&quot;createtime()&quot;,250); 
+&lt;/script&gt;
+</code></pre><h3 id="利用-Gulp-来压缩你的-Hexo-博客的静态文件"><a href="#利用-Gulp-来压缩你的-Hexo-博客的静态文件" class="headerlink" title="利用 Gulp 来压缩你的 Hexo 博客的静态文件"></a>利用 Gulp 来压缩你的 Hexo 博客的静态文件</h3><pre><code>首先安装gulp：npm install gulp
+继续安装依赖包：
+npm install --save-dev babel-cli
+npm install --save-dev babel-preset-es2015
+npm install gulp-minify-css gulp-babel gulp-uglify gulp-htmlmin gulp-htmlclean --save-dev
+在博客的根目录创建文件 gulpfile.js，代码如下：
+var gulp = require(&apos;gulp&apos;);
+var minifycss = require(&apos;gulp-minify-css&apos;);
+var babel = require(&apos;gulp-babel&apos;);
+var uglify = require(&apos;gulp-uglify&apos;);
+var htmlmin = require(&apos;gulp-htmlmin&apos;);
+var htmlclean = require(&apos;gulp-htmlclean&apos;);
+gulp.task(&apos;minify-css&apos;,
+function() {
+    return gulp.src(&apos;./public/**/*.css&apos;).pipe(minifycss()).pipe(gulp.dest(&apos;./public&apos;));
+});
+gulp.task(&apos;minify-html&apos;,
+function() {
+    return gulp.src(&apos;./public/**/*.html&apos;).pipe(htmlclean()).pipe(htmlmin({
+        removeComments: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+    })).pipe(gulp.dest(&apos;./public&apos;))
+});
+gulp.task(&apos;minify-js&apos;,
+function() {
+    return gulp.src([&apos;./public/**/*.js&apos;, &apos;!./public/**/*.min.js&apos;]).pipe(babel({
+        presets: [&apos;es2015&apos;]
+    })).pipe(uglify()).pipe(gulp.dest(&apos;./public&apos;));
+});
+gulp.task(&apos;default&apos;, [&apos;minify-html&apos;, &apos;minify-css&apos;, &apos;minify-js&apos;]);
+压缩方法：执行完hexo g 产生编译文件后，执行gulp，看到以下信息代表压缩成功，接下来使用hexo d 发布到服务器即可，可发现访问速度有了改善。
+执行gulp时报错：
+$ gulp
+internal/modules/cjs/loader.js:583
+    throw err;
+    ^
+Error: Cannot find module &apos;@babel/core&apos;
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:581:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:507:25)
+    at Module.require (internal/modules/cjs/loader.js:637:17)
+    at require (internal/modules/cjs/helpers.js:22:18)
+    at Object.&lt;anonymous&gt; (D:\yongnights.github.io\node_modules\gulp-babel\index.js:7:15)
+    at Module._compile (internal/modules/cjs/loader.js:689:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
+    at Module.load (internal/modules/cjs/loader.js:599:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
+该错误暂无法解决，故该方法先不执行。
+</code></pre><h3 id="添加网站和文章分享按钮"><a href="#添加网站和文章分享按钮" class="headerlink" title="添加网站和文章分享按钮"></a>添加网站和文章分享按钮</h3><pre><code>安装插件：git clone https://github.com/theme-next/theme-next-needmoreshare2 themes/next/source/lib/needsharebutton
+themes/next/_config.yml，搜索needmoreshare2，修改如下：
+needmoreshare2:
+  enable: true
+  postbottom:
+    enable: true #是否开启博客分享按钮
+    options:
+      iconStyle: box
+      boxForm: horizontal
+      position: bottomCenter
+      networks: Weibo,Wechat,Douban,QQZone
+  float:
+    enable: true #网站分享按钮
+    options:
+      iconStyle: box
+      boxForm: horizontal
+      position: middleRight
+      networks: Weibo,Wechat,Douban,QQZone
+</code></pre><h3 id="压缩页面静态资源"><a href="#压缩页面静态资源" class="headerlink" title="压缩页面静态资源"></a>压缩页面静态资源</h3><pre><code>安装插件：npm install hexo-neat --save
+打开博客站点配置文件，在最后添加如下信息：
+# hexo-neat
+# 博文压缩
+neat_enable: true
+# 压缩html
+neat_html:
+  enable: true
+  exclude:
+# 压缩css  
+neat_css:
+  enable: true
+  exclude:
+    - &apos;**/*.min.css&apos;
+# 压缩js
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - &apos;**/*.min.js&apos;
+    - &apos;**/jquery.fancybox.pack.js&apos;
+    - &apos;**/index.js&apos; 
+    - &apos;**/clicklove.js&apos;
+    - &apos;**/fireworks.js&apos;
+</code></pre><h3 id="删除博文目录自动生成的序数"><a href="#删除博文目录自动生成的序数" class="headerlink" title="删除博文目录自动生成的序数"></a>删除博文目录自动生成的序数</h3><pre><code>themes/next/_config.yml，搜索toc，修改如下：
+toc:
+  enable: true
+  # Automatically add list number to toc.
+  number: false
+  # If true, all words will placed on next lines if header width longer then sidebar width.
+  wrap: false
+</code></pre><h3 id="不蒜子统计"><a href="#不蒜子统计" class="headerlink" title="不蒜子统计"></a>不蒜子统计</h3><pre><code>全局配置：
+编辑 主题配置文件 中的busuanzi_count的配置项。当enable: true时，代表开启全局开关。若site_uv、site_pv、page_pv的值均为false时，不蒜子仅作记录而不会在页面上显示。
+
+站点UV配置：
+当site_uv: true时，代表在页面底部显示站点的UV值。
+site_uv_header和site_uv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[site_uv_header]UV值[site_uv_footer]。
+# 效果：本站访客数12345人次
+site_uv: true
+site_uv_header: 本站访客数
+site_uv_footer: 人次
+
+站点PV配置：
+当site_pv: true时，代表在页面底部显示站点的PV值。
+site_pv_header和site_pv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[site_pv_header]PV值[site_pv_footer]。
+# 效果：本站总访问量12345次
+site_pv: true
+site_pv_header: 本站总访问量
+site_pv_footer: 次
+
+单页面PV配置：
+当page_pv: true时，代表在文章页面的标题下显示该页面的PV值（阅读数）。
+page_pv_header和page_pv_footer为自定义样式配置，相关的值留空时将不显示，可以使用（带特效的）font-awesome。显示效果为[page_pv_header]PV值[page_pv_footer]。
+# 效果：本文总阅读量12345次
+page_pv: true
+page_pv_header: 本文总阅读量
+page_pv_footer: 次
+</code></pre><h3 id="添加友情链接"><a href="#添加友情链接" class="headerlink" title="添加友情链接"></a>添加友情链接</h3><pre><code>编辑 主题配置文件 添加：
+# Blog rolls
+links_icon: link
+links_title: 友情链接
+# links_layout: block
+links_layout: inline
+links:
+  博客园: http://www.cnblogs.com/sanduzxcvbnm/
+  百度: https://www.baidu.com/
+</code></pre><h3 id="腾讯公益404页面"><a href="#腾讯公益404页面" class="headerlink" title="腾讯公益404页面"></a>腾讯公益404页面</h3><pre><code>新建 404.html 页面，放到主题的 source 目录下，内容如下：
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8;&quot;/&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot; /&gt;
+  &lt;meta name=&quot;robots&quot; content=&quot;all&quot; /&gt;
+  &lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;/&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://qzone.qq.com/gy/404/style/404style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script type=&quot;text/plain&quot; src=&quot;http://www.qq.com/404/search_children.js&quot;
+          charset=&quot;utf-8&quot; homePageUrl=&quot;/&quot;
+          homePageName=&quot;回到我的主页&quot;&gt;
+  &lt;/script&gt;
+  &lt;script src=&quot;https://qzone.qq.com/gy/404/data.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://qzone.qq.com/gy/404/page.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="设置动画效果"><a href="#设置动画效果" class="headerlink" title="设置动画效果"></a>设置动画效果</h3><pre><code>NexT 默认开启动画效果，效果使用 JavaScript 编写，因此需要等待 JavaScript 脚本完全加载完毕后才会显示内容。 如果您比较在乎速度，可以将设置此字段的值为 false 来关闭动画。
+编辑 主题配置文件， 搜索 use_motion，根据您的需求设置值为 true 或者 false 即可： 
+use_motion: true  # 开启动画效果
+use_motion: false # 关闭动画效果
+</code></pre><h3 id="添加近期文章版块"><a href="#添加近期文章版块" class="headerlink" title="添加近期文章版块"></a>添加近期文章版块</h3><pre><code>在next/layout/_macro/sidebar.swig中的if theme.links对应的endif后面添加如下代码：
+</code></pre><p><code></code><br>在主题的_config.yml中添加了几个变量，如下：<br>recent_posts_title: 近期文章<br>recent_posts_layout: block<br>recent_posts: true</p><h3 id="添加网易云音乐外链"><a href="#添加网易云音乐外链" class="headerlink" title="添加网易云音乐外链"></a>添加网易云音乐外链</h3><pre><code>修改 themes/next/layout/_macro/sidebar.swig 文件，在联系方式下添加网易云音乐外链：
+
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=1333220817&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
+然后hexo g/hexo d即可。
+获取网易云外链的方式：打开网易云音乐网站，搜索歌曲，进入到歌曲详情页面，左侧有生成外链的按钮，可以选择是否自动播放等，但是受版权保护的音乐无法生成外链。
+</code></pre><p>​</p></div><div><div><div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束 <i class="fa fa-paw"></i> 感谢您的阅读-------------</div></div></div><div><div style="padding:10px 0;margin:20px auto;width:90%;text-align:center"><div>如果觉得我的文章对您有用,请随意打赏.您的支持将鼓励我继续创作!</div><br><button id="rewardButton" disable="enable" onclick='var e=document.getElementById("QR");"none"===e.style.display?e.style.display="block":e.style.display="none"'><span>打赏</span></button><div id="QR" style="display:none"><div id="wechat" style="display:inline-block"><img id="wechat_qr" src="/img/wechat.jpg" alt="永夜初晗凝碧天 微信支付"><p>微信支付</p></div><div id="alipay" style="display:inline-block"><img id="alipay_qr" src="/img/alipay.jpg" alt="永夜初晗凝碧天 支付宝"><p>支付宝</p></div></div></div></div><div><div class="post-copyright"><li class="post-copyright-title"><strong>本文标题：</strong> Hexo搭建教程(4)</li><li class="post-copyright-author"><strong>文章作者：</strong> 永夜初晗凝碧天</li><li class="post-copyright-author"><strong>发布时间：</strong> 2019年12月31日 - 12:12:25</li><li class="post-copyright-author"><strong>更新时间：</strong> 2019年12月31日 - 12:12:25</li><li class="post-copyright-link"><strong>本文链接：</strong> <a href="/2019/12/31/Hexo搭建教程-4/" title="Hexo搭建教程(4)">https://yongnights.github.io/2019/12/31/Hexo搭建教程-4/</a> <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://yongnights.github.io/2019/12/31/Hexo搭建教程-4/" aria-label="复制成功！"></i></span></li><li class="post-copyright-license"><strong>版权声明： </strong><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</li></div><script>var clipboard=new Clipboard(".fa-clipboard");$(".fa-clipboard").click(function(){clipboard.on("success",function(){swal({title:"",text:"复制成功",icon:"success",showConfirmButton:!0})})})</script></div><footer class="post-footer"><div class="post-tags"><a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a></div><div class="post-widgets"><div id="needsharebutton-postbottom"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/12/31/Hexo搭建教程-2/" rel="next" title="Hexo搭建教程(2)"><i class="fa fa-chevron-left"></i> Hexo搭建教程(2)</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019/12/31/Linux系统screen命令简述使用/" rel="prev" title="Linux系统screen命令简述使用">Linux系统screen命令简述使用 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"><div class="jiathis_style"><span class="jiathis_txt">分享到：</span> <a class="jiathis_button_fav">收藏夹</a> <a class="jiathis_button_copy">复制网址</a> <a class="jiathis_button_email">邮件</a> <a class="jiathis_button_weixin">微信</a> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tqq">腾讯微博</a> <a class="jiathis_button_douban">豆瓣</a> <a class="jiathis_button_share">一键分享</a> <a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a></div><script type="text/javascript">var jiathis_config={data_track_clickback:!0,summary:"",shortUrl:!1,hideMore:!1}</script><script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script></div></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/img/avatar.png" alt="永夜初晗凝碧天"><p class="site-author-name" itemprop="name">永夜初晗凝碧天</p><p class="site-description motion-element" itemprop="description">Linux,Python,MySQL</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">48</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">31</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">43</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="tencent://message/?Menu=yes&uin=1103324414" target="_blank" title="QQ"><i class="fa fa-fw fa-qq"></i>QQ</a> </span><span class="links-of-author-item"><a href="mailto:sandu12345@msn.cn" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a></span></div><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1333220817&auto=0&height=66"></iframe><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-link"></i> 友情链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="http://www.cnblogs.com/sanduzxcvbnm/" title="博客园" target="_blank">博客园</a></li><li class="links-of-blogroll-item"><a href="https://www.baidu.com/" title="百度" target="_blank">百度</a></li></ul></div><div class="links-of-blogroll motion-element links-of-blogroll-block"><div class="links-of-blogroll-title"><i class="fa fa-history fa-" aria-hidden="true"></i> 近期文章</div><ul class="links-of-blogroll-list"><li><a href="/2019/12/31/网络_udp/" title="网络_udp" target="_blank">网络_udp</a></li><li><a href="/2019/12/31/网络_tcp/" title="网络_tcp" target="_blank">网络_tcp</a></li><li><a href="/2019/12/31/爬取干货集中营的图片/" title="爬取干货集中营的图片" target="_blank">爬取干货集中营的图片</a></li><li><a href="/2019/12/31/爬取美图录网站图片/" title="爬取美图录网站图片" target="_blank">爬取美图录网站图片</a></li><li><a href="/2019/12/31/多任务_进程/" title="多任务_进程" target="_blank">多任务_进程</a></li></ul></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三部分"><span class="nav-text">第三部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装主题"><span class="nav-text">安装主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用主题"><span class="nav-text">启用主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择-Scheme"><span class="nav-text">选择 Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置语言"><span class="nav-text">设置语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置菜单"><span class="nav-text">设置菜单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类-标签"><span class="nav-text">分类/标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加fork-me-on-github"><span class="nav-text">添加fork me on github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态背景"><span class="nav-text">动态背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加点击爱心效果"><span class="nav-text">添加点击爱心效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置RSS"><span class="nav-text">设置RSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文章底部的那个带-号的标签"><span class="nav-text">修改文章底部的那个带#号的标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在每篇文章末尾统一添加“本文结束”标记"><span class="nav-text">在每篇文章末尾统一添加“本文结束”标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#侧边栏社交小图标设置"><span class="nav-text">侧边栏社交小图标设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主页文章加阴影"><span class="nav-text">主页文章加阴影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置网站图标"><span class="nav-text">设置网站图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置旋转头像"><span class="nav-text">设置旋转头像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启打赏功能"><span class="nav-text">开启打赏功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置首页不显示全文-只显示预览"><span class="nav-text">设置首页不显示全文(只显示预览)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章字数统计和阅读时长"><span class="nav-text">文章字数统计和阅读时长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章底部增加版权信息"><span class="nav-text">文章底部增加版权信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站底部字数统计"><span class="nav-text">网站底部字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏网页底部-由Hexo强力驱动"><span class="nav-text">隐藏网页底部 由Hexo强力驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改网页底部的桃心"><span class="nav-text">修改网页底部的桃心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文章内链接文本样式"><span class="nav-text">修改文章内链接文本样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加顶部加载条"><span class="nav-text">添加顶部加载条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改字体大小"><span class="nav-text">修改字体大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章加密访问"><span class="nav-text">文章加密访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加jiathis分享"><span class="nav-text">添加jiathis分享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#博文置顶"><span class="nav-text">博文置顶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义鼠标样式"><span class="nav-text">自定义鼠标样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为博客加上萌萌的宠物"><span class="nav-text">为博客加上萌萌的宠物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索功能"><span class="nav-text">搜索功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点击爆炸效果"><span class="nav-text">点击爆炸效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义文章的默认头部信息"><span class="nav-text">自定义文章的默认头部信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章标签显示设置"><span class="nav-text">文章标签显示设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在底部增加运行时间"><span class="nav-text">在底部增加运行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-Gulp-来压缩你的-Hexo-博客的静态文件"><span class="nav-text">利用 Gulp 来压缩你的 Hexo 博客的静态文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加网站和文章分享按钮"><span class="nav-text">添加网站和文章分享按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩页面静态资源"><span class="nav-text">压缩页面静态资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除博文目录自动生成的序数"><span class="nav-text">删除博文目录自动生成的序数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加友情链接"><span class="nav-text">添加友情链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯公益404页面"><span class="nav-text">腾讯公益404页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置动画效果"><span class="nav-text">设置动画效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加近期文章版块"><span class="nav-text">添加近期文章版块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加网易云音乐外链"><span class="nav-text">添加网易云音乐外链</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2019</span> <span class="with-love"><i class="fa fa-star"></i> </span><span class="author" itemprop="copyrightHolder">永夜初晗凝碧天</span><br></div><div><span class="post-meta-item-icon"><i class="fa fa-area-chart"></i> </span><span class="post-meta-item-text">博客全站字数统计 </span><span title="博客全站字数统计">: 239.9k 字</span> <span class="post-meta-divider">||</span><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>function createtime(){var n=new Date("03/01/2019 00:00:00");now.setTime(now.getTime()+250),days=(now-n)/1e3/60/60/24,dnum=Math.floor(days),hours=(now-n)/1e3/60/60-24*dnum,hnum=Math.floor(hours),1==String(hnum).length&&(hnum="0"+hnum),minutes=(now-n)/1e3/60-1440*dnum-60*hnum,mnum=Math.floor(minutes),1==String(mnum).length&&(mnum="0"+mnum),seconds=(now-n)/1e3-86400*dnum-3600*hnum-60*mnum,snum=Math.round(seconds),1==String(snum).length&&(snum="0"+snum),document.getElementById("timeDate").innerHTML="博客已运行 "+dnum+" 天 ",document.getElementById("times").innerHTML=hnum+" 小时 "+mnum+" 分钟 "+snum+" 秒"}var now=new Date;setInterval("createtime()",250)</script></div><div class="busuanzi-count"><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i> 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_uv"><i class="fa fa-user"></i> 本站访客数<span id="busuanzi_value_site_uv"></span>人次 </span><span class="post-meta-divider">||</span> <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> 本站总访问量<span id="busuanzi_value_site_pv"></span>次</span></div><div id="nowDate"><script type="text/javascript">window.onload=function(){function e(){var e=new Date,r=e.getFullYear(),u=e.getMonth()+1,a=e.getDate(),g=e.getDay(),i=e.getHours(),c=e.getMinutes(),d=e.getSeconds(),l="当前时间是："+r+"年"+u+"月"+a+"日 "+t(g)+" "+n(i)+":"+n(c)+":"+n(d);o.innerHTML=l}function t(e){return 0==e?"星期日":1==e?"星期一":2==e?"星期二":3==e?"星期三":4==e?"星期四":5==e?"星期五":"星期六"}function n(e){return e<10?"0"+e:e}var o=document.getElementById("nowDate");e(),setInterval(e,1e3)}</script></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div><div id="needsharebutton-float"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;w<0&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script>!function(){var t=document.createElement("script"),s=window.location.protocol.split(":")[0];"https"===s?t.src="https://zz.bdstatic.com/linksubmit/push.js":t.src="http://push.zhanzhang.baidu.com/push.js";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}()</script><link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css"><script src="/lib/needsharebutton/needsharebutton.js"></script><script>pbOptions={},pbOptions.iconStyle="box",pbOptions.boxForm="horizontal",pbOptions.position="bottomCenter",pbOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-postbottom",pbOptions),flOptions={},flOptions.iconStyle="box",flOptions.boxForm="horizontal",flOptions.position="middleRight",flOptions.networks="Weibo,Wechat,Douban,QQZone",new needShareButton("#needsharebutton-float",flOptions)</script><script type="text/javascript" src="/js/src/love.js"></script><canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:1;pointer-events:none"></canvas><script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script><script type="text/javascript" src="/js/src/fireworks.js"></script><script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/",tagMode:!1})</script></body></html><!-- rebuild by neat -->
