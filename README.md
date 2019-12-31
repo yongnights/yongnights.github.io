@@ -17,5 +17,28 @@
 
 > 说明：若不需要在本机进行查看效果,可以直接执行命令："hexo g -d"
 
+# md文件编写格式
+1. 开头
+title字段必填外,其他字段非必填,另外需要说明的是tags和categories字段多个写法格式
+```
+---
+title: 
+top: 
+date: 
+tags: 
+- elk
+- xxx 
+categories: 
+- elk
+- xxx
+password: 
+---
+```
+2. 页面查看显示"阅读原文"
+在md文件大约二十多行的地方添加如下信息：`<escape><!-- more --></escape>`
+
+3. 图片
+尽可能使用本地图片,不使用外链图片
+在md文件中图片格式如下：`![](/image_jquery/logo.png)`,其中image_jquery为主题下存放图片的文件夹
 
 
