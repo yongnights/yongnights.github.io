@@ -397,8 +397,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Flask</tag>
         <tag>Python</tag>
+        <tag>Flask</tag>
         <tag>Flask-RESTPlus</tag>
       </tags>
   </entry>
