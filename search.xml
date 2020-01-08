@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[使用shell脚本根据输入es版本的不同自动生成白金版破解jar包文件]]></title>
+    <url>%2F2020%2F01%2F08%2F%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC%E6%A0%B9%E6%8D%AE%E8%BE%93%E5%85%A5es%E7%89%88%E6%9C%AC%E7%9A%84%E4%B8%8D%E5%90%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%99%BD%E9%87%91%E7%89%88%E7%A0%B4%E8%A7%A3jar%E5%8C%85%E6%96%87%E4%BB%B6%20%2F</url>
+    <content type="text"><![CDATA[说明：使用的是7.3.0版本进行演示的注意1：采用这种方式的话不用再上传license文件，切记切记注意2：这种方式也是首次配置使用，若是已开启security并设置账号密码，此方法不适用123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081#!/bin/bashecho "创建工作目录"/usr/bin/mkdir -p /opt/workBASE_HOME=/opt/workecho "切换到/opt/work目录下"/usr/bin/cd $&#123;BASE_HOME&#125;echo "根据输入版本不同创建相应的目录,例如：7.3.0"read typeecho "您输入的版本是$&#123;type&#125;"TYPE_HOME=/opt/work/$&#123;type&#125;TAG="v$&#123;type&#125;"/usr/bin/mkdir -p $&#123;TYPE_HOME&#125;/&#123;build/src,install,src&#125;echo "安装wget,git"yum -y install wget gitecho "下载es $&#123;type&#125;安装包"wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$&#123;type&#125;-linux-x86_64.tar.gz -P $&#123;TYPE_HOME&#125;/installecho "解压安装包到指定目录"tar -zxv -f $&#123;TYPE_HOME&#125;/install/elasticsearch-$&#123;type&#125;-linux-x86_64.tar.gz -C $&#123;TYPE_HOME&#125;/installecho "下载指定版本的es源码,使用国内码云地址"echo "官方github地址：https://github.com/elastic/elasticsearch"echo "国内码云地址：https://gitee.com/mirrors/elasticsearch"cd $&#123;TYPE_HOME&#125;/srcgit clone -b $&#123;TAG&#125; https://gitee.com/mirrors/elasticsearch cd $&#123;TYPE_HOME&#125;/build# lib moduleln -s ../install/elasticsearch-$&#123;type&#125;/lib .ln -s ../install/elasticsearch-$&#123;type&#125;/modules .# License.javafind ../src -name "License.java" | xargs -r -I &#123;&#125; cp &#123;&#125; .sed -i 's#this.type = type;#this.type = "platinum";#g' License.javased -i 's#validate();#// validate();#g' License.java# 编译javac -cp "`ls lib/elasticsearch-$&#123;type&#125;.jar`:`ls lib/elasticsearch-x-content-$&#123;type&#125;.jar`:`ls lib/lucene-core-*.jar`:`ls modules/x-pack-core/x-pack-core-$&#123;type&#125;.jar`" License.java# x-pack-core-7.5.0.jarcd $&#123;TYPE_HOME&#125;/build/srcfind ../../install -name "x-pack-core-$&#123;type&#125;.jar" | xargs -r -I &#123;&#125; cp &#123;&#125; .jar xvf x-pack-core-$&#123;type&#125;.jarrm -f x-pack-core-$&#123;type&#125;.jar\cp -f ../License*.class org/elasticsearch/license/jar cvf x-pack-core-$&#123;type&#125;.jar .echo "切换到存放破解jar包文件的路径下"cd $&#123;TYPE_HOME&#125;/build/srcecho "如下步骤需要手动操作"echo "覆盖原有的x-pack-core-$&#123;type&#125;.jar文件"# 配置elasticsearch.yml# xpack.security.enabled: true# xpack.security.transport.ssl.enabled: trueecho "配置重启elasticsearch"echo "初始化elasticsearch密码"echo "bin/elasticsearch-setup-passwords auto"echo "配置重启kibana"# elasticsearch.username: kibana# elasticsearch.password: password替换jar包后，es配置文件中开启security，然后启动es，然后给es设置账号和密码，然后修改kibana中的配置，添加上访问es使用的账号和密码，然后浏览器访问kibana web界面查看;命令行查看]]></content>
+      <categories>
+        <category>elk</category>
+      </categories>
+      <tags>
+        <tag>elk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ES配置生成SSL使用的证书]]></title>
     <url>%2F2020%2F01%2F08%2FES%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90SSL%E4%BD%BF%E7%94%A8%E7%9A%84%E8%AF%81%E4%B9%A6%2F</url>
     <content type="text"><![CDATA[1234567891011cd /usr/local/elasticsearch/bin/./elasticsearch-certgen ##################################### Please enter the desired output file [certificate-bundle.zip]: cert.zip （生成的压缩包名称，输入或者保持默认，直接回车） Enter instance name: my-application (实例名) Enter name for directories and files [my-application]: elasticsearch（存储实例证书的文件夹名，可以随意指定或保持默认） Enter IP Addresses for instance (comma-separated if more than one) []: 127.0.0.1(实例ip，多个ip用逗号隔开) Enter DNS names for instance (comma-separated if more than one) []: node-1（节点名，多个节点用逗号隔开） Would you like to specify another instance? Press &apos;y&apos; to continue entering instance information: (到达这一步,不需要按y重新设置,按空格键就完成了) Certificates written to /usr/local/elasticsearch/bin/cert.zip（这个是生成的文件存放地址，不用填写）解压cert.zip文件会得到123456 creating: ca/inflating: ca/ca.crt inflating: ca/ca.key creating: my-applicaiton/inflating: my-applicaiton/my-applicaiton.crt inflating: my-applicaiton/my-applicaiton.keyes配置文件中使用如下：1234xpack.security.transport.ssl.enabled: truexpack.ssl.key: my-applicaiton.keyxpack.ssl.certificate: my-applicaiton.crtxpack.ssl.certificate_authorities: ca.crt]]></content>
@@ -1081,19 +1092,6 @@
       <tags>
         <tag>CentOS</tag>
         <tag>Zabbix</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[CentOS7 yum 安装与配置MySQL5.7]]></title>
-    <url>%2F2019%2F06%2F14%2FCentOS7%20yum%20%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEMySQL5.7%2F</url>
-    <content type="text"><![CDATA[1、配置YUM源1234# 安装yum源# yum install http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm# 检查mysql源是否安装成功# yum repolist enabled | grep "mysql.*-community.*"2. 安装MySQL123456# 安装MySQL# yum install mysql-community-server# 启动# systemctl start mysqld# 查看状态# systemctl status mysqld3. 开机启动12# systemctl enable mysqld# systemctl daemon-reload4. 修改root本地登录密码mysql安装完成之后，在/var/log/mysqld.log文件中给root生成了一个默认密码。通过下面的方式找到root默认密码，然后登录mysql进行修改：1234567# 查看root密码# grep 'temporary password' /var/log/mysqld.log# 登录修改密码# mysql -u root -pALTER USER 'root'@'localhost' IDENTIFIED BY 'nicaimima!@#123';# 修改密码或者使用set password for 'root'@'localhost'=password('nicaimima!@#123');注意：mysql5.7默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误。通过msyql环境变量可以查看密码策略的相关信息：1show variables like '%password%';5. 修改密码策略在/etc/my.cnf文件添加validate_password_policy配置，指定密码策略12# 选择0（LOW），1（MEDIUM），2（STRONG）其中一种，选择2需要提供密码字典文件validate_password_policy=0如果不需要密码策略，添加my.cnf文件中添加如下配置禁用即可：1validate_password = off重新启动mysql服务使配置生效：1# systemctl restart mysqld6. 文件相关默认配置文件路径：配置文件：/etc/my.cnf安装路径：/var/lib/mysql日志文件：/var/log/mysqld.log服务启动脚本：/usr/lib/systemd/system/mysqld.servicesocket文件：/var/run/mysqld/mysqld.pid7. 忘记root密码如果忘记root密码，则按如下操作恢复：编辑/etc/my.cnf文件，在[mysqld]的段中加上一句：skip-grant-tables 保存并且退出。123# mysql -u root -p #此时登录不需要密码&gt;&gt;&gt; update mysql.user set authentication_string=password('nicaimima!@#123') where user='root' and Host = 'localhost';&gt;&gt;&gt; flush privileges;]]></content>
-      <categories>
-        <category>CentOS</category>
-        <category>MySQL</category>
-      </categories>
-      <tags>
-        <tag>CentOS</tag>
-        <tag>MySQL</tag>
       </tags>
   </entry>
 </search>
