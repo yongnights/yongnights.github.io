@@ -6,7 +6,7 @@ tags:
 - elk
 categories: 
 - elk
-password: 
+password: 1234567890
 ---
 说明：使用的是7.3.0版本进行演示的
 
