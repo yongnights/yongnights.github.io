@@ -375,6 +375,10 @@ cat  config/kibana.yml
 之前已经开启ssl/tls并设置账号等
 停用es，关闭security验证，替换jar包，开启es，导入license，启动es
 
+说明：此方法暂时走不通。
+
+以上说的步骤指的是尚未开启security，未设置账号密码的情况。
+
 
 破解文件和license下载地址：https://files.cnblogs.com/files/sanduzxcvbnm/7.3.0%E7%A0%B4%E8%A7%A3%E6%96%87%E4%BB%B6%E5%92%8Clicense.7z
 
