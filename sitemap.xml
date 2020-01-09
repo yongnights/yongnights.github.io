@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yongnights.github.io/2020/01/09/logstash%E4%B8%ADoutput%7B%7D%E7%9A%84%E5%8F%A6%E7%B1%BB%E5%86%99%E6%B3%95/</loc>
+    
+    <lastmod>2020-01-09T01:38:33.222Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://yongnights.github.io/2020/01/08/%E5%9C%A8logstash%E4%B8%AD%E5%90%AF%E5%8A%A8X-Pack%20Management%E5%8A%9F%E8%83%BD%E5%90%8E%E9%85%8D%E7%BD%AElogstash%E7%9A%84%E6%83%85%E5%86%B5%E8%AF%B4%E6%98%8E/</loc>
     
     <lastmod>2020-01-08T10:13:22.065Z</lastmod>
