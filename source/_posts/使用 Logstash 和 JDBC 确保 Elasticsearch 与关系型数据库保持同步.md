@@ -1,3 +1,13 @@
+---
+title: 使用 Logstash 和 JDBC 确保 Elasticsearch 与关系型数据库保持同步
+top: 
+date: 
+tags: 
+- elk
+categories: 
+- elk
+password: 
+---
 为了充分利用 Elasticsearch 提供的强大搜索功能，很多公司都会在既有关系型数据库的基础上再部署 Elasticsearch。在这种情况下，很可能需要确保 Elasticsearch 与所关联关系型数据库中的数据保持同步。因此，在本篇博文中，我会演示如何使用 Logstash 来高效地复制数据并将关系型数据库中的更新同步到 Elasticsearch 中。本文中所列出的代码和方法已使用 MySQL 进行过测试，但理论上应该适用于任何关系数据库管理系统 (RDBMS)。
 
 ## 系统配置
@@ -19,6 +29,8 @@
 2.  当在 MySQL 中插入或更新数据时，该条记录必须有一个包含更新或插入时间的字段。通过此字段，便可允许 Logstash 仅请求获得在轮询循环的上次迭代后编辑或插入的文档。Logstash 每次对 MySQL 进行轮询时，都会保存其从 MySQL 所读取最后一条记录的更新或插入时间。在下一次迭代时，Logstash 便知道其仅需请求获得符合下列条件的记录：更新或插入时间晚于在轮询循环中的上一次迭代中所收到的最后一条记录。
 
 如果满足上述条件，我们便可配置 Logstash，以定期请求从 MySQL 获得新增或已编辑的全部记录，然后将它们写入 Elasticsearch 中。完成这些操作的 Logstash 代码在本篇博文的后面会列出。
+
+<escape><!-- more --></escape>
 
 ## MySQL 设置
 
@@ -144,11 +156,11 @@ statement => "SELECT *, UNIX_TIMESTAMP(modification_time) AS unix_ts_in_secs FRO
 
 然而，这种实施策略也并不理想。这种情况下的问题是：在最近一个时间间隔内从 MySQL 读取的最近文档会重复发送到 Elasticsearch。尽管这不会对结果的正确性造成任何影响，但的确做了无用功。和前一部分类似，在最初的 Logstash 轮询迭代后，下图显示了已经从 MySQL 读取了哪些文档。
 
-![图表仍显示读取记录时会错开一条](如何使用 Logstash 和 JDBC 确保 Elasticsearch 与关系型数据库保持同步.assets/how-to-sync-es-image3.jpg)
+![图表仍显示读取记录时会错开一条](/如何使用 Logstash 和 JDBC 确保 Elasticsearch 与关系型数据库保持同步.assets/how-to-sync-es-image3.jpg)
 
 当执行后续的 Logstash 轮询迭代时，我们会将时间晚于或等于 T5 的文档全部提取出来。可以参见下面的图表。请注意：记录 11（紫色显示）会再次发送到 Elasticsearch。
 
-![图表显示紫色记录 (如何使用 Logstash 和 JDBC 确保 Elasticsearch 与关系型数据库保持同步.assets/how-to-sync-es-image4.jpg) 会重复发送](https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt3271df7272a7a495/5d098547616162aa5a857b42/how-to-sync-es-image4.jpg)
+![图表显示紫色记录 (/如何使用 Logstash 和 JDBC 确保 Elasticsearch 与关系型数据库保持同步.assets/how-to-sync-es-image4.jpg) 会重复发送](https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt3271df7272a7a495/5d098547616162aa5a857b42/how-to-sync-es-image4.jpg)
 
 前面两种情况都不甚理想。在第一种情况中，会丢失数据，而在第二种情况中，会从 MySQL 读取冗余数据并将这些数据发送到 Elasticsearch。
 
