@@ -27,6 +27,8 @@ POST /book/novel/_bulk
 还有个field是keyword，keyword的type是keyword：
 ![](/Elasticsearch中text与keyword的区别/1.png)
 
+<escape><!-- more --></escape>
+
 # 查询
 使用term查询某个小说：
 ```
