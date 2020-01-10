@@ -54,7 +54,7 @@ input {
 在input中，定义了一个文件，它的path指向csv文件的位置。start_position指向beginning。如果对于一个实时的数据源来说，它通常是ending，这样表示它每次都是从最后拿到那个数据。sincedb_path通常指向一个文件。这个文件保存上次操作的位置。设置为/dev/null，表明不存储这个数据
 7. 在Logstash中，按照顺序执行的处理方式被叫做一个pipeline。一个pipeline含有一个按照顺序执行的逻辑数据流。pipeline从input里获取数据，并传送给一个队列，并接着传入到一些worker去处理
 
-8. 官方提供的lostash关于apache,nginx应用的日志处理样本，网站:https://github.com/elastic/examples/tree/master/Common%20Data%20Formats
+8. 官方提供的lostash关于apache,nginx应用的日志处理样本，网站: https://github.com/elastic/examples/tree/master/Common%20Data%20Formats
 ```
 # apache_logstash.conf
 input {  
