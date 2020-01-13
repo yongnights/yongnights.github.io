@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://yongnights.github.io/2020/01/13/Beats%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Filebeat%E5%B0%86MySQL%E6%97%A5%E5%BF%97%E5%8F%91%E9%80%81%E5%88%B0Elasticsearch/</loc>
+    <lastmod>2020-01-13</lastmod>
+  </url>  <url>
     <loc>https://yongnights.github.io/2020/01/10/Elasticsearch%E4%B8%ADtext%E4%B8%8Ekeyword%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
     <lastmod>2020-01-10</lastmod>
   </url>  <url>
