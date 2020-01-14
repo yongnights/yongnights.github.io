@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://yongnights.github.io/2020/01/14/Jenkins%20%E4%BD%BF%E7%94%A8%20SonarQube%20%E6%89%AB%E6%8F%8F%20Coding/</loc>
+    <lastmod>2020-01-14</lastmod>
+  </url>  <url>
     <loc>https://yongnights.github.io/2020/01/13/Linux%20yum%E5%AE%89%E8%A3%85PostgreSQL9.6/</loc>
     <lastmod>2020-01-13</lastmod>
   </url>  <url>
