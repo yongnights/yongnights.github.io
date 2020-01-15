@@ -20,6 +20,8 @@ fastapi是高性能的web框架。他的主要特点是：
 
 技术背景：python3.6+、Starlette、Pydantic
 
+官方文档地址：https://fastapi.tiangolo.com/
+
 # 安装
 ```
 pip install fastapi
@@ -36,11 +38,9 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str = None):
@@ -49,6 +49,7 @@ def read_item(item_id: int, q: str = None):
 
 或者
 ```
+# If your code uses async / await, use async def:
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -72,9 +73,9 @@ uvicorn main:app --reload
 
 ![](/fastapi快速入门.assets/1.png)
 
-    main: 表示app所在文件名
-    app：FastAPI实例
-    reload：debug模式，可以自动重启
+    main: 表示app所在文件名, the file main.py (the Python "module").
+    app：FastAPI实例, the object created inside of main.py with the line app = FastAPI().
+    reload：debug模式，可以自动重启,make the server restart after code changes. Only do this for development.
 
 试着请求http://127.0.0.1:8000/items/5?q=somequery，会看到如下返回
 ```
