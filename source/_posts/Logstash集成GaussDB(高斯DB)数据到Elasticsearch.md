@@ -30,6 +30,9 @@ jdbc_password：数据库用户口令。
 statement_filepath：SQL语句所在文件路径。
 scheduler：调度计划。
 ```
+
+<escape><!-- more --></escape>
+
 以上参数已经支持了周期性加载或一次性加载。如果想按字段的自增列或时间戳来集成数据，还需要以下参数：
 ```
 sql_last_value：这个参数内置在sql语句里。作为条件的变量值。
