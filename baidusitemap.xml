@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://yongnights.github.io/2020/04/02/CentOS7%E9%83%A8%E7%BD%B2FastDFS+nginx%E6%A8%A1%E5%9D%97/</loc>
+    <lastmod>2020-04-08</lastmod>
+  </url>  <url>
     <loc>https://yongnights.github.io/2020/04/03/%E4%BD%BF%E7%94%A8%20Auditbeat%20%E6%A8%A1%E5%9D%97%E7%9B%91%E6%8E%A7%20shell%20%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2020-04-03</lastmod>
   </url>  <url>
@@ -14,9 +17,6 @@
     <lastmod>2020-04-03</lastmod>
   </url>  <url>
     <loc>https://yongnights.github.io/2020/04/02/%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E-CentOS7%E9%83%A8%E7%BD%B2FastDFS+nginx%E6%A8%A1%E5%9D%97/</loc>
-    <lastmod>2020-04-02</lastmod>
-  </url>  <url>
-    <loc>https://yongnights.github.io/2020/04/02/CentOS7%E9%83%A8%E7%BD%B2FastDFS+nginx%E6%A8%A1%E5%9D%97/</loc>
     <lastmod>2020-04-02</lastmod>
   </url>  <url>
     <loc>https://yongnights.github.io/2020/01/15/fastapi%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</loc>
