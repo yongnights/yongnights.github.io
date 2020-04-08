@@ -95,7 +95,7 @@ cp storage.conf.sample storage.conf
 vim storage.conf
     base_path = /opt/fdfs_storage # 注意,这个目录最好有大于50G的磁盘空间
     store_path0 = /opt/fdfs_storage_data # 若配置这个参数，则该目录为实际保存文件的路径
-    tracker_server = 192.168.75.5:22122
+    tracker_server = 192.168.75.5:22122 # 注意：这个参数不能设置127.0.0.1，否则storage注册时会报错：ERROR - file: storage_func.c, line: 1361, conf file "/etc/fdfs/storage.conf", tracker: "127.0.0.1:22122" is invalid, tracker server ip can't be 127.0.0.1
 # 启动fdfs_storaged
 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
 [root@bogon fdfs]# ps -ef | grep "fdfs_storaged"
