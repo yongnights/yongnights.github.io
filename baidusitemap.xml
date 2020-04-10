@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://yongnights.github.io/2020/04/10/Linux%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2%E6%96%B9%E6%B3%95%5BLogrotate%E3%80%81python%E3%80%81shell%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%5D/</loc>
+    <lastmod>2020-04-10</lastmod>
+  </url>  <url>
     <loc>https://yongnights.github.io/2020/04/02/CentOS7%E9%83%A8%E7%BD%B2FastDFS+nginx%E6%A8%A1%E5%9D%97/</loc>
     <lastmod>2020-04-08</lastmod>
   </url>  <url>
