@@ -14,7 +14,7 @@ password:
 
 <escape><!-- more --></escape>
 
-![](https://img2020.cnblogs.com/blog/794174/202004/794174-20200414162252915-743820805.png)
+![](/elk/elk5.png)
 
 # 关闭服务
 先关闭所有ElasticSearch、kibana、filebeat进程

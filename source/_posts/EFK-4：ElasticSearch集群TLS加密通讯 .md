@@ -13,7 +13,7 @@ password:
 
 <escape><!-- more --></escape>
 
-![](https://img2020.cnblogs.com/blog/794174/202004/794174-20200414161022928-64112080.png)
+![](/elk/elk4.png)
 
 # Step1. 关闭服务
 首先，需要停止所有ElasticSearch、kibana、filebeat服务，待证书配置完成后再启动

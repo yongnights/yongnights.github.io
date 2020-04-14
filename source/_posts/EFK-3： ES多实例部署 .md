@@ -16,7 +16,8 @@ ES多实例部署，将不同热度的数据存在不同的磁盘上，实现了
 
 <escape><!-- more --></escape>
 
-![](https://img2020.cnblogs.com/blog/794174/202004/794174-20200414155119287-1065411527.png)
+![](/elk/elk3.png)
+
 
 # 192.168.1.51 elasticsearch-data部署双实例
 ## 索引迁移

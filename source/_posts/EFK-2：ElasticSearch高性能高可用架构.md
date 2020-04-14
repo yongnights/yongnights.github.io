@@ -14,7 +14,7 @@ password:
 
 <escape><!-- more --></escape>
 
-![](https://img2020.cnblogs.com/blog/794174/202004/794174-20200414153633545-182631345.png)
+![](/elk/elk2.png)
 
 # elasticsearch-data
 ## 安装

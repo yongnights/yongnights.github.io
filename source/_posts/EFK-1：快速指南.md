@@ -14,7 +14,7 @@ password:
 
 <escape><!-- more --></escape>
 
-![](https://img2020.cnblogs.com/blog/794174/202004/794174-20200414130328058-246702048.png)
+![](/elk/elk1.png)
 
 # elasticsearch安装：3台es均执行相同的安装步骤
 ```
