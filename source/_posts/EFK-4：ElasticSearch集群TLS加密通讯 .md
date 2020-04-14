@@ -7,7 +7,9 @@ categories:
 - elk
 password: 
 ---
-转载自：https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483822&idx=1&sn=6813b22eb5bd3a727a56e0fb5ba3f7fb&chksm=fa769a80cd011396cb6717124ebb9fb17bbff2f9d1fbcae50578cb2959225055cce0268d3633&mpshare=1&scene=1&srcid=1205igKg8cJK4Owayo9UNt4Q&sharer_sharetime=1575553256278&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
+
+转载自:
+https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483822&idx=1&sn=6813b22eb5bd3a727a56e0fb5ba3f7fb&chksm=fa769a80cd011396cb6717124ebb9fb17bbff2f9d1fbcae50578cb2959225055cce0268d3633&mpshare=1&scene=1&srcid=1205igKg8cJK4Owayo9UNt4Q&sharer_sharetime=1575553256278&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
 
 基于TLS实现ElasticSearch集群加密通讯，为ES集群创建CA、CERT证书，实现ElasticSearch集群之间数据通过TLS进行双向加密交互。
 

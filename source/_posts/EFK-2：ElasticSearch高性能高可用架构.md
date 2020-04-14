@@ -8,7 +8,9 @@ categories:
 - elk
 password: 
 ---
-转载自：https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483811&idx=1&sn=a413dea65f8f64abb24d82feea55db5b&chksm=fa769a8dcd01139b1da8794914e10989c6a39a99971d8013e9d3b26766b80d5833e2fbaf0ab8&mpshare=1&scene=1&srcid=1125tjbylqn3EdoMtaX2p73J&sharer_sharetime=1574686271229&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
+
+转载自:
+https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483811&idx=1&sn=a413dea65f8f64abb24d82feea55db5b&chksm=fa769a8dcd01139b1da8794914e10989c6a39a99971d8013e9d3b26766b80d5833e2fbaf0ab8&mpshare=1&scene=1&srcid=1125tjbylqn3EdoMtaX2p73J&sharer_sharetime=1574686271229&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
 
 阐述了EFK的data/ingest/master角色的用途及分别部署三节点，在实现性能最大化的同时保障高可用
 

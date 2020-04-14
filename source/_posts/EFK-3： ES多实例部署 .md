@@ -8,7 +8,9 @@ categories:
 - elk
 password: 
 ---
-转载自：https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483816&idx=1&sn=bfaf70613bcb775ccf5d40c2871a05a8&chksm=fa769a86cd011390f22ff178071a580a8f17791e57166dfc8463984a5613c11875ef2ebb2ad7&mpshare=1&scene=1&srcid=11253n8AXjLegAeaoHiCssEs&sharer_sharetime=1574686178097&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
+
+转载自:
+https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483816&idx=1&sn=bfaf70613bcb775ccf5d40c2871a05a8&chksm=fa769a86cd011390f22ff178071a580a8f17791e57166dfc8463984a5613c11875ef2ebb2ad7&mpshare=1&scene=1&srcid=11253n8AXjLegAeaoHiCssEs&sharer_sharetime=1574686178097&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
 
 基于ElasticSearch多实例架构，实现资源合理分配、冷热数据分离。
 ES多实例部署，将不同热度的数据存在不同的磁盘上，实现了数据冷热分离、资源合理分配。

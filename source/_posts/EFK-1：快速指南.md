@@ -8,7 +8,9 @@ categories:
 - elk
 password: 
 ---
-转载自：https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483801&idx=1&sn=11fee5756c8770688238624802ac51ea&chksm=fa769ab7cd0113a1ad19241290abe374b857227eebe989b3ba6b671b1eca855d380b76eeedde&mpshare=1&scene=1&srcid=1125q5BPyFOD05H2trj4UdOf&sharer_sharetime=1574686325386&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#
+
+转载自:
+https://mp.weixin.qq.com/s?__biz=MzUyNzk0NTI4MQ==&mid=2247483801&idx=1&sn=11fee5756c8770688238624802ac51ea&chksm=fa769ab7cd0113a1ad19241290abe374b857227eebe989b3ba6b671b1eca855d380b76eeedde&mpshare=1&scene=1&srcid=1125q5BPyFOD05H2trj4UdOf&sharer_sharetime=1574686325386&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#
 
 阐述了EFK的安装部署，其中ES的架构为三节点，即master、ingest、data角色同时部署在三台服务器上。
 
