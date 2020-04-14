@@ -1,5 +1,5 @@
 ---
-title: EFK-2：ElasticSearch高性能高可用架构
+title: EFK-2 ElasticSearch高性能高可用架构
 top: 
 date: 
 tags: 

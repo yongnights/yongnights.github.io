@@ -1,5 +1,5 @@
 ---
-title: EFK-1：快速指南
+title: EFK-1 快速指南
 top: 
 date: 
 tags: 

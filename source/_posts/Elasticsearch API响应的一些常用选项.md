@@ -1,3 +1,14 @@
+---
+title: Elasticsearch API响应的一些常用选项
+top: 
+date: 
+tags: 
+- elk
+categories: 
+- elk
+password: 
+---
+
 我们可以点击Elasticsearch API以获取所需的响应，但是如果要修改API响应，以便我们更改显示格式或过滤掉某些字段，然后我们可以将这些选项与查询一起应用。 有一些常见的选项可以适用于API，在下面我们来介绍一些常用的选项。
 
 # 准备数据
@@ -18,6 +29,8 @@ POST _bulk
 {"user":"老吴","message":"好友来了都今天我生日，好友来了,什么 birthday happy 就成!","uid":7,"city":"上海","province":"上海","country":"中国","address":"中国上海市闵行区","location":{"lat":"31.175927","lon":"121.383328"}, "DOB":"1985-12-01"}
 ```
 这样我们就有6个文档了。
+
+<escape><!-- more --></escape>
 
 # Pretty=true
 我们在我们的请求里加入?pretty=true可以使用这个选项使我们的显示格式更加漂亮。当我们调试我们的接口时，这个是推荐的用法。比如：

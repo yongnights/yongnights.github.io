@@ -1,5 +1,5 @@
 ---
-title: EFK-4: ElasticSearch集群TLS加密通讯 
+title: EFK-4 ElasticSearch集群TLS加密通讯 
 date: 
 tags: 
 - elk

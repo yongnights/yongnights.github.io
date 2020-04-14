@@ -1,5 +1,5 @@
 ---
-title: EFK-5: ES集群开启用户认证 
+title: EFK-5 ES集群开启用户认证 
 top: 
 date: 
 tags: 

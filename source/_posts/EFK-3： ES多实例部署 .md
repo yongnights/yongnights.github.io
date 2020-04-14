@@ -1,5 +1,5 @@
 ---
-title: EFK-3： ES多实例部署 
+title: EFK-3 ES多实例部署 
 top: 
 date: 
 tags: 
