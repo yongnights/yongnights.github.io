@@ -1,4 +1,4 @@
---- 
+---
 title: Elasticsearch集群规模和容量规划的底层逻辑
 top: 
 date: 
@@ -8,6 +8,7 @@ categories:
 - Elasticsearch
 password: 
 ---
+
 转载自：
 https://mp.weixin.qq.com/s?__biz=MzI2NDY1MTA3OQ==&mid=2247484628&idx=1&sn=666e416ae28b93e42c26f26b208dea84&chksm=eaa82cfcdddfa5eacfcddb0cf54edcecb3ad86ca2cafd6f4f2d90cf8a4033d83eb16cb2a56f0&mpshare=1&scene=1&srcid=1214DDMLBFx4TWeYblyDIWrG&sharer_sharetime=1576338975283&sharer_shareid=6ec87ec9a11a0c18d61cde7663a9ef87#rd
 
